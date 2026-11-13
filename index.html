@@ -6,7 +6,16 @@
   * { box-sizing: border-box; } body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0f1420; color: #e8ecf4; }
   header { padding: 40px 20px 8px; max-width: 1080px; margin: 0 auto; }
   header h1 { font-size: 26px; margin: 0 0 8px; } header p { color: #9aa7bd; margin: 0; line-height: 1.7; }
-  main { max-width: 1080px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+  main { max-width: 1080px; margin: 0 auto; padding: 6px 20px 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+  .group { margin-bottom: 14px; }
+  .group-title { font-size: 20px; margin: 24px 0 14px; display: flex; align-items: baseline; gap: 10px; }
+  .group-title span { font-size: 12.5px; color: #8fa0bb; font-weight: 400; }
+  .filters { position: sticky; top: 0; z-index: 50; background: rgba(15,20,32,.94); padding: 12px 20px 6px; max-width: 1080px; margin: 0 auto; }
+  .frow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .flabel { font-size: 12.5px; color: #8fa0bb; margin-right: 2px; }
+  .chip { background: #171e2e; color: #c6d0e2; border: 1px solid #2c3a58; padding: 6px 13px; border-radius: 99px; font-size: 13px; cursor: pointer; font-family: inherit; }
+  .chip.on { background: #ff5e14; border-color: #ff5e14; color: #fff; font-weight: 600; }
   .card { background: #171e2e; border: 1px solid #26314a; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
   .shot img { width: 100%; height: 190px; object-fit: cover; object-position: top; display: block; }
   .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
@@ -22,8 +31,12 @@
   <h1>企业官网演示站系统 · 试点门户</h1>
   <p>4 套在产模板 × 6 个行业内容包 + 配色变体 = 25 个演示组合。全部为静态前端演示，公司与数据均为虚构示例；模板出处保留于各站页脚。</p>
 </header>
-<main>
-    <article class="card">
+<div class="filters">
+  <div class="frow"><span class="flabel">行业</span><button class="chip on" data-kind="pack" data-val="">全部行业</button><button class="chip" data-kind="pack" data-val="机械设备">机械设备</button><button class="chip" data-kind="pack" data-val="环保过滤">环保过滤</button><button class="chip" data-kind="pack" data-val="钢材金属加工">钢材金属加工</button><button class="chip" data-kind="pack" data-val="自动化电子">自动化电子</button><button class="chip" data-kind="pack" data-val="化工新材料">化工新材料</button><button class="chip" data-kind="pack" data-val="通用制造">通用制造</button></div>
+  <div class="frow"><span class="flabel">模板</span><button class="chip on" data-kind="tpl" data-val="">全部模板</button><button class="chip" data-kind="tpl" data-val="hc-industro">Industro</button><button class="chip" data-kind="tpl" data-val="uc-ductwise">Ductwise</button><button class="chip" data-kind="tpl" data-val="uc-girder">Girder</button><button class="chip" data-kind="tpl" data-val="uc-bedrock">Bedrock</button></div>
+</div>
+<main><section class="group" data-group="机械设备"><h2 class="group-title">机械设备<span>5 个演示站</span></h2><div class="grid">
+    <article class="card" data-pack="机械设备" data-tpl="hc-industro">
       <a class="shot" href="T1-P1-C1/"><img src="assets/T1-P1-C1.jpg" alt="T1-P1-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T1-P1-C1</h2><span class="tag">基准组合</span></div>
@@ -38,22 +51,7 @@
         <a class="btn" href="T1-P1-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
-      <a class="shot" href="T2-P2-C1/"><img src="assets/T2-P2-C1.jpg" alt="T2-P2-C1 预览"></a>
-      <div class="body">
-        <div class="row"><h2>T2-P2-C1</h2><span class="tag">基准组合</span></div>
-        <p class="co">苏州清源过滤科技有限公司（虚构示例）</p>
-        <ul>
-          <li>模板：Ductwise（uiCookies） · 质量 92 分</li>
-          <li>内容包：环保过滤 · 图：图库实拍</li>
-          <li>配色：原色 · 琥珀橙</li>
-          <li>组装替换 97 项 · 图片 9 张 · 未命中 0</li>
-          <li>巡检 4 视图 · 问题 0 ✓</li>
-        </ul>
-        <a class="btn" href="T2-P2-C1/">打开演示站 →</a>
-      </div>
-    </article>
-    <article class="card">
+    <article class="card" data-pack="机械设备" data-tpl="hc-industro">
       <a class="shot" href="T1-P1-C2/"><img src="assets/T1-P1-C2.jpg" alt="T1-P1-C2 预览"></a>
       <div class="body">
         <div class="row"><h2>T1-P1-C2</h2><span class="tag">配色实验</span></div>
@@ -68,22 +66,7 @@
         <a class="btn" href="T1-P1-C2/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
-      <a class="shot" href="T1-P2-C1/"><img src="assets/T1-P2-C1.jpg" alt="T1-P2-C1 预览"></a>
-      <div class="body">
-        <div class="row"><h2>T1-P2-C1</h2><span class="tag">对照组：重皮 × 洁净内容</span></div>
-        <p class="co">苏州清源过滤科技有限公司（虚构示例）</p>
-        <ul>
-          <li>模板：Industro（HTML Codex） · 质量 83 分</li>
-          <li>内容包：环保过滤 · 图：图库实拍</li>
-          <li>配色：原色 · 工业橙</li>
-          <li>组装替换 33 项 · 图片 12 张 · 未命中 0</li>
-          <li>巡检 2 视图 · 问题 0 ✓</li>
-        </ul>
-        <a class="btn" href="T1-P2-C1/">打开演示站 →</a>
-      </div>
-    </article>
-    <article class="card">
+    <article class="card" data-pack="机械设备" data-tpl="uc-ductwise">
       <a class="shot" href="T2-P1-C1/"><img src="assets/T2-P1-C1.jpg" alt="T2-P1-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T2-P1-C1</h2><span class="tag">对照组：轻皮 × 重工内容</span></div>
@@ -98,7 +81,7 @@
         <a class="btn" href="T2-P1-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="机械设备" data-tpl="uc-girder">
       <a class="shot" href="T3-P1-C1/"><img src="assets/T3-P1-C1.jpg" alt="T3-P1-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T3-P1-C1</h2><span class="tag">扩容新增：单页工业皮 #2</span></div>
@@ -113,7 +96,52 @@
         <a class="btn" href="T3-P1-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="机械设备" data-tpl="uc-bedrock">
+      <a class="shot" href="T4-P1-C1/"><img src="assets/T4-P1-C1.jpg" alt="T4-P1-C1 预览"></a>
+      <div class="body">
+        <div class="row"><h2>T4-P1-C1</h2><span class="tag">扩容新增：效能第一皮 × 主力包</span></div>
+        <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
+        <ul>
+          <li>模板：Bedrock（uiCookies · BS6 alpha） · 质量 81 分</li>
+          <li>内容包：机械设备 · 图：AI 生成</li>
+          <li>配色：原色 · 安全黄</li>
+          <li>组装替换 69 项 · 图片 4 张 · 未命中 0</li>
+          <li>巡检 4 视图 · 问题 2</li>
+        </ul>
+        <a class="btn" href="T4-P1-C1/">打开演示站 →</a>
+      </div>
+    </article></div></section><section class="group" data-group="环保过滤"><h2 class="group-title">环保过滤<span>4 个演示站</span></h2><div class="grid">
+    <article class="card" data-pack="环保过滤" data-tpl="uc-ductwise">
+      <a class="shot" href="T2-P2-C1/"><img src="assets/T2-P2-C1.jpg" alt="T2-P2-C1 预览"></a>
+      <div class="body">
+        <div class="row"><h2>T2-P2-C1</h2><span class="tag">基准组合</span></div>
+        <p class="co">苏州清源过滤科技有限公司（虚构示例）</p>
+        <ul>
+          <li>模板：Ductwise（uiCookies） · 质量 92 分</li>
+          <li>内容包：环保过滤 · 图：图库实拍</li>
+          <li>配色：原色 · 琥珀橙</li>
+          <li>组装替换 97 项 · 图片 9 张 · 未命中 0</li>
+          <li>巡检 4 视图 · 问题 0 ✓</li>
+        </ul>
+        <a class="btn" href="T2-P2-C1/">打开演示站 →</a>
+      </div>
+    </article>
+    <article class="card" data-pack="环保过滤" data-tpl="hc-industro">
+      <a class="shot" href="T1-P2-C1/"><img src="assets/T1-P2-C1.jpg" alt="T1-P2-C1 预览"></a>
+      <div class="body">
+        <div class="row"><h2>T1-P2-C1</h2><span class="tag">对照组：重皮 × 洁净内容</span></div>
+        <p class="co">苏州清源过滤科技有限公司（虚构示例）</p>
+        <ul>
+          <li>模板：Industro（HTML Codex） · 质量 83 分</li>
+          <li>内容包：环保过滤 · 图：图库实拍</li>
+          <li>配色：原色 · 工业橙</li>
+          <li>组装替换 33 项 · 图片 12 张 · 未命中 0</li>
+          <li>巡检 2 视图 · 问题 0 ✓</li>
+        </ul>
+        <a class="btn" href="T1-P2-C1/">打开演示站 →</a>
+      </div>
+    </article>
+    <article class="card" data-pack="环保过滤" data-tpl="uc-girder">
       <a class="shot" href="T3-P2-C1/"><img src="assets/T3-P2-C1.jpg" alt="T3-P2-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T3-P2-C1</h2><span class="tag">矩阵补齐：单页工业皮 #2 × 环保包</span></div>
@@ -128,22 +156,7 @@
         <a class="btn" href="T3-P2-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
-      <a class="shot" href="T4-P1-C1/"><img src="assets/T4-P1-C1.jpg" alt="T4-P1-C1 预览"></a>
-      <div class="body">
-        <div class="row"><h2>T4-P1-C1</h2><span class="tag">扩容新增：效能第一皮 × 主力包</span></div>
-        <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
-        <ul>
-          <li>模板：Bedrock（uiCookies · BS6 alpha） · 质量 81 分</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 安全黄</li>
-          <li>组装替换 69 项 · 图片 4 张 · 未命中 0</li>
-          <li>巡检 4 视图 · 问题 2</li>
-        </ul>
-        <a class="btn" href="T4-P1-C1/">打开演示站 →</a>
-      </div>
-    </article>
-    <article class="card">
+    <article class="card" data-pack="环保过滤" data-tpl="uc-bedrock">
       <a class="shot" href="T4-P2-C1/"><img src="assets/T4-P2-C1.jpg" alt="T4-P2-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T4-P2-C1</h2><span class="tag">扩容新增：同皮换包对照</span></div>
@@ -157,8 +170,8 @@
         </ul>
         <a class="btn" href="T4-P2-C1/">打开演示站 →</a>
       </div>
-    </article>
-    <article class="card">
+    </article></div></section><section class="group" data-group="钢材金属加工"><h2 class="group-title">钢材金属加工<span>4 个演示站</span></h2><div class="grid">
+    <article class="card" data-pack="钢材金属加工" data-tpl="hc-industro">
       <a class="shot" href="T1-P3-C1/"><img src="assets/T1-P3-C1.jpg" alt="T1-P3-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T1-P3-C1</h2><span class="tag">内容包扩容：主力皮 × 钢材包</span></div>
@@ -173,7 +186,7 @@
         <a class="btn" href="T1-P3-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="钢材金属加工" data-tpl="uc-ductwise">
       <a class="shot" href="T2-P3-C1/"><img src="assets/T2-P3-C1.jpg" alt="T2-P3-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T2-P3-C1</h2><span class="tag">内容包扩容：服务皮 × 钢材包</span></div>
@@ -188,7 +201,7 @@
         <a class="btn" href="T2-P3-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="钢材金属加工" data-tpl="uc-girder">
       <a class="shot" href="T3-P3-C1/"><img src="assets/T3-P3-C1.jpg" alt="T3-P3-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T3-P3-C1</h2><span class="tag">内容包扩容：工业皮 #2 × 钢材包</span></div>
@@ -203,7 +216,7 @@
         <a class="btn" href="T3-P3-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="钢材金属加工" data-tpl="uc-bedrock">
       <a class="shot" href="T4-P3-C1/"><img src="assets/T4-P3-C1.jpg" alt="T4-P3-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T4-P3-C1</h2><span class="tag">内容包扩容：效能第一皮 × 钢材包</span></div>
@@ -217,8 +230,8 @@
         </ul>
         <a class="btn" href="T4-P3-C1/">打开演示站 →</a>
       </div>
-    </article>
-    <article class="card">
+    </article></div></section><section class="group" data-group="自动化电子"><h2 class="group-title">自动化电子<span>4 个演示站</span></h2><div class="grid">
+    <article class="card" data-pack="自动化电子" data-tpl="hc-industro">
       <a class="shot" href="T1-P4-C1/"><img src="assets/T1-P4-C1.jpg" alt="T1-P4-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T1-P4-C1</h2><span class="tag">内容包扩容：主力皮 × 自动化包</span></div>
@@ -233,7 +246,7 @@
         <a class="btn" href="T1-P4-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="自动化电子" data-tpl="uc-ductwise">
       <a class="shot" href="T2-P4-C1/"><img src="assets/T2-P4-C1.jpg" alt="T2-P4-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T2-P4-C1</h2><span class="tag">内容包扩容：服务皮 × 自动化包</span></div>
@@ -248,7 +261,7 @@
         <a class="btn" href="T2-P4-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="自动化电子" data-tpl="uc-girder">
       <a class="shot" href="T3-P4-C1/"><img src="assets/T3-P4-C1.jpg" alt="T3-P4-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T3-P4-C1</h2><span class="tag">内容包扩容：工业皮 #2 × 自动化包</span></div>
@@ -263,7 +276,7 @@
         <a class="btn" href="T3-P4-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="自动化电子" data-tpl="uc-bedrock">
       <a class="shot" href="T4-P4-C1/"><img src="assets/T4-P4-C1.jpg" alt="T4-P4-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T4-P4-C1</h2><span class="tag">内容包扩容：效能第一皮 × 自动化包</span></div>
@@ -277,8 +290,8 @@
         </ul>
         <a class="btn" href="T4-P4-C1/">打开演示站 →</a>
       </div>
-    </article>
-    <article class="card">
+    </article></div></section><section class="group" data-group="化工新材料"><h2 class="group-title">化工新材料<span>4 个演示站</span></h2><div class="grid">
+    <article class="card" data-pack="化工新材料" data-tpl="hc-industro">
       <a class="shot" href="T1-P5-C1/"><img src="assets/T1-P5-C1.jpg" alt="T1-P5-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T1-P5-C1</h2><span class="tag">内容包收官：主力皮 × 化工包</span></div>
@@ -293,7 +306,7 @@
         <a class="btn" href="T1-P5-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="化工新材料" data-tpl="uc-ductwise">
       <a class="shot" href="T2-P5-C1/"><img src="assets/T2-P5-C1.jpg" alt="T2-P5-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T2-P5-C1</h2><span class="tag">内容包收官：服务皮 × 化工包</span></div>
@@ -308,7 +321,7 @@
         <a class="btn" href="T2-P5-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="化工新材料" data-tpl="uc-girder">
       <a class="shot" href="T3-P5-C1/"><img src="assets/T3-P5-C1.jpg" alt="T3-P5-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T3-P5-C1</h2><span class="tag">内容包收官：工业皮 #2 × 化工包</span></div>
@@ -323,7 +336,7 @@
         <a class="btn" href="T3-P5-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="化工新材料" data-tpl="uc-bedrock">
       <a class="shot" href="T4-P5-C1/"><img src="assets/T4-P5-C1.jpg" alt="T4-P5-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T4-P5-C1</h2><span class="tag">内容包收官：效能第一皮 × 化工包</span></div>
@@ -337,8 +350,8 @@
         </ul>
         <a class="btn" href="T4-P5-C1/">打开演示站 →</a>
       </div>
-    </article>
-    <article class="card">
+    </article></div></section><section class="group" data-group="通用制造"><h2 class="group-title">通用制造<span>4 个演示站</span></h2><div class="grid">
+    <article class="card" data-pack="通用制造" data-tpl="hc-industro">
       <a class="shot" href="T1-P6-C1/"><img src="assets/T1-P6-C1.jpg" alt="T1-P6-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T1-P6-C1</h2><span class="tag">内容包收官：主力皮 × 通用制造包</span></div>
@@ -353,7 +366,7 @@
         <a class="btn" href="T1-P6-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="通用制造" data-tpl="uc-ductwise">
       <a class="shot" href="T2-P6-C1/"><img src="assets/T2-P6-C1.jpg" alt="T2-P6-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T2-P6-C1</h2><span class="tag">内容包收官：服务皮 × 通用制造包</span></div>
@@ -368,7 +381,7 @@
         <a class="btn" href="T2-P6-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="通用制造" data-tpl="uc-girder">
       <a class="shot" href="T3-P6-C1/"><img src="assets/T3-P6-C1.jpg" alt="T3-P6-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T3-P6-C1</h2><span class="tag">内容包收官：工业皮 #2 × 通用制造包</span></div>
@@ -383,7 +396,7 @@
         <a class="btn" href="T3-P6-C1/">打开演示站 →</a>
       </div>
     </article>
-    <article class="card">
+    <article class="card" data-pack="通用制造" data-tpl="uc-bedrock">
       <a class="shot" href="T4-P6-C1/"><img src="assets/T4-P6-C1.jpg" alt="T4-P6-C1 预览"></a>
       <div class="body">
         <div class="row"><h2>T4-P6-C1</h2><span class="tag">内容包收官：效能第一皮 × 通用制造包</span></div>
@@ -397,6 +410,29 @@
         </ul>
         <a class="btn" href="T4-P6-C1/">打开演示站 →</a>
       </div>
-    </article></main>
+    </article></div></section></main>
 <footer>试点批次 2026-11-13 · 模板来源：HTML Codex（CC BY 4.0）/ uiCookies · 内容包图片：机械、自动化、通用制造包为 AI 生成，环保、钢材、化工包为图库实拍（对照实验）<br>销售演示口径：同客户不撞皮——同一基础模板只给同一客户展示一次。</footer>
+<script>
+let fp = '', ft = '';
+function apply() {
+  document.querySelectorAll('.card').forEach(function(c) {
+    var ok = (!fp || c.dataset.pack === fp) && (!ft || c.dataset.tpl === ft);
+    c.style.display = ok ? '' : 'none';
+  });
+  document.querySelectorAll('.group').forEach(function(g) {
+    var any = false;
+    g.querySelectorAll('.card').forEach(function(c) { if (c.style.display !== 'none') any = true; });
+    g.style.display = any ? '' : 'none';
+  });
+}
+document.querySelectorAll('.chip').forEach(function(ch) {
+  ch.addEventListener('click', function() {
+    var kind = ch.dataset.kind;
+    document.querySelectorAll('.chip[data-kind="' + kind + '"]').forEach(function(x) { x.classList.remove('on'); });
+    ch.classList.add('on');
+    if (kind === 'pack') fp = ch.dataset.val; else ft = ch.dataset.val;
+    apply();
+  });
+});
+</script>
 </body></html>
