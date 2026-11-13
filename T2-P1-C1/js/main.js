@@ -10,7 +10,7 @@
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var fmt = function (n) { return Math.round(n).toLocaleString("en-US"); };
-  var money = function (n) { return "$" + fmt(n); };
+  var money = function (n) { return "¥" + fmt(n); };
 
   /* ----------------------------------------------------------------
    * Season switch: swaps heating/cooling copy and the accent colour.
@@ -115,9 +115,9 @@
     var pin = tool.querySelector("[data-rr-pin]");
 
     var VERDICTS = {
-      repair: ["Repair it", "The numbers favour a repair. Keep up with yearly tune-ups to get the most out of it."],
-      borderline: ["Borderline: get both prices", "Ask for a written replacement option next to the repair before you decide."],
-      replace: ["Start pricing a replacement", "A new system is likely the better spend. Put the repair money towards it, and check for rebates."]
+      repair: ["建议维修", "从数字看维修更划算。坚持每年保养，把它的价值用足。"],
+      borderline: ["临界情况：两个价格都看看", "做决定前，请让对方在维修报价旁附上书面的更换方案。"],
+      replace: ["开始询价更换", "换新系统可能更划算。把维修的钱投向新系统，并看看补贴。"]
     };
 
     function update() {
@@ -132,9 +132,9 @@
       if (pin) pin.style.setProperty("--pos", (Math.min(score / 10000, 1) * 100).toFixed(1) + "%");
       verdict.className = "verdict " + key;
       verdict.innerHTML = "<strong>" + VERDICTS[key][0] + "</strong><span>" + VERDICTS[key][1] + "</span>";
-      lifeEl.textContent = life + " years";
+      lifeEl.textContent = life + " 年";
       var left = life - a;
-      leftEl.textContent = left > 0 ? left + (left === 1 ? " year" : " years") : "Past typical life";
+      leftEl.textContent = left > 0 ? left + (left === 1 ? " 年" : " 年") : "已超典型寿命";
     }
 
     pairRange("rr-age-range", "rr-age", update);
@@ -158,10 +158,10 @@
     var HEAT = { mild: 28, mixed: 35, cold: 45, hot: 20 };
     // Example installed prices: base + per ton (ductless priced per zone).
     var SYSTEMS = {
-      ac:       { base: 3400, perTon: 1500, plan: "Tune",    detail: "Central air conditioner and coil, matched to existing ductwork." },
-      furnace:  { base: 5800, perTon: 1700, plan: "Comfort", detail: "Gas furnace plus central AC, installed together." },
-      heatpump: { base: 5200, perTon: 1900, plan: "Comfort", detail: "Ducted heat pump with backup heat, before rebates." },
-      ductless: { zone: 3100, first: 3900,  plan: "Comfort", detail: "" }
+      ac:       { base: 3400, perTon: 1500, plan: "基础版",    detail: "中央空调与盘管，与现有管道匹配。" },
+      furnace:  { base: 5800, perTon: 1700, plan: "舒享版", detail: "燃气供暖炉加中央空调，一起安装。" },
+      heatpump: { base: 5200, perTon: 1900, plan: "舒享版", detail: "管道式热泵带辅助供暖，补贴前价格。" },
+      ductless: { zone: 3100, first: 3900,  plan: "舒享版", detail: "" }
     };
 
     function value(name) {
@@ -186,10 +186,10 @@
         var zones = Math.max(1, Math.ceil(sq / 600));
         mid = spec.first + spec.zone * (zones - 1);
         detail = zones + " indoor " + (zones === 1 ? "head" : "heads") + " on " + Math.ceil(zones / 4) + " outdoor " + (zones > 4 ? "units" : "unit") + ", before rebates.";
-        if (zones > 4) plan = "Total Care";
+        if (zones > 4) plan = "全托管版";
       } else {
         mid = spec.base + spec.perTon * Math.min(tons, 5);
-        if (tons > 5) { mid *= 2; detail = "Load is above one 5-ton system, so this assumes two systems. " + detail; plan = "Total Care"; }
+        if (tons > 5) { mid *= 2; detail = "负荷超过一套 5 吨系统，因此按两套系统估算。" + detail; plan = "全托管版"; }
       }
 
       out("tons").textContent = tons > 5 ? "5+" : tons.toFixed(1);
@@ -217,8 +217,8 @@
     function apply(mode) {
       buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-billing") === mode ? "true" : "false"); });
       prices.forEach(function (p) {
-        var unit = mode === "yearly" ? "/year" : "/month";
-        p.innerHTML = "$" + p.getAttribute("data-" + mode) + "<small>" + unit + "</small>";
+        var unit = mode === "yearly" ? "/年" : "/月";
+        p.innerHTML = "¥" + p.getAttribute("data-" + mode) + "<small>" + unit + "</small>";
         var note = p.nextElementSibling;
         if (note && note.hasAttribute("data-" + mode + "-note")) note.textContent = note.getAttribute("data-" + mode + "-note");
       });
@@ -333,13 +333,13 @@
       var sym = checked("symptoms");
       var urg = checked("urgency")[0];
       var win = checked("window")[0];
-      if (sum("system")) sum("system").textContent = sys || "Not chosen";
-      if (sum("symptoms")) sum("symptoms").textContent = sym.length ? (sym.length > 2 ? sym.slice(0, 2).join(", ") + " +" + (sym.length - 2) : sym.join(", ")) : "None ticked";
-      if (sum("urgency")) sum("urgency").textContent = urg || "Not chosen";
-      if (sum("window")) sum("window").textContent = win || "Not chosen";
+      if (sum("system")) sum("system").textContent = sys || "未选择";
+      if (sum("symptoms")) sum("symptoms").textContent = sym.length ? (sym.length > 2 ? sym.slice(0, 2).join(", ") + " +" + (sym.length - 2) : sym.join(", ")) : "未勾选";
+      if (sum("urgency")) sum("urgency").textContent = urg || "未选择";
+      if (sum("window")) sum("window").textContent = win || "未选择";
       if (sum("date")) {
         var v = date && date.value;
-        sum("date").textContent = v ? new Date(v + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) : "Not chosen";
+        sum("date").textContent = v ? new Date(v + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) : "未选择";
       }
       if (alertBox) alertBox.classList.toggle("show", urg === "Emergency");
     }
@@ -370,7 +370,7 @@
     var h = now.getHours() + now.getMinutes() / 60;
     var isOpen = !isNaN(open) && h >= open && h < close;
     status.classList.toggle("open", isOpen);
-    status.textContent = isOpen ? "Office open now" : "Office closed · emergency line open";
+    status.textContent = isOpen ? "办公室营业中" : "办公室休息 · 急修热线畅通";
   }
 
   /* ----------------------------------------------------------------
