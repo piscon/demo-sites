@@ -99,6 +99,13 @@
   .cta-band .t{ font-size:15.5px; font-weight:700; }
   .cta-band .d{ font-size:12.5px; margin-top:3px; opacity:.85; }
   .cta-band button{ margin-top:11px; width:100%; height:42px; background:var(--ink); color:#fff; border:none; border-radius:9px; font-size:14.5px; font-weight:600; font-family:inherit; cursor:pointer; }
+  .cta-band .row{ display:flex; gap:10px; margin-top:11px; }
+  .cta-band .row button{ margin-top:0; width:auto; }
+  .cta-band .row .go{ flex:1; }
+  .cta-band .row .dial{ width:52px; flex:none; display:flex; align-items:center; justify-content:center; }
+  .claim{ padding:2px 16px 15px; font-size:15px; font-weight:600; color:#333; line-height:1.7; }
+  .biz{ display:flex; flex-wrap:wrap; gap:8px; padding:6px 16px 15px; }
+  .biz .b{ font-size:12.5px; color:#444; background:#fff; border:1px solid #e0e0e0; border-radius:99px; padding:6px 12px; cursor:pointer; }
   .foot-note{ text-align:center; color:#b5b5b5; font-size:11px; padding:14px 30px 20px; line-height:1.7; }
   /* 产品 */
   .search{ margin:12px 12px 0; background:#fff; border-radius:12px; padding:10px 12px; }
@@ -268,7 +275,7 @@ function toast(msg) {
   const t = $("#toast"); t.innerHTML = esc(msg); t.classList.add("show");
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 1700);
 }
-function simCall() { toast("模拟拨号：" + P.phone + "（模拟）"); }
+function simCall() { toast("模拟拨号：正在呼叫服务热线（模拟）"); }
 function simInquiry(name) { toast("询价意向已记录（模拟）：" + name + "，原生版将直达厂家"); }
 
 /* ---------------- 页面渲染 ---------------- */
@@ -298,7 +305,10 @@ function renderHome() {
   <div class="grid4">${entries.map((e, i) => `
     <div class="gitem" data-entry="${i}"><span class="ic">${e.ic}</span><span class="lb">${e.lb}</span></div>`).join("")}
   </div>
-  ${statsHTML()}
+  <div class="card">
+    <div class="sec-title"><b>核心业务</b><span class="more" data-go="products">全部产品 ${IC.chevR}</span></div>
+    <div class="biz">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
+  </div>
   <div class="card">
     <div class="sec-title"><b>产品精选</b><span class="more" data-go="products">全部产品 ${IC.chevR}</span></div>
     <div class="pfeat">${feats.map(p => `
@@ -307,17 +317,19 @@ function renderHome() {
   </div>
   <div class="card">
     <div class="sec-title"><b>${esc(P.about_title)}</b><span class="more" data-go="about">公司介绍 ${IC.chevR}</span></div>
-    <p class="about-txt">${esc(P.about_text)}</p>
+    <p class="claim">${esc(P.tagline)}</p>
   </div>
   <div class="card">
     <div class="sec-title"><b>公司动态</b><span class="tag">内容包动态</span></div>
     ${P.news.slice(0, 2).map(n => `
-    <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div><div class="d">${esc(n.text)}</div></div></div>`).join("")}
+    <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div></div></div>`).join("")}
   </div>
   <div class="cta-band">
     <div class="t">${esc(P.promo_line)}</div>
-    <div class="d">${esc(P.tagline)}</div>
-    <button type="button" data-act="call">拨打 ${esc(P.phone)}</button>
+    <div class="row">
+      <button type="button" class="go" data-go="contact">联系我们</button>
+      <button type="button" class="dial" data-act="call" aria-label="拨打服务热线（模拟）">${IC.phone}</button>
+    </div>
   </div>
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
@@ -353,7 +365,6 @@ function renderAbout() {
   <div class="card" style="margin-top:12px">
     <div class="sec-title"><b>公司介绍</b></div>
     <p class="about-txt">${esc(P.about_text)}</p>
-    <div class="honors">${P.honors.map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
   </div>
   ${statsHTML()}
   <div class="card">
@@ -366,10 +377,7 @@ function renderAbout() {
     ${P.why_points.map(w => `<div class="why-it"><div class="t"><i></i>${esc(w.title)}</div><div class="d">${esc(w.text)}</div></div>`).join("")}
   </div>
   <div class="card" style="margin-bottom:16px">
-    <div class="sec-title"><b>联系信息</b><span class="more" data-go="contact">联系页 ${IC.chevR}</span></div>
-    <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
-    <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
-    <div class="cell"><span style="color:var(--brand-dark)">${IC.pin.replace('width="30" height="30"', 'width="19" height="19"')}</span><div class="ct"><div class="t">地址</div></div><span class="cv" style="max-width:180px">${esc(P.address)}</span></div>
+    <div class="cell" data-go="contact"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">联系方式</div><div class="d">电话 · 微信 · 邮箱 · 地址，都在联系页</div></div>${IC.chevR}</div>
   </div>`;
 }
 function renderContact() {
@@ -377,7 +385,6 @@ function renderContact() {
   <div class="phone-hero">
     <div class="lb">全国服务热线 · ${esc(P.hero_kicker)}</div>
     <div class="num">${esc(P.phone)}</div>
-    <div class="ds">${esc(P.promo_line)}</div>
     <button type="button" class="btn-pri" data-act="call">一键拨号</button>
   </div>
   <div class="emg" data-act="call">
@@ -387,7 +394,6 @@ function renderContact() {
   <div class="card">
     <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
     <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
-    <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div></div><span class="cv">${esc(P.phone)}</span></div>
   </div>
   <div class="map-ph">
     <div class="road" style="left:0;right:0;top:56px;height:13px"></div>
@@ -409,9 +415,6 @@ function renderDetail(p) {
     </div>
     <div class="spec-t"><h4>产品参数</h4>
       ${p.specs.map(s => `<div class="spec-r"><span class="k">${esc(s.k)}</span><span class="v">${esc(s.v)}</span></div>`).join("")}
-    </div>
-    <div class="spec-t"><h4>服务承诺</h4>
-      ${P.why_points.map(w => `<div class="spec-r"><span class="k">${esc(w.title)}</span><span class="v">${esc(w.text)}</span></div>`).join("")}
     </div>
     <div style="height:14px"></div>
   </div>
@@ -496,6 +499,7 @@ document.addEventListener("click", e => {
   const ent = e.target.closest("[data-entry]"); if (ent) {
     [{ go: () => goProducts("全部") }, { go: () => goProducts("整机") }, { go: () => goProducts("属具") }, { go: () => goProducts("服务") }][+ent.dataset.entry].go(); return;
   }
+  const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(["整机", "整机", "整机", "属具", "零部件"][+biz.dataset.biz] || "全部"); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
     const a = act.dataset.act;
@@ -504,7 +508,7 @@ document.addEventListener("click", e => {
     else if (a === "nav") toast("打开地图导航（模拟）：目的地为公司地址");
     else if (a === "wechat") {
       if (navigator.clipboard) navigator.clipboard.writeText(P.wechat).catch(() => {});
-      toast("微信号已复制（模拟）：" + P.wechat);
+      toast("微信号已复制（模拟），去微信粘贴添加");
     }
     return;
   }
