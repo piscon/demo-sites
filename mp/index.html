@@ -260,7 +260,8 @@ const IC = {
   pin: '<svg width="30" height="30" viewBox="0 0 24 24" fill="#e34d3d"><path d="M12 22s-6.8-5.6-6.8-11A6.8 6.8 0 0 1 12 4.2 6.8 6.8 0 0 1 18.8 11c0 5.4-6.8 11-6.8 11z"/><circle cx="12" cy="11" r="2.6" fill="#fff"/></svg>',
   copy: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5.5 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.5"/></svg>',
   mail: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7.5 8 6 8-6"/></svg>',
-  wechat: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.6 4C5 4 2 6.6 2 9.9c0 1.9 1 3.5 2.6 4.6l-.7 2.1 2.4-1.2c.7.2 1.5.3 2.3.3h.5A5.9 5.9 0 0 1 8.7 13c0-3.2 3-5.7 6.7-5.7h.5C15.3 5.4 12.2 4 8.6 4zm7 4.6c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.6 0 1.2-.1 1.8-.3l1.9 1-.6-1.7c1.4-.8 2.3-2 2.3-3.4 0-2.4-2.4-4.4-5.4-4.4zM7 8.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm4.4 0a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm2.5 3.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm4.3 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/></svg>'
+  wechat: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.6 4C5 4 2 6.6 2 9.9c0 1.9 1 3.5 2.6 4.6l-.7 2.1 2.4-1.2c.7.2 1.5.3 2.3.3h.5A5.9 5.9 0 0 1 8.7 13c0-3.2 3-5.7 6.7-5.7h.5C15.3 5.4 12.2 4 8.6 4zm7 4.6c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.6 0 1.2-.1 1.8-.3l1.9 1-.6-1.7c1.4-.8 2.3-2 2.3-3.4 0-2.4-2.4-4.4-5.4-4.4zM7 8.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm4.4 0a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm2.5 3.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm4.3 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/></svg>',
+  news: '<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h13.5V18a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2V6"/><path d="M18.5 9H20a1 1 0 0 1 1 1v7.5a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M7.5 8h7.5M7.5 11.5h7.5M7.5 15h4.5"/></svg>'
 };
 let P = null; // pack-mp 数据
 const S = { tab: "home", cat: "全部", query: "", detail: null, slide: 0, slideTimer: null };
@@ -286,10 +287,10 @@ function statsHTML() {
 function renderHome() {
   const feats = P.products.slice(0, 3);
   const entries = [
-    { lb: "全部产品", ic: IC.grid, go: () => goProducts("全部") },
     { lb: "整机设备", ic: IC.truck, go: () => goProducts("整机") },
     { lb: "属具零部件", ic: IC.layers, go: () => goProducts("属具") },
-    { lb: "售后大修", ic: IC.wrench, go: () => goProducts("服务") }
+    { lb: "售后大修", ic: IC.wrench, go: () => goProducts("服务") },
+    { lb: "公司动态", ic: IC.news, anchor: "news" }
   ];
   return `
   <div class="swiper" id="swiper">
@@ -302,34 +303,28 @@ function renderHome() {
     </div>
     <div class="dots">${P.hero_slides.map((_, i) => `<i class="${i === S.slide ? "on" : ""}" data-slide="${i}"></i>`).join("")}</div>
   </div>
-  <div class="grid4">${entries.map((e, i) => `
-    <div class="gitem" data-entry="${i}"><span class="ic">${e.ic}</span><span class="lb">${e.lb}</span></div>`).join("")}
+  <div class="grid4">${entries.map((e, i) => e.anchor
+    ? `<div class="gitem" data-anchor="${e.anchor}"><span class="ic">${e.ic}</span><span class="lb">${e.lb}</span></div>`
+    : `<div class="gitem" data-entry="${i}"><span class="ic">${e.ic}</span><span class="lb">${e.lb}</span></div>`).join("")}
   </div>
   <div class="card">
-    <div class="sec-title"><b>核心业务</b><span class="more" data-go="products">全部产品 ${IC.chevR}</span></div>
+    <div class="sec-title"><b>核心业务</b></div>
     <div class="biz">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
   </div>
   <div class="card">
-    <div class="sec-title"><b>产品精选</b><span class="more" data-go="products">全部产品 ${IC.chevR}</span></div>
+    <div class="sec-title"><b>产品精选</b></div>
     <div class="pfeat">${feats.map(p => `
       <div class="pf" data-detail="${p.id}"><img src="${p.img}" alt=""><div class="t">${esc(p.title)}</div><div class="p">${esc(p.price)}</div></div>`).join("")}
     </div>
   </div>
   <div class="card">
-    <div class="sec-title"><b>${esc(P.about_title)}</b><span class="more" data-go="about">公司介绍 ${IC.chevR}</span></div>
+    <div class="sec-title"><b>${esc(P.about_title)}</b></div>
     <p class="claim">${esc(P.tagline)}</p>
   </div>
-  <div class="card">
+  <div class="card" id="newsCard">
     <div class="sec-title"><b>公司动态</b><span class="tag">内容包动态</span></div>
-    ${P.news.slice(0, 2).map(n => `
+    ${P.news.slice(0, 3).map(n => `
     <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div></div></div>`).join("")}
-  </div>
-  <div class="cta-band">
-    <div class="t">${esc(P.promo_line)}</div>
-    <div class="row">
-      <button type="button" class="go" data-go="contact">联系我们</button>
-      <button type="button" class="dial" data-act="call" aria-label="拨打服务热线（模拟）">${IC.phone}</button>
-    </div>
   </div>
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
@@ -369,15 +364,12 @@ function renderAbout() {
   ${statsHTML()}
   <div class="card">
     <div class="sec-title"><b>核心业务</b></div>
-    ${P.about_points.map(a => `<div class="cell"><div class="ct"><div class="t">${esc(a)}</div></div>${IC.chevR}</div>`).join("")}
+    ${P.about_points.map(a => `<div class="cell"><div class="ct"><div class="t">${esc(a)}</div></div></div>`).join("")}
   </div>
-  <div class="card">
+  <div class="card" style="margin-bottom:16px">
     <div class="sec-title"><b>为什么选择${esc(P.brand)}</b></div>
     <p class="about-txt" style="padding-bottom:2px">${esc(P.why_intro)}</p>
     ${P.why_points.map(w => `<div class="why-it"><div class="t"><i></i>${esc(w.title)}</div><div class="d">${esc(w.text)}</div></div>`).join("")}
-  </div>
-  <div class="card" style="margin-bottom:16px">
-    <div class="cell" data-go="contact"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">联系方式</div><div class="d">电话 · 微信 · 邮箱 · 地址，都在联系页</div></div>${IC.chevR}</div>
   </div>`;
 }
 function renderContact() {
@@ -419,7 +411,6 @@ function renderDetail(p) {
     <div style="height:14px"></div>
   </div>
   <div class="dbar">
-    <button type="button" class="btn-line" data-act="call">电话咨询</button>
     <button type="button" class="btn-pri" data-act="inquiry" data-name="${esc(p.title)}">立即询价</button>
   </div>`;
 }
@@ -497,7 +488,12 @@ document.addEventListener("click", e => {
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; render(); return; }
   const go = e.target.closest("[data-go]"); if (go) { goTab(go.dataset.go); return; }
   const ent = e.target.closest("[data-entry]"); if (ent) {
-    [{ go: () => goProducts("全部") }, { go: () => goProducts("整机") }, { go: () => goProducts("属具") }, { go: () => goProducts("服务") }][+ent.dataset.entry].go(); return;
+    [{ go: () => goProducts("整机") }, { go: () => goProducts("属具") }, { go: () => goProducts("服务") }][+ent.dataset.entry].go(); return;
+  }
+  const anc = e.target.closest("[data-anchor]"); if (anc) {
+    const target = document.getElementById(anc.dataset.anchor === "news" ? "newsCard" : anc.dataset.anchor);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
   }
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(["整机", "整机", "整机", "属具", "零部件"][+biz.dataset.biz] || "全部"); return; }
   const act = e.target.closest("[data-act]");
