@@ -153,7 +153,7 @@
     var area = tool.querySelector("#sz-area");
     var out = function (k) { return tool.querySelector("[data-sz-" + k + "]"); };
 
-    // BTU per square foot by climate, before tightness and ceiling factors.
+    // 每平方英尺负荷系数（按气候区），未计密封与层高修正。
     var COOL = { mild: 19, mixed: 22, cold: 18, hot: 26 };
     var HEAT = { mild: 28, mixed: 35, cold: 45, hot: 20 };
     // Example installed prices: base + per ton (ductless priced per zone).
@@ -171,7 +171,7 @@
     var round100 = function (n) { return Math.round(n / 100) * 100; };
 
     function update() {
-      var sq = Math.min(Math.max(parseFloat(area.value) || 0, 300), 10000);
+      var sq = Math.min(Math.max(parseFloat(area.value) || 0, 30), 800) * 10.764;
       var climate = value("climate") || "mixed";
       var factor = parseFloat(value("tight")) * parseFloat(value("ceiling"));
       var sys = value("system") || "heatpump";
@@ -185,7 +185,7 @@
       if (sys === "ductless") {
         var zones = Math.max(1, Math.ceil(sq / 600));
         mid = spec.first + spec.zone * (zones - 1);
-        detail = zones + " indoor " + (zones === 1 ? "head" : "heads") + " on " + Math.ceil(zones / 4) + " outdoor " + (zones > 4 ? "units" : "unit") + ", before rebates.";
+        detail = zones + " 台室内机，配 " + Math.ceil(zones / 4) + " 台室外机，补贴前价格。";
         if (zones > 4) plan = "全托管版";
       } else {
         mid = spec.base + spec.perTon * Math.min(tons, 5);
@@ -194,8 +194,8 @@
 
       out("tons").textContent = tons > 5 ? "5+" : tons.toFixed(1);
       out("pin").style.setProperty("--pos", (Math.min(Math.max((tons - 1.5) / 3.5, 0), 1) * 100).toFixed(1) + "%");
-      out("cool").textContent = fmt(round100(coolBtu)) + " BTU/h";
-      out("heat").textContent = fmt(Math.round(heatBtu / 1000) * 1000) + " BTU/h";
+      out("cool").textContent = (coolBtu / 3412).toFixed(1) + " kW";
+      out("heat").textContent = (heatBtu / 3412).toFixed(1) + " kW";
       out("cost").innerHTML = money(round100(mid * 0.88)) + " &ndash; " + money(round100(mid * 1.12));
       out("detail").textContent = detail;
       out("plan").textContent = plan;
@@ -347,7 +347,7 @@
     form.addEventListener("change", update);
     form.addEventListener("input", update);
     form.addEventListener("form:valid", function () {
-      if (ref) ref.textContent = "DW-" + String(Math.floor(10000 + Math.random() * 89999));
+      if (ref) ref.textContent = "BK-" + String(Math.floor(10000 + Math.random() * 89999));
       frozen = true;
     });
     update();
