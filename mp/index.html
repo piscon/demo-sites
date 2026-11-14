@@ -169,6 +169,19 @@
   .emg{ margin:12px 12px 0; background:#fdf0ec; border:1px solid #f5cfc2; border-radius:12px; padding:13px 16px; display:flex; align-items:center; gap:11px; cursor:pointer; }
   .emg .t{ font-size:14px; font-weight:700; color:#b3401e; }
   .emg .d{ font-size:12px; color:#b3401e; opacity:.85; margin-top:1px; }
+  /* 第四轮（企业官网经典 4 栏）：悬浮动作 / 留资表单 / 动态全文 / 工厂实景 */
+  .fab{ position:absolute; right:14px; bottom:18px; z-index:40; display:flex; flex-direction:column; gap:10px; }
+  .fab.up{ bottom:98px; }
+  .fab-btn{ width:48px; height:48px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; background:#fff; color:#333; box-shadow:0 6px 18px rgba(20,20,20,.28); }
+  .fab-btn.call{ background:var(--brand); color:var(--ink); }
+  .news-it .nt .d.full{ display:block; -webkit-line-clamp:unset; overflow:visible; }
+  .fac-img{ width:100%; height:150px; object-fit:cover; display:block; border-radius:9px; }
+  .lead-form{ padding:2px 16px 16px; }
+  .lf-row{ margin-top:12px; }
+  .lf-row label{ display:block; font-size:13px; font-weight:600; color:#555; margin-bottom:6px; }
+  .lf-row input,.lf-row textarea{ width:100%; border:1px solid #e2e2e2; border-radius:9px; padding:10px 12px; font-size:14px; font-family:inherit; background:#fafafa; color:var(--text); }
+  .lf-sub{ width:100%; height:44px; font-size:15px; margin-top:14px; }
+  .lf-note{ font-size:11.5px; color:var(--sub); text-align:center; margin-top:9px; line-height:1.6; }
   /* Toast */
   .toast{ position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); z-index:60; background:rgba(20,20,20,.86); color:#fff;
           font-size:13.5px; line-height:1.6; padding:13px 18px; border-radius:10px; max-width:270px; text-align:center; opacity:0; pointer-events:none; transition:opacity .22s; }
@@ -206,12 +219,12 @@
     <div class="spec">
       <h3>样板构成</h3>
       <ul>
-        <li>骨架：MP-S1 展示型 · APP 信息流（场景 tab × 3 + 层级页 × 2）</li>
-        <li>场景 tab：首页（发现）/ 产品（选型）/ 服务（售后）——每栏一个自包含场景，内部走完浏览 → 详情 → 动作</li>
-        <li>层级页：产品详情、企业档案（由首页品牌卡进入，不占 tab）；企业介绍与联系方式全文只在档案层留底一处</li>
+        <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
+        <li>栏位：首页（品牌视觉 Banner / 核心优势提炼 / 主推产品快捷入口 / 企业实力概览）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书，本包以企业动态承载「案例/动态」槽位）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li>内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li>主题色：内容包品牌 accent 安全黄 #E4AF00</li>
-        <li>可点动线：场景切换、轮播、分类筛选、搜索、详情 / 档案层进出、拨号 / 复制 / 导航 / 询价（均为模拟反馈）</li>
+        <li>可点动线：栏位切换、轮播、分类筛选、搜索、详情进出、悬浮拨号 / 客服、复制 / 导航、留资表单提交（均为模拟反馈）</li>
       </ul>
     </div>
     <div class="spec honest">
@@ -258,7 +271,10 @@
         <div class="viewport">
           <div class="page" id="page"></div>
           <div class="detail hidden" id="detail"></div>
-          <div class="detail hidden" id="profile"></div>
+          <div class="fab hidden" id="fab">
+            <button type="button" class="fab-btn" data-act="service" aria-label="在线客服"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="2.8" y="13" width="4" height="6.5" rx="2"/><rect x="17.2" y="13" width="4" height="6.5" rx="2"/><path d="M20 19.5c0 1.7-1.6 2.5-4 2.5h-2"/></svg></button>
+            <button type="button" class="fab-btn call" data-act="call" aria-label="一键拨号"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 4h3l1.7 4.4-2.3 1.7a12.6 12.6 0 0 0 6.3 6.3l1.7-2.3L20 15.8v3A2.2 2.2 0 0 1 17.7 21 16.8 16.8 0 0 1 3 6.3 2.2 2.2 0 0 1 5.2 4z"/></svg></button>
+          </div>
         </div>
         <div class="tabbar" id="tabbar"></div>
         <div class="toast" id="toast"></div>
@@ -288,11 +304,12 @@ const IC = {
   news: '<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h13.5V18a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2V6"/><path d="M18.5 9H20a1 1 0 0 1 1 1v7.5a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M7.5 8h7.5M7.5 11.5h7.5M7.5 15h4.5"/></svg>'
 };
 let P = null; // pack-mp 数据
-const S = { tab: "home", cat: "全部", query: "", detail: null, profile: false, slide: 0, slideTimer: null };
+const S = { tab: "home", cat: "全部", query: "", detail: null, slide: 0, slideTimer: null };
 const TABS = [
   { id: "home", label: "首页", icon: IC.home, title: () => P.brand },
-  { id: "products", label: "产品", icon: IC.grid, title: () => "产品中心" },
-  { id: "service", label: "服务", icon: IC.wrench, title: () => "售后服务" }
+  { id: "products", label: "产品中心", icon: IC.grid, title: () => "产品中心" },
+  { id: "news", label: "动态", icon: IC.news, title: () => "公司动态" },
+  { id: "about", label: "关于我们", icon: IC.factory, title: () => "关于我们" }
 ];
 let toastTimer = null;
 function toast(msg) {
@@ -300,6 +317,7 @@ function toast(msg) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 1700);
 }
 function simCall() { toast("模拟拨号：正在呼叫服务热线（模拟）"); }
+function simService() { toast("在线客服（模拟）：原生版将打开微信客服会话"); }
 function simInquiry(name) { toast("询价意向已记录（模拟）：" + name + "，原生版将直达厂家"); }
 
 /* ---------------- 页面渲染 ---------------- */
@@ -320,28 +338,23 @@ function renderHome() {
     </div>
     <div class="dots">${P.hero_slides.map((_, i) => `<i class="${i === S.slide ? "on" : ""}" data-slide="${i}"></i>`).join("")}</div>
   </div>
-  <div class="brand-card" data-profile>
-    <div class="bc-top"><img src="${P.logo}" alt=""><span class="bc-name">${esc(P.company_full)}</span>${IC.chevR}</div>
-    <div class="bc-claim">${esc(P.tagline)}</div>
-    <div class="bc-sub">${esc(P.hero_sub)}</div>
+  <div class="card">
+    <div class="sec-title"><b>核心优势</b></div>
+    <div class="claim">${esc(P.tagline)}</div>
+    ${P.why_points.map(w => `<div class="why-it" style="padding-top:8px;padding-bottom:8px"><div class="t"><i></i>${esc(w.title)}</div></div>`).join("")}
+    <div style="height:8px"></div>
   </div>
   <div class="card">
-    <div class="sec-title"><b>核心业务</b></div>
-    <div class="biz">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
-  </div>
-  <div class="card">
-    <div class="sec-title"><b>产品精选</b></div>
+    <div class="sec-title"><b>主推产品</b></div>
     <div class="pfeat">${feats.map(p => `
       <div class="pf" data-detail="${p.id}"><img src="${p.img}" alt=""><div class="t">${esc(p.title)}</div><div class="p">${esc(p.price)}</div></div>`).join("")}
     </div>
+    <div class="biz" style="border-top:.5px solid var(--line);padding-top:12px">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
   </div>
-  <div class="card" id="newsCard">
-    <div class="sec-title"><b>公司动态</b><span class="tag">内容包动态</span></div>
-    ${P.news.slice(0, 3).map(n => `
-    <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div></div></div>`).join("")}
-  </div>
+  ${statsHTML()}
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
+
 function renderProducts() {
   const cats = ["全部", ...new Set(P.products.map(p => p.cat))];
   const list = P.products.filter(p =>
@@ -363,28 +376,37 @@ function renderProducts() {
   </div>
   <div class="foot-note">共 ${list.length} 项 · 价格口径与官网内容包一致</div>`;
 }
-function renderService() {
+function renderNews() {
+  return `
+  <div class="card" style="margin-bottom:16px">
+    <div class="sec-title"><b>企业动态</b><span class="tag">信任背书</span></div>
+    ${P.news.map(n => `
+    <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div><div class="d full">${esc(n.text)}</div></div></div>`).join("")}
+  </div>
+  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)}</div>`;
+}
+function renderAbout() {
   const svc = P.products.find(p => p.cat === "服务");
   return `
-  <div class="svc-emg">
-    <div class="t">${esc(P.emergency_title)}</div>
-    <div class="d">整机大修 · 液压系统翻新 · 延保服务</div>
-    <button type="button" class="btn-pri" data-act="call">一键拨号</button>
+  <div class="brand-head">
+    <img src="${P.logo}" alt="${esc(P.brand)}">
+    <div class="en">${esc(P.brand_en)}</div>
+    <div class="tl" style="font-weight:600;color:#333;font-size:14px">${esc(P.company_full)}</div>
   </div>
   <div class="card">
-    <div class="sec-title"><b>服务网络</b></div>
-    <div class="svc-net">
-      <img src="${P.factory_img}" alt="厂区实景">
-      <div class="row">
-        <div class="it"><div class="v">240<small> 个</small></div><div class="l">服务网点</div></div>
-        <div class="it"><div class="v">48<small> 小时</small></div><div class="l">服务到场</div></div>
-        <div class="it"><div class="v">12<small> 个月</small></div><div class="l">大修质保</div></div>
-      </div>
-    </div>
+    <div class="sec-title"><b>公司介绍</b></div>
+    <div class="lead-in">${esc(P.about_title)}</div>
+    <p class="about-txt">${esc(P.about_text)}</p>
   </div>
   <div class="card">
-    <div class="sec-title"><b>售后服务项目</b></div>
-    <div style="padding:2px 12px 12px">
+    <div class="sec-title"><b>工厂实景与资质荣誉</b></div>
+    <div style="padding:6px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
+    <div class="honors" style="padding-top:12px">${P.honors.map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
+  </div>
+  ${statsHTML()}
+  <div class="card">
+    <div class="sec-title"><b>服务支持</b></div>
+    <div style="padding:2px 12px 4px">
       <div class="pcard flat" data-detail="${svc.id}">
         <img src="${svc.img}" alt="">
         <div class="pc">
@@ -394,48 +416,41 @@ function renderService() {
         </div>
       </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="cell" data-parts><span style="color:var(--brand-dark)">${IC.layers}</span><div class="ct"><div class="t">零部件供应</div><div class="d">液压泵阀 · 回转支承 · 结构件</div></div>${IC.chevR}</div>
-  </div>
-  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)}</div>`;
-}
-function renderProfile() {
-  return `
-  <div class="dscroll">
-    <div class="brand-head">
-      <img src="${P.logo}" alt="${esc(P.brand)}">
-      <div class="en">${esc(P.brand_en)}</div>
-      <div class="tl" style="font-weight:600;color:#333;font-size:14px">${esc(P.company_full)}</div>
-      <div class="tl">${esc(P.tagline)}</div>
-    </div>
-    <div class="card" style="margin-top:12px">
-      <div class="sec-title"><b>公司介绍</b></div>
-      <div class="lead-in">${esc(P.about_title)}</div>
-      <p class="about-txt">${esc(P.about_text)}</p>
-    </div>
-    ${statsHTML()}
-    <div class="card">
-      <div class="sec-title"><b>为什么选择${esc(P.brand)}</b></div>
-      <p class="about-txt" style="padding-bottom:2px">${esc(P.why_intro)}</p>
-      ${P.why_points.map(w => `<div class="why-it"><div class="t"><i></i>${esc(w.title)}</div><div class="d">${esc(w.text)}</div></div>`).join("")}
-    </div>
-    <div class="card" style="margin-bottom:16px">
-      <div class="sec-title"><b>联系方式</b></div>
-      <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div><div class="d">点按拨打服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
-      <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
-      <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
-      <div class="map-ph" style="margin:12px 16px 16px">
-        <div class="road" style="left:0;right:0;top:56px;height:13px"></div>
-        <div class="road" style="top:0;bottom:0;left:118px;width:13px"></div>
-        <div class="road" style="left:0;right:0;top:112px;height:8px;opacity:.75"></div>
-        <div class="pin">${IC.pin}</div>
-        <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
+    <div class="svc-net">
+      <div class="row" style="margin-top:2px">
+        <div class="it"><div class="v">240<small> 个</small></div><div class="l">服务网点</div></div>
+        <div class="it"><div class="v">48<small> 小时</small></div><div class="l">服务到场</div></div>
+        <div class="it"><div class="v">12<small> 个月</small></div><div class="l">大修质保</div></div>
       </div>
     </div>
-    <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 地图为占位示意，原生版调用微信地图导航</div>
-  </div>`;
+    <div class="cell" data-parts style="border-top:.5px solid var(--line)"><span style="color:var(--brand-dark)">${IC.layers}</span><div class="ct"><div class="t">零部件供应</div><div class="d">液压泵阀 · 回转支承 · 结构件</div></div>${IC.chevR}</div>
+  </div>
+  <div class="card">
+    <div class="sec-title"><b>联系方式</b></div>
+    <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div><div class="d">点按拨打服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
+    <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
+    <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
+    <div class="map-ph" style="margin:12px 16px 16px">
+      <div class="road" style="left:0;right:0;top:56px;height:13px"></div>
+      <div class="road" style="top:0;bottom:0;left:118px;width:13px"></div>
+      <div class="road" style="left:0;right:0;top:112px;height:8px;opacity:.75"></div>
+      <div class="pin">${IC.pin}</div>
+      <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="sec-title"><b>在线留资</b></div>
+    <form class="lead-form" id="leadForm">
+      <div class="lf-row"><label for="lfName">姓名</label><input id="lfName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
+      <div class="lf-row"><label for="lfPhone">电话</label><input id="lfPhone" type="tel" placeholder="请输入手机号码" autocomplete="off"></div>
+      <div class="lf-row"><label for="lfMsg">留言</label><textarea id="lfMsg" rows="3" placeholder="想咨询的产品、数量或问题"></textarea></div>
+      <button type="submit" class="btn-pri lf-sub">提交留言</button>
+      <div class="lf-note">提交后企业将主动与您联系 · 本样板为模拟提交，不会真实发送</div>
+    </form>
+  </div>
+  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 地图为占位示意，原生版调用微信地图导航</div>`;
 }
+
 function renderDetail(p) {
   return `
   <div class="dscroll">
@@ -456,10 +471,16 @@ function renderDetail(p) {
 }
 
 /* ---------------- 导航与交互 ---------------- */
-const RENDER = { home: renderHome, products: renderProducts, service: renderService };
+const RENDER = { home: renderHome, products: renderProducts, news: renderNews, about: renderAbout };
 function renderTabs() {
   $("#tabbar").innerHTML = TABS.map(t =>
     `<div class="tab ${t.id === S.tab ? "on" : ""}" data-tab="${t.id}">${t.icon}<span class="lb">${t.label}</span></div>`).join("");
+}
+function syncFab() {
+  const fab = $("#fab");
+  const show = S.detail != null || S.tab === "about";
+  fab.classList.toggle("hidden", !show);
+  fab.classList.toggle("up", S.detail != null);
 }
 function render() {
   $("#page").innerHTML = RENDER[S.tab]();
@@ -476,7 +497,9 @@ function render() {
     bindPageBits();
   });
   bindPageBits();
+  syncFab();
 }
+
 function bindPageBits() {
   const sw = $("#swiper");
   if (sw) sw.querySelectorAll("[data-slide]").forEach(d =>
@@ -493,14 +516,14 @@ function startSwiper() {
   S.slideTimer = setInterval(() => { S.slide = (S.slide + 1) % P.hero_slides.length; refreshSwiper(); }, 4200);
 }
 function goTab(id) {
-  S.tab = id; S.detail = null; S.profile = false; $("#detail").classList.add("hidden"); $("#profile").classList.add("hidden");
+  S.tab = id; S.detail = null; $("#detail").classList.add("hidden");
   $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
   history.replaceState(null, "", "#/" + id);
   render();
 }
 function goProducts(cat) {
-  S.cat = cat || "全部"; S.tab = "products"; S.detail = null; S.profile = false;
-  $("#detail").classList.add("hidden"); $("#profile").classList.add("hidden");
+  S.cat = cat || "全部"; S.tab = "products"; S.detail = null;
+  $("#detail").classList.add("hidden");
   $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
   history.replaceState(null, "", "#/products");
   render();
@@ -514,6 +537,7 @@ function openDetail(id) {
   $("#navTitle").textContent = "产品详情";
   $("#navBack").classList.remove("hidden");
   history.replaceState(null, "", "#/product/" + id);
+  syncFab();
 }
 function closeDetail() {
   S.detail = null; $("#detail").classList.add("hidden");
@@ -521,43 +545,20 @@ function closeDetail() {
   $("#navBack").classList.add("hidden");
   $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
   history.replaceState(null, "", "#/" + S.tab);
+  syncFab();
 }
-function openProfile() {
-  S.profile = true;
-  const pf = $("#profile"); pf.innerHTML = renderProfile(); pf.classList.remove("hidden");
-  pf.querySelector(".dscroll").scrollTop = 0;
-  $("#tabbar").style.display = "none";
-  $("#navTitle").textContent = "企业档案";
-  $("#navBack").classList.remove("hidden");
-  history.replaceState(null, "", "#/profile");
-}
-function closeProfile() {
-  S.profile = false; $("#profile").classList.add("hidden");
-  $("#tabbar").style.display = "";
-  $("#navBack").classList.add("hidden");
-  $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
-  history.replaceState(null, "", "#/" + S.tab);
-}
+
 document.addEventListener("click", e => {
   const tab = e.target.closest("[data-tab]"); if (tab) { goTab(tab.dataset.tab); return; }
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; render(); return; }
-  const go = e.target.closest("[data-go]"); if (go) { goTab(go.dataset.go); return; }
-  const ent = e.target.closest("[data-entry]"); if (ent) {
-    [{ go: () => goProducts("整机") }, { go: () => goProducts("属具") }, { go: () => goProducts("服务") }][+ent.dataset.entry].go(); return;
-  }
-  const anc = e.target.closest("[data-anchor]"); if (anc) {
-    const target = document.getElementById(anc.dataset.anchor === "news" ? "newsCard" : anc.dataset.anchor);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-    return;
-  }
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(["整机", "整机", "整机", "属具", "零部件"][+biz.dataset.biz] || "全部"); return; }
-  const prof = e.target.closest("[data-profile]"); if (prof) { openProfile(); return; }
   const parts = e.target.closest("[data-parts]"); if (parts) { goProducts("零部件"); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
     const a = act.dataset.act;
     if (a === "call") simCall();
+    else if (a === "service") simService();
     else if (a === "inquiry") simInquiry(act.dataset.name || "");
     else if (a === "nav") toast("打开地图导航（模拟）：目的地为公司地址");
     else if (a === "wechat") {
@@ -566,8 +567,17 @@ document.addEventListener("click", e => {
     }
     return;
   }
-  if (e.target.closest("#dBack") || e.target.closest("#navBack")) { if (S.profile) closeProfile(); else closeDetail(); }
+  if (e.target.closest("#navBack")) { if (S.detail != null) closeDetail(); }
 });
+document.addEventListener("submit", e => {
+  if (!e.target.closest("#leadForm")) return;
+  e.preventDefault();
+  const name = $("#lfName").value.trim(), phone = $("#lfPhone").value.trim();
+  if (!name || !phone) { toast("请先填写姓名与电话（模拟校验）"); return; }
+  toast("留言已提交（模拟），原生版将直达企业并同步提醒");
+  e.target.reset();
+});
+
 $("#fsBtn").addEventListener("click", () => {
   const st = $("#stage"); st.classList.toggle("full");
   $("#fsBtn").textContent = st.classList.contains("full") ? "退出全屏体验" : "全屏体验";
@@ -577,17 +587,23 @@ function tickClock() {
   const d = new Date(), p = n => String(n).padStart(2, "0");
   $("#clock").textContent = p(d.getHours()) + ":" + p(d.getMinutes());
 }
+function routeFromHash() {
+  const h = location.hash || "";
+  const m = h.match(/^#\/product\/(\d+)$/);
+  S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  if (m) { S.tab = "products"; render(); openDetail(+m[1]); return; }
+  if (h === "#/about" || h === "#/contact" || h === "#/profile" || h === "#/service") { S.tab = "about"; render(); return; }
+  if (h.startsWith("#/")) { const id = h.slice(2); if (RENDER[id]) S.tab = id; }
+  render();
+}
 fetch("pack-mp.json").then(r => r.json()).then(data => {
   P = data;
   document.documentElement.style.setProperty("--brand", P.accent);
   document.documentElement.style.setProperty("--brand-dark", P.accent_dark);
   document.documentElement.style.setProperty("--ink", P.charcoal);
-  const h = location.hash || "";
-  const m = h.match(/^#\/product\/(\d+)$/);
-  if (m) { S.tab = "products"; render(); openDetail(+m[1]); }
-  else if (h === "#/about" || h === "#/contact" || h === "#/profile") { render(); openProfile(); }
-  else if (h.startsWith("#/")) { const id = h.slice(2); if (RENDER[id]) S.tab = id; render(); }
-  else render();
+  routeFromHash();
+  window.addEventListener("hashchange", routeFromHash);
   tickClock(); setInterval(tickClock, 20000);
 }).catch(err => {
   $("#page").innerHTML = '<div class="empty">样板数据加载失败：' + esc(err.message) + "<br>（请通过 http(s) 访问本页）</div>";
