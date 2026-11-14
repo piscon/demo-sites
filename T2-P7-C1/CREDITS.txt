@@ -1,0 +1,76 @@
+Placeholder photography
+=======================
+
+Every photograph here is CC0 / Public Domain Mark, sourced via the
+Openverse API — no attribution required, commercial use fine. Where no
+public-domain photograph matched a slot, the file is a generated gradient
+instead; those are marked below and carry no rights at all.
+
+Either way these are placeholders: replace them with your own photography
+before launch. Provenance for each file follows.
+
+hero-cool.jpg
+  Mizonokuchi, 4th Apr
+  CC0 1.0
+  https://www.rawpixel.com/image/6074073/mizonokuchi-4th-apr
+
+hero-heat.jpg
+  Macro Frost Window
+  CC0 1.0
+  https://www.rawpixel.com/image/5967689/macro-frost-window
+
+svc-ac.jpg
+  20th Dec, Mizonokuchi
+  CC0 1.0
+  https://www.rawpixel.com/image/6074673/20th-dec-mizonokuchi
+
+svc-furnace.jpg
+  Thermostat, free public domain CC0
+  CC0 1.0
+  https://www.rawpixel.com/image/5904122/thermostat-free-public-domain-cc0-photo
+
+purifier.jpg
+  Original public domain image Wikimedia
+  CC0 1.0
+  https://www.rawpixel.com/image/3295831/free-photo-image-air-conditioning-wallpaper-music-sound-box
+
+svc-ducts.jpg
+  Untitled
+  CC0 1.0
+  https://www.rawpixel.com/image/6046386/free-public-domain-cc0-photo
+
+svc-thermostat.jpg
+  Watch. Free public domain CC0
+  CC0 1.0
+  https://www.rawpixel.com/image/5904813/watch-free-public-domain-cc0-photo
+
+radiator.jpg
+  Free home applianace panel radiator
+  CC0 1.0
+  https://www.rawpixel.com/image/5919893/photo-image-public-domain-technology-free
+
+cactus.jpg
+  Desert cactus plant painted house
+  CC0 1.0
+  https://www.rawpixel.com/image/8799666/photo-image-vintage-public-domain-brick
+
+window-snow.jpg
+  Free frost window image
+  CC0 1.0
+  https://www.rawpixel.com/image/5904265/photo-image-public-domain-snow-window
+
+svc-heatpump.jpg
+  Apartment building yellow wall.
+  CC0 1.0
+  https://www.rawpixel.com/image/3295858/free-photo-image-air-conditioner-apartment-building-appliance
+
+tools.jpg
+  Set used spanners hanging wall
+  CC0 1.0
+  https://www.rawpixel.com/image/432329/free-photo-image-tools-wrench-workshop
+
+gauges.jpg
+  Free pressure gauge photo
+  CC0 1.0
+  https://www.rawpixel.com/image/5926990/photo-image-public-domain-gold-water
+
