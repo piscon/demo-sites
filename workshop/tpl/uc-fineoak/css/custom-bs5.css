@@ -1,0 +1,270 @@
+/* ------------------------------------------------------------------
+   FineOak — Bootstrap 5 migration layer
+   Vanilla replacements for flexslider, owl.carousel, photoswipe,
+   isotope + waypoints reveal. No jQuery, no plugins.
+------------------------------------------------------------------ */
+
+/* --- Fixed navbar positioning (was BS3 .navbar-fixed-top) --- */
+.probootstrap-navbar.fixed-top,
+.probootstrap-navbar.navbar-fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+/* Keep the theme's custom link paddings/colors working under BS5 flex navbar */
+.probootstrap-navbar .navbar-nav {
+  list-style: none;
+  margin-bottom: 0;
+}
+.probootstrap-navbar .navbar-nav > li {
+  position: relative;
+}
+.probootstrap-navbar .navbar-nav > li > a {
+  display: block;
+  text-decoration: none;
+}
+
+/* --- Dropdown menus (BS3 core used to display these) --- */
+.probootstrap-navbar .dropdown-menu {
+  display: none;
+  list-style: none;
+  padding-left: 0;
+}
+.probootstrap-navbar .dropdown-menu a {
+  text-decoration: none;
+}
+/* Desktop: open on hover */
+@media (min-width: 768px) {
+  .probootstrap-navbar .navbar-nav .dropdown:hover > .dropdown-menu,
+  .probootstrap-navbar .dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+  }
+}
+/* Mobile: open via .open toggled by JS */
+@media (max-width: 767.98px) {
+  .probootstrap-navbar .dropdown.open > .dropdown-menu,
+  .probootstrap-navbar .dropdown-submenu.open > .dropdown-menu {
+    display: block;
+    position: static;
+    float: none;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+/* --- Vanilla hero slider (replaces flexslider) --- */
+.flexslider .slides {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.flexslider .slides > li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 1;
+}
+.flexslider .slides > li.flex-active-slide {
+  position: relative;
+  opacity: 1;
+  z-index: 2;
+}
+/* Single-slide inner pages: always show the only slide */
+.flexslider .slides > li:only-child {
+  position: relative;
+  opacity: 1;
+}
+.flexslider .flex-control-nav {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.flexslider .flex-control-nav li {
+  display: inline-block;
+  margin: 0 4px;
+}
+.flexslider .flex-control-nav li a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  text-indent: -9999px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .3s all;
+}
+.flexslider .flex-control-nav li a.flex-active,
+.flexslider .flex-control-nav li a:hover {
+  background: #fff;
+}
+
+/* --- Horizontal scroller (replaces owl.carousel) --- */
+.probootstrap-scroller {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 15px;
+  scrollbar-width: thin;
+}
+.probootstrap-scroller > .item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+.probootstrap-scroller > .item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.probootstrap-work > .item {
+  width: 300px;
+  max-width: 70vw;
+}
+.probootstrap-testimony {
+  scroll-snap-type: x mandatory;
+}
+.probootstrap-testimony > .item {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+
+/* --- CSS masonry (replaces isotope) --- */
+.pb-masonry {
+  column-count: 3;
+  column-gap: 20px;
+}
+.pb-masonry > figure,
+.pb-masonry > .grid-item {
+  float: none !important;
+  width: 100% !important;
+  margin: 0 0 20px 0 !important;
+  display: inline-block;
+  break-inside: avoid;
+}
+.pb-masonry > .grid-sizer,
+.pb-masonry > .gutter-sizer {
+  display: none !important;
+}
+@media (max-width: 768px) {
+  .pb-masonry { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .pb-masonry { column-count: 1; }
+}
+
+/* --- Vanilla lightbox (replaces photoswipe) --- */
+.pb-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease;
+}
+.pb-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.pb-lightbox img {
+  max-width: 92vw;
+  max-height: 88vh;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+.pb-lightbox__btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+}
+.pb-lightbox__btn:hover { color: #fff; }
+.pb-lightbox__prev { left: 0; }
+.pb-lightbox__next { right: 0; }
+.pb-lightbox__close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: auto;
+  bottom: auto;
+  font-size: 34px;
+}
+
+/* --- Scroll reveal (replaces waypoints + animate.css) --- */
+.probootstrap-animate {
+  opacity: 0;
+  visibility: hidden;
+}
+.probootstrap-animate.is-revealed {
+  opacity: 1;
+  visibility: visible;
+  animation: pbFadeInUp .6s ease forwards;
+}
+.probootstrap-animate.is-revealed[data-animate-effect="fadeIn"] {
+  animation-name: pbFadeIn;
+}
+.probootstrap-animate.is-revealed[data-animate-effect="fadeInLeft"] {
+  animation-name: pbFadeInLeft;
+}
+.probootstrap-animate.is-revealed[data-animate-effect="fadeInRight"] {
+  animation-name: pbFadeInRight;
+}
+@keyframes pbFadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pbFadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pbFadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .probootstrap-animate,
+  .probootstrap-animate.is-revealed {
+    opacity: 1;
+    visibility: visible;
+    animation: none;
+    transform: none;
+  }
+}
+
+/* BS5 link reset for theme anchors that should stay undecorated */
+.probootstrap-footer a,
+.navbar-brand,
+.probootstrap-footer-social a {
+  text-decoration: none;
+}
