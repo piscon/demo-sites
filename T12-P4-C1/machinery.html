@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script>document.documentElement.classList.add('js')</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  设备目录 · 华睿自动化
+  <meta name="description" content="非标自动化产线、机器视觉检测与机器人工作站，从方案设计到驻厂调试一站交付，稼动率写进验收标准。">
+  <meta name="theme-color" content="#1f4a30">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231f4a30'/%3E%3Cpath d='M13.5 18a6.5 6.5 0 0 1 13 0z' fill='%23e6ba5c'/%3E%3Cpath d='M5 18.5h30M14.5 18.5 7 34M17.5 18.5 14 34M20 18.5V34M22.5 18.5 26 34M25.5 18.5 33 34' stroke='%23e6ba5c' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <link href="vendor/google-fonts-8778da.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <!-- ============================ TOP BAR ============================ -->
+  <div class="topbar">
+    <div class="container">
+      <p class="topbar-status"><span class="live-dot" aria-hidden="true"></span>营业中 &middot; 故障远程响应 2 小时，华南工程师当日到场</p>
+      <ul class="topbar-links">
+        <li class="d-none d-md-flex">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>
+          <a href="mailto:sales@huarui-auto.example">sales@huarui-auto.example</a>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          <a href="tel:4009204715">咨询热线 400-920-4715</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================ HEADER ============================ -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg" aria-label="主导航">
+      <div class="container">
+        <a class="brand" href="index.html" aria-label="华睿自动化 首页"><img class="pack-logo" src="assets/logo.svg" alt="华睿自动化" style="height:40px;width:auto;vertical-align:middle"></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primary-nav" aria-controls="primary-nav" aria-expanded="false" aria-label="展开导航">
+          <span class="toggler-bar"></span><span class="toggler-bar"></span><span class="toggler-bar"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="primary-nav">
+          <ul class="navbar-nav nav-menu ms-auto">
+            <li class="nav-item"><a class="nav-link" href="services.html">产品与服务</a></li>
+            <li class="nav-item"><a class="nav-link" href="machinery.html" aria-current="page">设备目录</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#prices">产品价格</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#impact">企业实力</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#membership">合作优势</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#contact">联系我们</a></li>
+          </ul>
+          <a class="btn btn-wheat nav-cta" href="services.html#soil-test">预约咨询</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Line-art illustrations for the catalogue cards -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <symbol id="ill-tractor" viewBox="0 0 200 110"><g transform="translate(52,7) scale(4)" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M12 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M7 17l5 0" />
+  <path d="M3 17v-6h13v6" />
+  <path d="M5 11v-4h4" />
+  <path d="M9 11v-6h4l3 6" />
+  <path d="M22 15h-3v-10" />
+  <path d="M16 13l3 0" /></g></symbol>
+    <symbol id="ill-sprayer" viewBox="0 0 200 110"><g transform="translate(52,7) scale(4)" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
+  <path d="M12 18v-11h3" />
+  <path d="M3 17v-5h9" />
+  <path d="M4 12v-6l18 -3v2" />
+  <path d="M8 12v-4l-4 -2" /></g></symbol>
+    <symbol id="ill-drill" viewBox="0 0 200 110"><g transform="translate(52,7) scale(4)" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21h6" />
+  <path d="M9 21v-18l-6 6h18" />
+  <path d="M9 3l10 6" />
+  <path d="M17 9v4a2 2 0 1 1 -2 2" /></g></symbol>
+    <symbol id="ill-baler" viewBox="0 0 200 110"><g transform="translate(52,7) scale(4)" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v6" />
+  <path d="M12 5v3" />
+  <path d="M10 5h4" />
+  <path d="M5 13h-2" />
+  <path d="M6 10h2l2 -2h3.382a1 1 0 0 1 .894 .553l1.448 2.894a1 1 0 0 0 .894 .553h1.382v-2h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2v-2h-3v2a1 1 0 0 1 -1 1h-3.465a1 1 0 0 1 -.832 -.445l-1.703 -2.555h-2v-6" /></g></symbol>
+    <symbol id="ill-baler-square" viewBox="0 0 200 110"><g transform="translate(52,7) scale(4)" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18" />
+  <path d="M5 21v-12l5 4v-4l5 4h4" />
+  <path d="M19 21v-8l-1.436 -9.574a.5 .5 0 0 0 -.495 -.426h-1.145a.5 .5 0 0 0 -.494 .418l-1.43 8.582" />
+  <path d="M9 17h1" />
+  <path d="M14 17h1" /></g></symbol>
+  </svg>
+
+  <main id="main">
+
+    <!-- ============================ PAGE HERO ============================ -->
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-media">
+        <img src="img/page-machinery.jpg" alt="华睿自动化 · 设备目录" width="1800" height="800" fetchpriority="high">
+      </div>
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="面包屑导航">
+          <ol>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="services.html">产品与服务</a></li>
+            <li aria-current="page">设备目录</li>
+          </ol>
+        </nav>
+        <h1 id="page-title" class="page-title">产品与设备目录</h1>
+        <p class="page-lead">非标自动化产线、机器视觉检测与机器人工作站，从方案设计到驻厂调试一站交付，稼动率写进验收标准。</p>
+        <ul class="page-stats">
+          <li><strong>10</strong><span>年行业经验</span></li>
+          <li><strong>210</strong><span>员工与工程师</span></li>
+          <li><strong>420</strong><span>服务客户</span></li>
+          <li><strong>750</strong><span>累计交付项目</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================ CATALOGUE ============================ -->
+    <section class="section fleet-section" id="fleet" aria-labelledby="fleet-title">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <p class="eyebrow">产品目录</p>
+            <h2 id="fleet-title" class="section-title">选产品、看价格、在线询价。</h2>
+          </div>
+          <p class="section-lead">按品类与可订状态筛选，参考价与批量价一目了然；询价单会先算出预估总价再提交。</p>
+        </div>
+
+        <div class="toolbar needs-js">
+          <div>
+            <span class="toolbar-label" id="cat-label">产品分类</span>
+            <div class="filter-group" role="group" aria-labelledby="cat-label">
+              <button type="button" class="filter-btn" data-cat="all" aria-pressed="true">全部 <span class="count">12</span></button>
+              <button type="button" class="filter-btn" data-cat="machine" aria-pressed="false">整机设备 <span class="count">3</span></button>
+              <button type="button" class="filter-btn" data-cat="parts" aria-pressed="false">部件与耗材 <span class="count">0</span></button>
+              <button type="button" class="filter-btn" data-cat="kit" aria-pressed="false">成套方案 <span class="count">8</span></button>
+              <button type="button" class="filter-btn" data-cat="service" aria-pressed="false">服务与售后 <span class="count">1</span></button>
+            </div>
+          </div>
+          <div class="toolbar-controls">
+            <div>
+              <label class="toolbar-label" for="filter-avail">可订状态</label>
+              <select class="form-select" id="filter-avail">
+                <option value="any">全部状态</option>
+                <option value="now">现货可订</option>
+                <option value="soon">近期到货</option>
+              </select>
+            </div>
+            <div>
+              <label class="toolbar-label" for="filter-sort">排序</label>
+              <select class="form-select" id="filter-sort">
+                <option value="featured">推荐排序</option>
+                <option value="daily-asc">参考价从低到高</option>
+                <option value="daily-desc">参考价从高到低</option>
+              </select>
+            </div>
+            <label class="switch-row" for="rate-toggle"><input class="switch" type="checkbox" role="switch" id="rate-toggle"> 显示标准价</label>
+          </div>
+        </div>
+
+        <div class="result-bar">
+          <p class="mb-0" id="result-count" aria-live="polite">显示 12 / 共 12 项产品</p>
+          <p class="rate-note mb-0"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5v.5"/></svg><span id="rate-note-text">当前显示会员价，含税含运费</span></p>
+        </div>
+
+        <div class="machine-grid" id="machine-grid">
+          <article class="machine-card" data-code="TR-340" data-cat="machine" data-avail="now" data-daily="850000" data-weekly="3995000" data-order="1">
+            <div class="plate plate--tractor">
+              <span class="plate-cat">整机设备</span>
+              <span class="avail avail--now">现货可订</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-tractor"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">TR-340 · 整机设备</p>
+              <h3>非标自动化产线</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>整机设备</dd></div>
+                <div><dt>参考价</dt><dd>整线 ¥85 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥850,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥3,995,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="TR-340">立即询价<span class="visually-hidden">：非标自动化产线</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="SP-36" data-cat="kit" data-avail="soon" data-daily="180000" data-weekly="846000" data-order="2">
+            <div class="plate plate--sprayer">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--soon">近期到货</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-sprayer"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">SP-36 · 成套方案</p>
+              <h3>机器视觉检测系统</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥18 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥180,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥846,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="SP-36">立即询价<span class="visually-hidden">：机器视觉检测系统</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="SD-12" data-cat="machine" data-avail="booked" data-daily="320000" data-weekly="1504000" data-order="3">
+            <div class="plate plate--drill">
+              <span class="plate-cat">整机设备</span>
+              <span class="avail avail--booked">已订完 · 可预约</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-drill"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">SD-12 · 整机设备</p>
+              <h3>机器人集成工作站</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>整机设备</dd></div>
+                <div><dt>参考价</dt><dd>¥32 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥320,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥1,504,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="SD-12">立即询价<span class="visually-hidden">：机器人集成工作站</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="BL-LS" data-cat="kit" data-avail="now" data-daily="68000" data-weekly="319600" data-order="4">
+            <div class="plate plate--baler">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--now">现货可订</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-baler-square"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">BL-LS · 成套方案</p>
+              <h3>PLC 控制柜与电控系统</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥6.8 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥68,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥319,600</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="BL-LS">立即询价<span class="visually-hidden">：PLC 控制柜与电控系统</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="TR-210" data-cat="machine" data-avail="soon" data-daily="120000" data-weekly="564000" data-order="5">
+            <div class="plate plate--tractor">
+              <span class="plate-cat">整机设备</span>
+              <span class="avail avail--soon">近期到货</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-tractor"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">TR-210 · 整机设备</p>
+              <h3>伺服与运动控制改造</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>整机设备</dd></div>
+                <div><dt>参考价</dt><dd>¥12 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥120,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥564,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="TR-210">立即询价<span class="visually-hidden">：伺服与运动控制改造</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="SP-24T" data-cat="service" data-avail="booked" data-daily="98000" data-weekly="460600" data-order="6">
+            <div class="plate plate--sprayer">
+              <span class="plate-cat">服务与售后</span>
+              <span class="avail avail--booked">已订完 · 可预约</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-sprayer"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">SP-24T · 服务与售后</p>
+              <h3>驻厂维保与远程运维</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>服务与售后</dd></div>
+                <div><dt>参考价</dt><dd>¥9.8 万 / 年起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥98,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥460,600</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="SP-24T">立即询价<span class="visually-hidden">：驻厂维保与远程运维</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="SD-6D" data-cat="kit" data-avail="now" data-daily="850000" data-weekly="3995000" data-order="7">
+            <div class="plate plate--drill">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--now">现货可订</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-drill"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">SD-6D · 成套方案</p>
+              <h3>非标自动化产线 · 配套方案</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>整线 ¥85 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥850,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥3,995,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="SD-6D">立即询价<span class="visually-hidden">：非标自动化产线 · 配套方案</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="BL-RV" data-cat="kit" data-avail="soon" data-daily="180000" data-weekly="846000" data-order="8">
+            <div class="plate plate--baler">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--soon">近期到货</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-baler"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">BL-RV · 成套方案</p>
+              <h3>机器视觉检测系统 · 配套方案</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥18 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥180,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥846,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="BL-RV">立即询价<span class="visually-hidden">：机器视觉检测系统 · 配套方案</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="TR-120" data-cat="kit" data-avail="booked" data-daily="320000" data-weekly="1504000" data-order="9">
+            <div class="plate plate--tractor">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--booked">已订完 · 可预约</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-tractor"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">TR-120 · 成套方案</p>
+              <h3>机器人集成工作站 · 配套方案</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥32 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥320,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥1,504,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="TR-120">立即询价<span class="visually-hidden">：机器人集成工作站 · 配套方案</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="SP-12L" data-cat="kit" data-avail="now" data-daily="68000" data-weekly="319600" data-order="10">
+            <div class="plate plate--sprayer">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--now">现货可订</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-sprayer"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">SP-12L · 成套方案</p>
+              <h3>PLC 控制柜与电控系统 · 配套方案</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥6.8 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥68,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥319,600</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="SP-12L">立即询价<span class="visually-hidden">：PLC 控制柜与电控系统 · 配套方案</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="SD-3C" data-cat="kit" data-avail="soon" data-daily="120000" data-weekly="564000" data-order="11">
+            <div class="plate plate--drill">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--soon">近期到货</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-drill"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">SD-3C · 成套方案</p>
+              <h3>伺服与运动控制改造 · 配套方案</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥12 万起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥120,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥564,000</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="SD-3C">立即询价<span class="visually-hidden">：伺服与运动控制改造 · 配套方案</span></a>
+            </div>
+          </article>
+
+          <article class="machine-card" data-code="BL-RW" data-cat="kit" data-avail="booked" data-daily="98000" data-weekly="460600" data-order="12">
+            <div class="plate plate--baler">
+              <span class="plate-cat">成套方案</span>
+              <span class="avail avail--booked">已订完 · 可预约</span>
+              <svg viewBox="0 0 200 110" aria-hidden="true" focusable="false"><use href="#ill-baler"/></svg>
+            </div>
+            <div class="machine-body">
+              <p class="machine-code">BL-RW · 成套方案</p>
+              <h3>驻厂维保与远程运维 · 配套方案</h3>
+              <dl class="machine-specs">
+                <div><dt>品类</dt><dd>成套方案</dd></div>
+                <div><dt>参考价</dt><dd>¥9.8 万 / 年起</dd></div>
+                <div><dt>交付</dt><dd>现货供应</dd></div>
+                <div><dt>售后</dt><dd>全国联保</dd></div>
+              </dl>
+              <div class="rates">
+                <div><span class="rate-label">参考价</span><span class="rate-value" data-rate="daily">¥98,000</span></div>
+                <div><span class="rate-label">批量价</span><span class="rate-value" data-rate="weekly">¥460,600</span></div>
+                <p class="rate-type-line"><span class="rate-type">含税价</span>，含税含运费</p>
+              </div>
+              <a class="btn btn-field" href="#quote" data-quote="BL-RW">立即询价<span class="visually-hidden">：驻厂维保与远程运维 · 配套方案</span></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+          <h3>没有符合条件的产品</h3>
+          <p>换个品类或放宽可订状态试试，也可以直接电话咨询，我们帮您调货。</p>
+          <button class="btn btn-outline-field" type="button" data-reset-filters>清除筛选</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ HOW HIRE WORKS ============================ -->
+    <section class="section pt-0" id="terms" aria-labelledby="terms-title">
+      <div class="container">
+        <div class="row g-4 g-lg-5">
+          <div class="col-lg-7">
+            <p class="eyebrow">合作流程</p>
+            <h2 id="terms-title" class="section-title">从询价到交付，四步完成。</h2>
+            <ol class="steps steps--two mt-4">
+              <li><h3>提交询价</h3><p>按产品工艺定制整线方案，节拍、良率与换型时间在合同里量化约定。</p></li>
+              <li><h3>确认与对接</h3><p>PLC 与视觉程序源码、电气图纸随设备移交，不绑架客户的后续改造。</p></li>
+              <li><h3>生产与交付</h3><p>连续运行 72 小时、稼动率 ≥92% 才算验收通过，不达标免费整改。</p></li>
+              <li><h3>验收与售后</h3><p>整线 3D 仿真与节拍验证先行，方案阶段就把干涉与瓶颈工序挑出来。</p></li>
+            </ol>
+          </div>
+          <div class="col-lg-5">
+            <div class="terms-card">
+              <h3>合作条款</h3>
+              <ul class="terms-list">
+                <li><span>价格口径</span><span>含税含运费</span></li>
+                <li><span>报价有效期</span><span>15 天</span></li>
+                <li><span>交付周期</span><span>按合同约定</span></li>
+                <li><span>付款方式</span><span>对公转账</span></li>
+                <li><span>质保期限</span><span>12 个月起</span></li>
+                <li><span>售后响应</span><span>48 小时内</span></li>
+                <li><span>定制订单</span><span>按图确认后生产</span></li>
+                <li><span>起订量</span><span>1 台/件起</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ QUOTE ============================ -->
+    <section class="section quote-section" id="quote" aria-labelledby="quote-heading">
+      <div class="container">
+        <div class="quote-cta">
+          <div>
+            <p class="eyebrow on-dark">在线询价</p>
+            <h2 id="quote-heading">提交询价 / 预约看货</h2>
+            <p>选择产品、日期与交付方式，提交前先看到预估总价；销售团队在四个工作小时内确认现货与最终价格。</p>
+          </div>
+          <button class="btn btn-wheat btn-lg needs-js" type="button" data-quote="">开始询价</button>
+        </div>
+
+        <div class="quote-home" id="quote-home">
+          <form class="form-card" id="quote-form" data-validate novalidate>
+            <div class="form-body">
+              <h3 class="form-title">询价信息</h3>
+              <div class="row g-3">
+                <div class="col-12 field">
+                  <label for="q-machine">意向产品</label>
+                  <select class="form-select" id="q-machine" name="machine" required aria-describedby="q-machine-err">
+                    <option value="">请选择产品</option>
+                        <optgroup label="设备组一">
+                          <option value="TR-340">TR-340 · 非标自动化产线</option>
+                          <option value="TR-210">TR-210 · 伺服与运动控制改造</option>
+                          <option value="TR-120">TR-120 · 机器人集成工作站 · 配套方案</option>
+                        </optgroup>
+                        <optgroup label="设备组二">
+                          <option value="SP-36">SP-36 · 机器视觉检测系统</option>
+                          <option value="SP-24T">SP-24T · 驻厂维保与远程运维</option>
+                          <option value="SP-12L">SP-12L · PLC 控制柜与电控系统 · 配套方案</option>
+                        </optgroup>
+                        <optgroup label="设备组三">
+                          <option value="SD-12">SD-12 · 机器人集成工作站</option>
+                          <option value="SD-6D">SD-6D · 非标自动化产线 · 配套方案</option>
+                          <option value="SD-3C">SD-3C · 伺服与运动控制改造 · 配套方案</option>
+                        </optgroup>
+                        <optgroup label="设备组四">
+                          <option value="BL-LS">BL-LS · PLC 控制柜与电控系统</option>
+                          <option value="BL-RV">BL-RV · 机器视觉检测系统 · 配套方案</option>
+                          <option value="BL-RW">BL-RW · 驻厂维保与远程运维 · 配套方案</option>
+                        </optgroup>
+                  </select>
+                  <p class="field-error" id="q-machine-err">请选择意向产品。</p>
+                </div>
+                <div class="col-sm-6 field">
+                  <label for="q-start">期望日期</label>
+                  <input class="form-control" type="date" id="q-start" name="start" required aria-describedby="q-start-err">
+                  <p class="field-error" id="q-start-err">请选择今天之后的日期。</p>
+                </div>
+                <div class="col-sm-6 field">
+                  <label for="q-days">订购数量（台/件）</label>
+                  <input class="form-control" type="number" id="q-days" name="days" value="3" min="1" max="60" step="1" inputmode="numeric" required aria-describedby="q-days-err">
+                  <p class="field-error" id="q-days-err">请输入 1–60 之间的数量。</p>
+                </div>
+                <div class="col-12 field">
+                  <fieldset class="radio-set">
+                    <legend>交付方式</legend>
+                    <div class="radio-pills">
+                      <label class="radio-pill"><input type="radio" name="delivery" value="pickup" checked><span>到厂自提</span></label>
+                      <label class="radio-pill"><input type="radio" name="delivery" value="deliver"><span>送货上门</span></label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="col-sm-6 field" id="q-km-wrap">
+                  <label for="q-km">距工厂距离（km）</label>
+                  <input class="form-control" type="number" id="q-km" name="distance" min="0" max="400" step="1" inputmode="numeric" placeholder="e.g. 35" aria-describedby="q-km-err">
+                  <p class="field-error" id="q-km-err">请输入 0–400 之间的距离。</p>
+                </div>
+                <div class="col-12 field">
+                  <label class="check-row" for="q-operator"><input type="checkbox" id="q-operator" name="operator"> 需要安装/调试服务（按数量计费）</label>
+                </div>
+                <div class="col-12 field">
+                  <label class="check-row" for="q-member"><input type="checkbox" id="q-member" name="member" checked> 我是老客户（享会员价）</label>
+                </div>
+                <div class="col-12">
+                  <div class="estimate quote-est needs-js mt-2" aria-live="polite">
+                    <dl class="quote-lines">
+                      <div><dt id="q-hire-label">产品小计</dt><dd id="q-hire">&mdash;</dd></div>
+                      <div><dt>交付费用</dt><dd id="q-delivery">&mdash;</dd></div>
+                      <div><dt>安装服务</dt><dd id="q-operator-cost">&mdash;</dd></div>
+                      <div><dt>质保服务（6%）</dt><dd id="q-waiver">&mdash;</dd></div>
+                      <div class="total"><dt>预估总价</dt><dd id="q-total">&mdash;</dd></div>
+                    </dl>
+                  </div>
+                </div>
+                <div class="col-sm-6 field">
+                  <label for="q-name">姓名</label>
+                  <input class="form-control" type="text" id="q-name" name="name" autocomplete="name" required aria-describedby="q-name-err">
+                  <p class="field-error" id="q-name-err">请填写姓名。</p>
+                </div>
+                <div class="col-sm-6 field">
+                  <label for="q-farm">公司名称 <span class="optional">（可选）</span></label>
+                  <input class="form-control" type="text" id="q-farm" name="farm" autocomplete="organization">
+                </div>
+                <div class="col-sm-6 field">
+                  <label for="q-email">电子邮箱</label>
+                  <input class="form-control" type="email" id="q-email" name="email" autocomplete="email" required aria-describedby="q-email-err">
+                  <p class="field-error" id="q-email-err">请填写有效的电子邮箱。</p>
+                </div>
+                <div class="col-sm-6 field">
+                  <label for="q-phone">联系电话</label>
+                  <input class="form-control" type="tel" id="q-phone" name="phone" autocomplete="tel" required pattern="[0-9 \(\)\+\-]{7,}" aria-describedby="q-phone-err">
+                  <p class="field-error" id="q-phone-err">请填写联系电话。</p>
+                </div>
+              </div>
+
+              <button class="btn btn-wheat btn-lg w-100 mt-4" type="submit">提交询价</button>
+            </div>
+
+            <div class="form-success" role="status" tabindex="-1">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></svg>
+              <h3>已收到，<span data-success-name>您的询价已登记</span>.</h3>
+              <p>销售团队会核对日期与现货，在四个工作小时内确认可订状态与最终价格。</p>
+              <p class="demo-note">演示表单：信息不会真实发送，正式上线时请对接后台或表单服务。</p>
+              <p class="needs-js"><button class="btn btn-outline-field" type="button" data-close-dialog>关闭</button></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand brand--light" href="index.html" aria-label="华睿自动化 首页">
+            <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9"/><path class="sun" d="M13.5 18a6.5 6.5 0 0 1 13 0z"/><path d="M5 18.5h30M14.5 18.5 7 34M17.5 18.5 14 34M20 18.5V34M22.5 18.5 26 34M25.5 18.5 33 34"/></svg>
+            <span class="brand-text"><span class="brand-name">华睿自动化</span><span class="brand-sub">HUARUI AUTOMATION</span></span>
+          </a>
+          <p>华睿自动化成立于 2016 年，拥有 18,000 平方米研发装配基地，210 名员工中含 60 名机械、电气与视觉工程师。通过 ISO 9001 质量体系认证，累计交付自动化产线与工作站 750 余套，服务消费电子、汽车零部件、锂电与医疗器械行业，核心部件自研率 55%。</p>
+        </div>
+        <nav class="footer-col" aria-label="产品与服务">
+          <h2 class="footer-title">产品与服务</h2>
+          <ul>
+            <li><a href="services.html#consulting">非标自动化产线</a></li>
+            <li><a href="services.html#soil-testing">机器视觉检测系统</a></li>
+            <li><a href="machinery.html">机器人集成工作站</a></li>
+            <li><a href="services.html#seed-fertiliser">PLC 控制柜与电控系统</a></li>
+            <li><a href="services.html#storage">伺服与运动控制改造</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="快速导航">
+          <h2 class="footer-title">快速导航</h2>
+          <ul>
+            <li><a href="index.html#prices">产品价格</a></li>
+            <li><a href="index.html#impact">企业实力</a></li>
+            <li><a href="index.html#membership">合作优势</a></li>
+            <li><a href="index.html#team">专业团队</a></li>
+            <li><a href="index.html#news">新闻与活动</a></li>
+          </ul>
+        </nav>
+        <div class="footer-col">
+          <h2 class="footer-title">联系我们</h2>
+          <address>
+            广东省深圳市宝安区智造产业园华睿路 9 号<br>
+            <a href="tel:4009204715">400-920-4715</a><br>
+            <a href="mailto:sales@huarui-auto.example">sales@huarui-auto.example</a>
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 深圳市华睿自动化科技有限公司。本站价格与数据均为演示示例。</p>
+        <p>Template by <a href="https://uicookies.com/">uiCookies</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="quote-dialog" id="quote-dialog" aria-labelledby="quote-dialog-title">
+    <div class="dialog-head">
+      <div>
+        <h2 id="quote-dialog-title">产品询价</h2>
+        <p id="quote-machine-label">选择产品、日期与交付方式</p>
+      </div>
+      <button type="button" class="dialog-close" data-close-dialog aria-label="关闭询价表单">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-body"></div>
+  </dialog>
+
+  <script src="js/vendor/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+<div class="demo-badge" style="position:fixed;left:10px;bottom:10px;z-index:99999;background:rgba(10,20,40,.72);color:#fff;font-size:12px;line-height:1.5;padding:5px 10px;border-radius:6px;pointer-events:none;font-family:sans-serif">演示站 · 深圳市华睿自动化科技有限公司（虚构示例）</div></body>
+</html>

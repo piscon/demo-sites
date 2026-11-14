@@ -1,0 +1,75 @@
+Placeholder photography
+=======================
+
+Every photograph here is CC0 / Public Domain Mark, sourced via the
+Openverse API — no attribution required, commercial use fine. Where no
+public-domain photograph matched a slot, the file is a generated gradient
+instead; those are marked below and carry no rights at all.
+
+Either way these are placeholders: replace them with your own photography
+before launch. Provenance for each file follows.
+
+hero.jpg
+  Free autumn wheat background
+  CC0 1.0
+  https://www.rawpixel.com/image/5920241/photo-image-background-wallpaper-public-domain
+
+tractor.jpg
+  Fendt 722 tractor, Location unknown
+  CC0 1.0
+  https://www.rawpixel.com/image/6113251/fendt-722-tractor-location-unknown-may-2015
+
+silo.jpg
+  One several New Vision Co-Op
+  CC0 1.0
+  https://www.rawpixel.com/image/8069763/photo-image-border-sky-public-domain
+
+soil.jpg
+  Free soil photo
+  CC0 1.0
+  https://www.rawpixel.com/image/5913772/free-soil-photo-public-domain-ground-cc0-image
+
+wheat-close.jpg
+  Wheat fields, closeup, macro photography
+  CC0 1.0
+  https://www.rawpixel.com/image/8732162/photo-image-plant-public-domain-food
+
+crop-rows.jpg
+  A plowed field
+  CC0 1.0
+  https://wordpress.org/photos/photo/3876352168/
+
+canola.jpg
+  Thick yellow rapeseed wildflowers meadow
+  CC0 1.0
+  https://www.rawpixel.com/image/3301449/free-photo-image-cc0-countryside-creative-commons
+
+harvest.jpg
+  New Holland combine harvester, Location
+  CC0 1.0
+  https://www.rawpixel.com/image/6112404/photo-image-public-domain-nature-free
+
+barley.jpg
+  Barley field, agricultural farm
+  CC0 1.0
+  https://www.rawpixel.com/image/6041350/photo-image-public-domain-golden-summer
+
+page-services.jpg
+  Untitled
+  CC0 1.0
+  https://www.rawpixel.com/image/6063406/free-public-domain-cc0-photo
+
+page-machinery.jpg
+  sweet potatoes harvest begins plowing
+  CC0 1.0
+  https://www.rawpixel.com/image/3237277/free-photo-image-tractor-agriculture
+
+seed.jpg
+  Organic buckwheat grains close-up
+  CC0 1.0
+  https://www.rawpixel.com/image/11175933/buckwheat
+
+storage.jpg
+  grain truck awaits loading line
+  CC0 1.0
+  https://www.rawpixel.com/image/8043952/photo-image-public-domain-line-united-states
