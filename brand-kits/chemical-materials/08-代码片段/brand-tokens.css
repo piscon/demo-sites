@@ -1,0 +1,40 @@
+/* ============================================================
+   恒拓新材 HENGTUO NEW MATERIALS · 品牌变量（全站唯一取值来源，别在页面里写死色值）
+   品牌色 #6D4AC8（化工紫）/ 深炭 #23272B / 纸色 #F7F8F5
+   配套：08-代码片段/favicon-seo-head.html
+   ============================================================ */
+:root {
+  /* —— 品牌 —— */
+  --ht-brand: #6D4AC8;          /* 主品牌色：图形标、强调、悬停、数据高亮 */
+  --ht-brand-dark: #573BA0;     /* 品牌深色（派生：主色明度 ×0.8）：链接、按钮悬停 */
+  --ht-brand-soft: #EDE9F8;     /* 品牌浅色（派生：主色与白混合 88%）：标签底、浅色区块 */
+  /* —— 中性（与全站演示系统共用） —— */
+  --ht-ink: #23272B;              /* 主文字、深炭底牌 */
+  --ht-ink-2: #4A5058;            /* 次级文字 */
+  --ht-muted: #7C8590;            /* 弱化文字（英文副标 #64748B 近似档） */
+  --ht-paper: #F7F8F5;            /* 页面浅底 */
+  --ht-line: #E3E6E1;             /* 分隔线、卡片描边 */
+  --ht-deep: #23272B;             /* 深色区块底 */
+  --ht-deep-2: #2E3338;           /* 深色区块里的卡片 */
+  /* —— 标志尺寸（全站统一，别逐页改） —— */
+  --ht-logo-h: 42px;              /* 桌面页头横版全标高（40–44 区间） */
+  --ht-logo-h-mobile: 26px;       /* 移动端页头高（此时用横版-中文版，见 README） */
+  /* —— 字体 —— */
+  --ht-font: "Noto Sans SC", "Source Han Sans SC", "PingFang SC",
+             "Microsoft YaHei", sans-serif;
+  --ht-font-en: "Barlow", "Noto Sans SC", sans-serif;
+}
+body { font-family: var(--ht-font); color: var(--ht-ink); background: var(--ht-paper); }
+a { color: var(--ht-brand-dark); }
+::selection { background: var(--ht-brand); color: var(--ht-ink); }
+
+/* 页头标志：高度由变量控制，宽度按比例自适应 */
+.ht-logo img { height: var(--ht-logo-h); width: auto; display: block; }
+@media (max-width: 640px) { .ht-logo img { height: var(--ht-logo-h-mobile); } }
+/* 深色页头换反白版文件，不要给彩色版套滤镜 */
+.ht-on-dark { background: var(--ht-deep); color: #FFF; }
+
+/* 按钮：主按钮深炭底，悬停转品牌深色 */
+.ht-btn-primary { background: var(--ht-ink); color: #FFF; border: 0; cursor: pointer;
+  padding: 12px 26px; border-radius: 8px; font: 600 15px/1 var(--ht-font); }
+.ht-btn-primary:hover { background: var(--ht-brand-dark); }

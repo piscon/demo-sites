@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="加载中">
+<style>
+  .ring { fill:none; stroke:#0E9594; stroke-width:6; stroke-linecap:round;
+          stroke-dasharray:84 250; animation:spin 1.15s linear infinite; transform-origin:60px 60px; }
+  .core { animation:pulse 1.15s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @keyframes pulse { 0%,100% { opacity:.45; transform:scale(.86);} 50% { opacity:1; transform:scale(1);} }
+</style>
+<rect class="ring" x="15" y="15" width="90" height="90" rx="21"/>
+<g transform="translate(32.92 31.22) scale(0.21)"><g class="core"><path d="M227.81,66.76l-.08.09L160,139.17v55.49A16,16,0,0,1,152.87,208l-32,21.34A16,16,0,0,1,96,216V139.17L28.27,66.85l-.08-.09A16,16,0,0,1,40,40H216a16,16,0,0,1,11.84,26.76Z" fill="#0E9594"/></g></g>
+</svg>

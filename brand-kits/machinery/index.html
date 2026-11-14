@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>恒力重工 · 网站素材包总览</title>
+<link rel="icon" type="image/svg+xml" href="./04-站点图标/favicon.svg">
+<style>:root{--brand:#E4AF00}
+
+:root{--ink:#23272B;--ink2:#4A5058;--muted:#7C8590;--paper:#F7F8F5;--line:#E3E6E1;
+--card:#FFF;--dark:#23272B;--dark2:#2E3338;--radius:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1060px;margin:0 auto;padding:44px 22px 70px}
+.kicker{font-size:12px;letter-spacing:.34em;color:var(--muted);font-weight:700}
+h1{font-size:34px;margin:10px 0 8px;letter-spacing:.01em}
+h1 .en{font-family:Barlow,"Noto Sans SC",sans-serif;color:var(--ink2);font-size:20px;letter-spacing:.14em;margin-left:10px}
+.sub{color:var(--ink2);font-size:14.5px;line-height:1.75;max-width:760px}
+.sub code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px}
+.chip{font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;color:var(--ink2);text-decoration:none}
+.chip:hover{border-color:var(--brand);color:var(--ink)}
+section{margin-top:46px}
+h2{font-size:19px;margin:0 0 4px;display:flex;align-items:baseline;gap:10px}
+h2 .no{font-family:Barlow,sans-serif;color:var(--brand);font-size:15px;letter-spacing:.1em}
+.sec-note{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:14px}
+.grid.wide{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer}
+.card:hover{border-color:#C6CCC4}
+.stage{display:flex;align-items:center;justify-content:center;padding:20px 14px;min-height:118px;background:#fff}
+.stage img{max-width:100%;height:auto;display:block}
+.stage.sq img{max-height:120px;width:auto}
+.stage.dark{background:var(--dark)}
+.stage.paper{background:var(--paper)}
+.card figcaption{border-top:1px solid var(--line);padding:9px 12px;font-size:13px}
+.card figcaption .spec{display:block;color:var(--muted);font-size:11.5px;margin-top:3px;line-height:1.55}
+.card.wide2{grid-column:span 2}
+.full{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+.full img{width:100%;display:block}
+.full figcaption{padding:9px 12px;font-size:13px;border-top:1px solid var(--line)}
+.full figcaption .spec{color:var(--muted);font-size:11.5px;margin-left:8px}
+.stack{display:grid;gap:14px}
+.ico-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.ico{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 6px 10px;text-align:center;color:var(--ink)}
+.ico svg{width:26px;height:26px}
+.ico span{display:block;font-size:11.5px;color:var(--ink2);margin-top:7px;line-height:1.45}
+.favrow{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch}
+.favbox{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center}
+.favbox .lab{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}
+.favbox.darkb{background:var(--dark);color:#fff}
+.actual{display:flex;gap:26px;align-items:flex-end;justify-content:center;padding:8px 4px 2px}
+.actual div{text-align:center}
+.actual span{display:block;font-size:11px;color:var(--muted);margin-top:6px}
+.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pane{display:none}.pane.on{display:block}
+.codebox{position:relative;background:#1D2126;border-radius:var(--radius);padding:16px 18px;overflow:auto}
+.codebox pre{margin:0;color:#D7DDE3;font:12.5px/1.65 "SFMono-Regular",Consolas,"Courier New",monospace;white-space:pre}
+.copy{position:absolute;top:10px;right:10px;background:#2E3338;color:#D7DDE3;border:1px solid #41474E;
+border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit}
+.copy:hover{background:#3A4046}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
+padding:9px 18px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.tex{height:150px;border-radius:var(--radius);border:1px solid var(--line);background-repeat:repeat;background-size:256px}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12.5px;line-height:1.8}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.kv div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.kv b{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}
+.kv span{font-size:14px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px;border:1px solid rgba(0,0,0,.12)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="kicker">DEMO SITE BRAND KIT · P1</div>
+<h1>恒力重工 · 网站素材包<span class="en">HENGLI HEAVY INDUSTRY</span></h1>
+<p class="sub">演示站内容包「机械设备」的整套品牌素材：标志全套、站点图标、社交分享图、页面装饰、导航图标、代码片段与页面状态图，共 <b>88 个文件 · 约 4.40 MB</b>（含本页与 README）。点任意卡片可复制该文件的相对路径；规则看同目录 <code>README.md</code>，全系统规范看素材库根目录的 <code>USAGE.md</code>。</p>
+<div class="kv"><div><b>品牌色</b><span><i class="sw" style="background:#E4AF00"></i>#E4AF00</span></div><div><b>深炭 / 纸色</b><span><i class="sw" style="background:#23272B"></i>#23272B · #F7F8F5</span></div><div><b>图形标</b><span>Phosphor · gear</span></div><div><b>页头标志高</b><span>40px（规范 40–44）</span></div></div>
+<nav class="chips"><a class="chip" href="#s01">01-标志-矢量</a><a class="chip" href="#s02">02-标志-位图</a><a class="chip" href="#s03">03-单色与反白</a><a class="chip" href="#s04">04-站点图标</a><a class="chip" href="#s05">05-社交分享</a><a class="chip" href="#s06">06-页面装饰</a><a class="chip" href="#s07">07-导航与功能图标</a><a class="chip" href="#s08">08-代码片段</a><a class="chip" href="#s09">09-页面状态图</a></nav>
+<section id="s01"><h2><span class="no">01</span>标志 · 矢量</h2><p class="sec-note">主标志全套 SVG：部件（底牌+图形 / 中文字 / 英文字）由系统母版拆件重组，与演示站页头逐像素一致。浅底用主版，深底用 03 的反白版。</p><div class="grid">
+<figure class="card sq" data-copy="01-标志-矢量/标志-图形.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-图形.svg" alt="标志-图形.svg" loading="lazy"></div><figcaption>标志-图形.svg<span class="spec">SVG 矢量 · 透明底 · favicon 与头像的源</span></figcaption></figure>
+<figure class="card wide2" data-copy="01-标志-矢量/标志-横版-中英全标.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-横版-中英全标.svg" alt="标志-横版-中英全标.svg" loading="lazy"></div><figcaption>标志-横版-中英全标.svg<span class="spec">SVG 矢量 · 页头主用版，高 40–44px</span></figcaption></figure>
+<figure class="card wide2" data-copy="01-标志-矢量/标志-横版-中文.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-横版-中文.svg" alt="标志-横版-中文.svg" loading="lazy"></div><figcaption>标志-横版-中文.svg<span class="spec">SVG 矢量 · 高度 &lt;40px 时改用这版</span></figcaption></figure>
+<figure class="card sq" data-copy="01-标志-矢量/标志-竖版-中英全标.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-竖版-中英全标.svg" alt="标志-竖版-中英全标.svg" loading="lazy"></div><figcaption>标志-竖版-中英全标.svg<span class="spec">SVG 矢量 · 方形版位：页脚、证书、海报</span></figcaption></figure>
+<figure class="card sq" data-copy="01-标志-矢量/标志-竖版-中文.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-竖版-中文.svg" alt="标志-竖版-中文.svg" loading="lazy"></div><figcaption>标志-竖版-中文.svg<span class="spec">SVG 矢量 · 竖版无英文场合</span></figcaption></figure>
+<figure class="card wide2" data-copy="01-标志-矢量/标志-中文标准字.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-中文标准字.svg" alt="标志-中文标准字.svg" loading="lazy"></div><figcaption>标志-中文标准字.svg<span class="spec">SVG 矢量 · 已转曲，不要换字体重打</span></figcaption></figure>
+<figure class="card wide2" data-copy="01-标志-矢量/标志-英文标准字.svg" style="margin:0"><div class="stage "><img src="./01-标志-矢量/标志-英文标准字.svg" alt="标志-英文标准字.svg" loading="lazy"></div><figcaption>标志-英文标准字.svg<span class="spec">SVG 矢量 · 单独使用最小宽约 160px</span></figcaption></figure>
+</div></section>
+<section id="s02"><h2><span class="no">02</span>标志 · 位图（PNG 透明底）</h2><p class="sec-note">01 的高清渲染版，给 Office、印刷与外包直接用；另有反白位图在 03。点页签切换。</p>
+<div data-tabs><div class="tabs"><button class="tab on" data-tab="b1" onclick="showTab(this)">横版全标 · 2400px</button><button class="tab" data-tab="b2" onclick="showTab(this)">竖版全标 · 2000px</button><button class="tab" data-tab="b3" onclick="showTab(this)">图形 · 1024px</button><button class="tab" data-tab="b4" onclick="showTab(this)">反白横版 · 2400px（深底预览）</button></div>
+<div class="pane on" data-pane="b1"><figure class="full" data-copy="02-标志-位图/标志-横版-中英全标-2400px.png" style="margin:0"><img src="./02-标志-位图/标志-横版-中英全标-2400px.png" alt="标志-横版-中英全标-2400px.png" loading="lazy"><figcaption>标志-横版-中英全标-2400px.png<span class="spec">PNG · 2400 × 758 · 透明底</span></figcaption></figure></div>
+<div class="pane" data-pane="b2"><div class="grid"><div class="card" data-copy="02-标志-位图/标志-竖版-中英全标-2000px.png" style="margin:0"><div class="stage sq"><img src="./02-标志-位图/标志-竖版-中英全标-2000px.png" style="max-height:300px" loading="lazy"></div><figcaption>标志-竖版-中英全标-2000px.png<span class="spec">PNG · 2000px 宽 · 透明底</span></figcaption></div></div></div>
+<div class="pane" data-pane="b3"><div class="grid"><div class="card" data-copy="02-标志-位图/标志-图形-1024px.png" style="margin:0"><div class="stage sq"><img src="./02-标志-位图/标志-图形-1024px.png" style="max-height:220px" loading="lazy"></div><figcaption>标志-图形-1024px.png<span class="spec">PNG · 1024 × 1024 · 透明底</span></figcaption></div></div></div>
+<div class="pane" data-pane="b4"><figure class="full" data-copy="03-单色与反白/反白-横版-中英全标-2400px.png" style="margin:0"><div class="stage dark" style="min-height:150px"><img src="./03-单色与反白/反白-横版-中英全标-2400px.png" style="max-width:82%" loading="lazy"></div><figcaption>反白-横版-中英全标-2400px.png<span class="spec">位于 03 · 深底预览</span></figcaption></figure></div>
+</div><p class="sec-note" style="margin-top:10px">02 共 7 件：图形 1024px、中文标准字 / 英文标准字 / 横版-中文 / 横版全标 各 2400px、竖版-中文 / 竖版全标 各 2000px，均为透明底 PNG。</p></section>
+<section id="s03"><h2><span class="no">03</span>单色与反白</h2><p class="sec-note">反白版只上深色背景，必须用真反白文件；单色版用于灰度印刷、文档页眉与合作方 logo 墙。</p><div class="grid">
+<figure class="card wide2" data-copy="03-单色与反白/反白-横版-中英全标.svg" style="margin:0"><div class="stage dark"><img src="./03-单色与反白/反白-横版-中英全标.svg" alt="反白-横版-中英全标.svg" loading="lazy"></div><figcaption>反白-横版-中英全标.svg<span class="spec">SVG · 深色页头主用</span></figcaption></figure>
+<figure class="card sq" data-copy="03-单色与反白/反白-竖版-中英全标.svg" style="margin:0"><div class="stage dark"><img src="./03-单色与反白/反白-竖版-中英全标.svg" alt="反白-竖版-中英全标.svg" loading="lazy"></div><figcaption>反白-竖版-中英全标.svg<span class="spec">SVG · 深底方形版位</span></figcaption></figure>
+<figure class="card sq" data-copy="03-单色与反白/反白-图形.svg" style="margin:0"><div class="stage dark"><img src="./03-单色与反白/反白-图形.svg" alt="反白-图形.svg" loading="lazy"></div><figcaption>反白-图形.svg<span class="spec">SVG · 深底单独图形</span></figcaption></figure>
+<figure class="card wide2" data-copy="03-单色与反白/反白-中文标准字.svg" style="margin:0"><div class="stage dark"><img src="./03-单色与反白/反白-中文标准字.svg" alt="反白-中文标准字.svg" loading="lazy"></div><figcaption>反白-中文标准字.svg<span class="spec">SVG · 深底纯中文场合</span></figcaption></figure>
+</div><div class="grid" style="margin-top:14px">
+<figure class="card wide2" data-copy="03-单色与反白/单色深炭-横版-中英全标.svg" style="margin:0"><div class="stage "><img src="./03-单色与反白/单色深炭-横版-中英全标.svg" alt="单色深炭-横版-中英全标.svg" loading="lazy"></div><figcaption>单色深炭-横版-中英全标.svg<span class="spec">SVG · ＝系统母版单色版</span></figcaption></figure>
+<figure class="card wide2" data-copy="03-单色与反白/单色安全黄-横版-中英全标.svg" style="margin:0"><div class="stage "><img src="./03-单色与反白/单色安全黄-横版-中英全标.svg" alt="单色安全黄-横版-中英全标.svg" loading="lazy"></div><figcaption>单色安全黄-横版-中英全标.svg<span class="spec">SVG · 品牌色单色版</span></figcaption></figure>
+<figure class="card wide2" data-copy="03-单色与反白/单色深灰-横版-中英全标.svg" style="margin:0"><div class="stage "><img src="./03-单色与反白/单色深灰-横版-中英全标.svg" alt="单色深灰-横版-中英全标.svg" loading="lazy"></div><figcaption>单色深灰-横版-中英全标.svg<span class="spec">SVG · #4B5563</span></figcaption></figure>
+<figure class="card wide2" data-copy="03-单色与反白/单色黑-横版-中英全标.svg" style="margin:0"><div class="stage "><img src="./03-单色与反白/单色黑-横版-中英全标.svg" alt="单色黑-横版-中英全标.svg" loading="lazy"></div><figcaption>单色黑-横版-中英全标.svg<span class="spec">SVG · #101214</span></figcaption></figure>
+</div><p class="sec-note" style="margin-top:10px">每色另有图形版 SVG；反白另有英文标准字 SVG 与 4 件 PNG（横版 2400 / 竖版 2000 / 图形 1024 / 中文标准字 2000），全在 03 目录。</p></section>
+<section id="s04"><h2><span class="no">04</span>站点图标</h2><p class="sec-note">浏览器与设备图标全套。16px / 32px 为实测定的小尺寸版：品牌色图形占满画布（无底牌），48px 起为底牌版；ICO 内含 16 / 32 / 48 三尺寸。引用代码在 08。</p>
+<div class="favrow">
+<div class="favbox"><img src="./04-站点图标/icon-512.png" width="118" height="118" alt="icon-512"><div class="lab">icon-512.png<br>PWA / 应用图标</div></div>
+<div class="favbox darkb"><img src="./04-站点图标/icon-512.png" width="118" height="118" alt="icon-512 深底"><div class="lab" style="color:#AEB6BE">深底上的样子<br>（同一文件）</div></div>
+<div class="favbox"><img src="./04-站点图标/icon-maskable-512.png" width="118" height="118" alt="maskable"><div class="lab">icon-maskable-512.png<br>安卓自适应图标（安全区版）</div></div>
+<div class="favbox"><img src="./04-站点图标/apple-touch-icon-180.png" width="118" height="118" alt="apple touch"><div class="lab">apple-touch-icon-180.png<br>iOS 主屏图标</div></div>
+<div class="favbox"><div class="actual"><div><img src="./04-站点图标/favicon-48.png" width="48" height="48" alt="48"><span>48px</span></div><div><img src="./04-站点图标/favicon-32.png" width="32" height="32" alt="32"><span>32px</span></div><div><img src="./04-站点图标/favicon-16.png" width="16" height="16" alt="16"><span>16px</span></div></div><div class="lab">favicon 实际尺寸（不放大）<br>favicon.ico / favicon.svg / safari-pinned-tab.svg 同目录</div></div>
+</div></section>
+<section id="s05"><h2><span class="no">05</span>社交分享</h2><p class="sec-note">链接被转发到微信、微博、X、Facebook 时显示的卡片图。深色版已在 08 的 head 片段里设为默认 og:image。</p><div class="stack">
+<figure class="full" data-copy="05-社交分享/og-1200x630-深色.png" style="margin:0"><img src="./05-社交分享/og-1200x630-深色.png" alt="og-1200x630-深色.png" loading="lazy"><figcaption>og-1200x630-深色.png<span class="spec">PNG · 1200 × 630 · 默认 og:image</span></figcaption></figure>
+<figure class="full" data-copy="05-社交分享/og-1200x630-浅色.png" style="margin:0"><img src="./05-社交分享/og-1200x630-浅色.png" alt="og-1200x630-浅色.png" loading="lazy"><figcaption>og-1200x630-浅色.png<span class="spec">PNG · 1200 × 630 · 浅色场景备选</span></figcaption></figure>
+<div class="grid"><div class="card" data-copy="05-社交分享/微信分享-300x300.png" style="margin:0"><div class="stage sq"><img src="./05-社交分享/微信分享-300x300.png" style="max-height:190px" loading="lazy"></div><figcaption>微信分享-300x300.png<span class="spec">PNG · 300 × 300 · 微信缩略图</span></figcaption></div></div>
+</div></section>
+<section id="s06"><h2><span class="no">06</span>页面装饰</h2><p class="sec-note">底图来自本包图包的 hero 照片（演示用图，正式交付换客户实拍）。带标版是排好标志与口号的成品图，无标版留给页面自己排字。</p><div class="stack">
+<figure class="full" data-copy="06-页面装饰/hero-深色-1920x1080.png" style="margin:0"><img src="./06-页面装饰/hero-深色-1920x1080.png" alt="hero-深色-1920x1080.png" loading="lazy"><figcaption>hero-深色-1920x1080.png<span class="spec">PNG · 1920 × 1080 · 带标成品</span></figcaption></figure>
+<figure class="full" data-copy="06-页面装饰/hero-浅色-1920x1080.png" style="margin:0"><img src="./06-页面装饰/hero-浅色-1920x1080.png" alt="hero-浅色-1920x1080.png" loading="lazy"><figcaption>hero-浅色-1920x1080.png<span class="spec">PNG · 1920 × 1080 · 带标成品</span></figcaption></figure>
+<figure class="full" data-copy="06-页面装饰/hero-背景-深色-1920x1080.png" style="margin:0"><img src="./06-页面装饰/hero-背景-深色-1920x1080.png" alt="hero-背景-深色-1920x1080.png" loading="lazy"><figcaption>hero-背景-深色-1920x1080.png<span class="spec">PNG · 1920 × 1080 · 无标底图</span></figcaption></figure>
+<figure class="full" data-copy="06-页面装饰/hero-背景-浅色-1920x1080.png" style="margin:0"><img src="./06-页面装饰/hero-背景-浅色-1920x1080.png" alt="hero-背景-浅色-1920x1080.png" loading="lazy"><figcaption>hero-背景-浅色-1920x1080.png<span class="spec">PNG · 1920 × 1080 · 无标底图</span></figcaption></figure>
+<figure class="full" data-copy="06-页面装饰/分隔带-浅底-1920x160.png" style="margin:0"><img src="./06-页面装饰/分隔带-浅底-1920x160.png" alt="分隔带-浅底-1920x160.png" loading="lazy"><figcaption>分隔带-浅底-1920x160.png<span class="spec">PNG · 1920 × 160 · 区块之间过渡</span></figcaption></figure>
+<figure class="full" data-copy="06-页面装饰/分隔带-深底-1920x160.png" style="margin:0"><img src="./06-页面装饰/分隔带-深底-1920x160.png" alt="分隔带-深底-1920x160.png" loading="lazy"><figcaption>分隔带-深底-1920x160.png<span class="spec">PNG · 1920 × 160 · 深色区块过渡</span></figcaption></figure>
+</div><div class="grid" style="margin-top:14px">
+<figure class="card" data-copy="06-页面装饰/水印-浅色背景用-安全黄.png" style="margin:0"><div class="stage paper"><img src="./06-页面装饰/水印-浅色背景用-安全黄.png" style="max-height:120px" loading="lazy"></div><figcaption>水印-浅色背景用<span class="spec">PNG · 图形 10% 透明 · 浅色背景上垫底</span></figcaption></figure>
+<figure class="card" data-copy="06-页面装饰/水印-深色背景用-白色.png" style="margin:0"><div class="stage dark"><img src="./06-页面装饰/水印-深色背景用-白色.png" style="max-height:120px" loading="lazy"></div><figcaption>水印-深色背景用-白色<span class="spec">PNG · 白图形 14% 透明 · 深色背景上垫底</span></figcaption></figure>
+<figure class="card" style="margin:0"><div class="stage" style="padding:0"><img src="./06-页面装饰/loading-gear.svg" width="104" height="104" alt="loading"></div><figcaption>loading-gear.svg<span class="spec">SVG 动效 · 描边方环旋转 + 图形脉冲</span></figcaption></figure>
+</div>
+<p class="sec-note" style="margin:12px 0 6px">纹理-gear-512.png 平铺效果（图形母题 10% 透明）：</p>
+<div class="tex" data-copy="06-页面装饰/纹理-gear-512.png" style="background-image:url('./06-页面装饰/纹理-gear-512.png');cursor:pointer"></div>
+</section>
+<section id="s07"><h2><span class="no">07</span>导航与功能图标</h2><p class="sec-note">Phosphor regular 描边款，24px 网格、currentColor 随字色变色；最后一件是本包的行业图标。点卡片复制路径。</p><div class="ico-grid">
+<div class="ico" data-copy="07-导航与功能图标/home-首页.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></svg><span>home<br>首页</span></div>
+<div class="ico" data-copy="07-导航与功能图标/product-产品中心.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></svg><span>product<br>产品中心</span></div>
+<div class="ico" data-copy="07-导航与功能图标/industry-应用行业.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M116,176a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h28A8,8,0,0,1,116,176Zm60-8H148a8,8,0,0,0,0,16h28a8,8,0,0,0,0-16Zm64,48a8,8,0,0,1-8,8H24a8,8,0,0,1,0-16h8V88a8,8,0,0,1,12.8-6.4L96,120V88a8,8,0,0,1,12.8-6.4l38.74,29.05L159.1,29.74A16.08,16.08,0,0,1,174.94,16h18.12A16.08,16.08,0,0,1,208.9,29.74l15,105.13s.08.78.08,1.13v72h8A8,8,0,0,1,240,216Zm-77.86-94.4,8.53,6.4h36.11L193.06,32H174.94ZM48,208H208V144H168a8,8,0,0,1-4.8-1.6l-14.4-10.8,0,0L112,104v32a8,8,0,0,1-12.8,6.4L48,104Z"/></svg><span>industry<br>应用行业</span></div>
+<div class="ico" data-copy="07-导航与功能图标/about-关于我们.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg><span>about<br>关于我们</span></div>
+<div class="ico" data-copy="07-导航与功能图标/news-新闻资讯.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z"/></svg><span>news<br>新闻资讯</span></div>
+<div class="ico" data-copy="07-导航与功能图标/contact-联系我们.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z"/></svg><span>contact<br>联系我们</span></div>
+<div class="ico" data-copy="07-导航与功能图标/phone-电话.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg><span>phone<br>电话</span></div>
+<div class="ico" data-copy="07-导航与功能图标/mail-邮箱.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"/></svg><span>mail<br>邮箱</span></div>
+<div class="ico" data-copy="07-导航与功能图标/location-地址.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg><span>location<br>地址</span></div>
+<div class="ico" data-copy="07-导航与功能图标/wechat-微信.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M144,140a12,12,0,1,1-12-12A12,12,0,0,1,144,140Zm44-12a12,12,0,1,0,12,12A12,12,0,0,0,188,128Zm51.34,83.47a16,16,0,0,1-19.87,19.87l-24.71-7.27A80,80,0,0,1,86.43,183.42a79,79,0,0,1-25.19-7.35l-24.71,7.27a16,16,0,0,1-19.87-19.87l7.27-24.71A80,80,0,1,1,169.58,72.59a80,80,0,0,1,62.49,114.17ZM81.3,166.3a79.94,79.94,0,0,1,70.38-93.87A64,64,0,0,0,39.55,134.19a8,8,0,0,1,.63,6L32,168l27.76-8.17a8,8,0,0,1,6,.63A63.45,63.45,0,0,0,81.3,166.3Zm135.15,15.89a64,64,0,1,0-26.26,26.26,8,8,0,0,1,6-.63L224,216l-8.17-27.76A8,8,0,0,1,216.45,182.19Z"/></svg><span>wechat<br>微信</span></div>
+<div class="ico" data-copy="07-导航与功能图标/search-搜索.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><span>search<br>搜索</span></div>
+<div class="ico" data-copy="07-导航与功能图标/menu-菜单.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg><span>menu<br>菜单</span></div>
+<div class="ico" data-copy="07-导航与功能图标/close-关闭.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg><span>close<br>关闭</span></div>
+<div class="ico" data-copy="07-导航与功能图标/share-分享.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M176,160a39.89,39.89,0,0,0-28.62,12.09l-46.1-29.63a39.8,39.8,0,0,0,0-28.92l46.1-29.63a40,40,0,1,0-8.66-13.45l-46.1,29.63a40,40,0,1,0,0,55.82l46.1,29.63A40,40,0,1,0,176,160Zm0-128a24,24,0,1,1-24,24A24,24,0,0,1,176,32ZM64,152a24,24,0,1,1,24-24A24,24,0,0,1,64,152Zm112,72a24,24,0,1,1,24-24A24,24,0,0,1,176,224Z"/></svg><span>share<br>分享</span></div>
+<div class="ico" data-copy="07-导航与功能图标/download-下载.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg><span>download<br>下载</span></div>
+<div class="ico" data-copy="07-导航与功能图标/arrow-down-下拉.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg><span>arrow-down<br>下拉</span></div>
+<div class="ico" data-copy="07-导航与功能图标/arrow-right-箭头.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg><span>arrow-right<br>箭头</span></div>
+<div class="ico" data-copy="07-导航与功能图标/check-勾选.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span>check<br>勾选</span></div>
+<div class="ico" data-copy="07-导航与功能图标/qr-二维码.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm0,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48ZM200,40H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-64,72V144a8,8,0,0,1,16,0v32a8,8,0,0,1-16,0Zm80-16a8,8,0,0,1-8,8H184v40a8,8,0,0,1-8,8H144a8,8,0,0,1,0-16h24V144a8,8,0,0,1,16,0v8h24A8,8,0,0,1,216,160Zm0,32v16a8,8,0,0,1-16,0V192a8,8,0,0,1,16,0Z"/></svg><span>qr<br>二维码</span></div>
+<div class="ico" data-copy="07-导航与功能图标/gear-设备.svg"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"/></svg><span>gear<br>设备</span></div>
+</div></section>
+<section id="s08"><h2><span class="no">08</span>代码片段</h2><p class="sec-note">三件都在 08-代码片段 目录：品牌变量是全站唯一取值来源；head 片段整段贴进页面 &lt;head&gt;；页头示例可直接打开看效果。</p>
+<div data-tabs><div class="tabs"><button class="tab on" data-tab="c1" onclick="showTab(this)">brand-tokens.css</button><button class="tab" data-tab="c2" onclick="showTab(this)">favicon + SEO head</button><button class="tab" data-tab="c3" onclick="showTab(this)">页头示例.html</button></div>
+<div class="pane on" data-pane="c1"><div class="codebox"><button class="copy" onclick="copyFrom('code-css','已复制品牌变量 CSS')">复制</button><pre id="code-css">/* ============================================================
+   恒力重工 HENGLI HEAVY INDUSTRY · 品牌变量（全站唯一取值来源，别在页面里写死色值）
+   品牌色 #E4AF00（安全黄（Bedrock 生效品牌色））/ 深炭 #23272B / 纸色 #F7F8F5
+   配套：08-代码片段/favicon-seo-head.html
+   ============================================================ */
+:root {
+  /* —— 品牌 —— */
+  --hl-brand: #E4AF00;          /* 主品牌色：图形标、强调、悬停、数据高亮 */
+  --hl-brand-dark: #B68C00;     /* 品牌深色（派生：主色明度 ×0.8）：链接、按钮悬停 */
+  --hl-brand-soft: #FCF5E0;     /* 品牌浅色（派生：主色与白混合 88%）：标签底、浅色区块 */
+  /* —— 中性（与全站演示系统共用） —— */
+  --hl-ink: #23272B;              /* 主文字、深炭底牌 */
+  --hl-ink-2: #4A5058;            /* 次级文字 */
+  --hl-muted: #7C8590;            /* 弱化文字（英文副标 #64748B 近似档） */
+  --hl-paper: #F7F8F5;            /* 页面浅底 */
+  --hl-line: #E3E6E1;             /* 分隔线、卡片描边 */
+  --hl-deep: #23272B;             /* 深色区块底 */
+  --hl-deep-2: #2E3338;           /* 深色区块里的卡片 */
+  /* —— 标志尺寸（全站统一，别逐页改） —— */
+  --hl-logo-h: 42px;              /* 桌面页头横版全标高（40–44 区间） */
+  --hl-logo-h-mobile: 26px;       /* 移动端页头高（此时用横版-中文版，见 README） */
+  /* —— 字体 —— */
+  --hl-font: "Noto Sans SC", "Source Han Sans SC", "PingFang SC",
+             "Microsoft YaHei", sans-serif;
+  --hl-font-en: "Barlow", "Noto Sans SC", sans-serif;
+}
+body { font-family: var(--hl-font); color: var(--hl-ink); background: var(--hl-paper); }
+a { color: var(--hl-brand-dark); }
+::selection { background: var(--hl-brand); color: var(--hl-ink); }
+
+/* 页头标志：高度由变量控制，宽度按比例自适应 */
+.hl-logo img { height: var(--hl-logo-h); width: auto; display: block; }
+@media (max-width: 640px) { .hl-logo img { height: var(--hl-logo-h-mobile); } }
+/* 深色页头换反白版文件，不要给彩色版套滤镜 */
+.hl-on-dark { background: var(--hl-deep); color: #FFF; }
+
+/* 按钮：主按钮深炭底，悬停转品牌深色 */
+.hl-btn-primary { background: var(--hl-ink); color: #FFF; border: 0; cursor: pointer;
+  padding: 12px 26px; border-radius: 8px; font: 600 15px/1 var(--hl-font); }
+.hl-btn-primary:hover { background: var(--hl-brand-dark); }</pre></div></div>
+<div class="pane" data-pane="c2"><div class="codebox"><button class="copy" onclick="copyFrom('code-head','已复制 head 片段')">复制</button><pre id="code-head">  &lt;!-- ===== 恒力重工 · 站点图标与 SEO / 分享（本包 04-站点图标、05-社交分享） ===== --&gt;
+  &lt;!-- 部署时把 04-站点图标 内的文件放进站点根目录，下面的根路径即生效 --&gt;
+  &lt;link rel="icon" href="/04-站点图标/favicon.ico" sizes="any"&gt;
+  &lt;link rel="icon" type="image/svg+xml" href="/04-站点图标/favicon.svg"&gt;
+  &lt;link rel="icon" type="image/png" sizes="32x32" href="/04-站点图标/favicon-32.png"&gt;
+  &lt;link rel="icon" type="image/png" sizes="16x16" href="/04-站点图标/favicon-16.png"&gt;
+  &lt;link rel="apple-touch-icon" sizes="180x180" href="/04-站点图标/apple-touch-icon-180.png"&gt;
+  &lt;link rel="mask-icon" href="/04-站点图标/safari-pinned-tab.svg" color="#E4AF00"&gt;
+  &lt;meta name="theme-color" content="#23272B"&gt;
+
+  &lt;title&gt;恒力重工 · 徐州恒力重型机械有限公司&lt;/title&gt;
+  &lt;meta name="description" content="让每一台设备，都经得起工地考验——徐州恒力重型机械有限公司（HENGLI HEAVY INDUSTRY）官方网站。"&gt;
+  &lt;meta property="og:type" content="website"&gt;
+  &lt;meta property="og:site_name" content="恒力重工"&gt;
+  &lt;meta property="og:title" content="恒力重工 · 徐州恒力重型机械有限公司"&gt;
+  &lt;meta property="og:description" content="让每一台设备，都经得起工地考验"&gt;
+  &lt;meta property="og:image" content="https://www.example.com/05-社交分享/og-1200x630-深色.png"&gt;
+  &lt;meta property="og:image:width" content="1200"&gt;
+  &lt;meta property="og:image:height" content="630"&gt;
+  &lt;meta name="twitter:card" content="summary_large_image"&gt;</pre></div></div>
+<div class="pane" data-pane="c3"><div class="codebox"><button class="copy" onclick="copyFrom('code-hdr','已复制页头示例')">复制</button><pre id="code-hdr">&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;title&gt;页头示例 · 恒力重工&lt;/title&gt;
+&lt;style&gt;
+  body { margin:0; font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; color:#23272B; background:#F7F8F5; }
+  .bar { display:flex; align-items:center; gap:34px; padding:12px 28px; background:#FFF; border-bottom:1px solid #E3E6E1; }
+  .bar.dark { background:#23272B; border-bottom:0; margin-top:26px; }
+  .bar img { height:40px; width:auto; display:block; } /* 全站页头标志高 40px（规范 40–44） */
+  nav { display:flex; gap:24px; font-size:15px; }
+  nav a { color:inherit; text-decoration:none; }
+  .bar.dark nav { color:#FFF; }
+  .note { padding:14px 28px; font-size:13px; color:#7C8590; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- 浅色页头：横版-中英全标主版 --&gt;
+  &lt;div class="bar"&gt;
+    &lt;img src="../01-标志-矢量/标志-横版-中英全标.svg" alt="恒力重工 HENGLI HEAVY INDUSTRY"&gt;
+    &lt;nav&gt;&lt;a&gt;首页&lt;/a&gt;&lt;a&gt;产品中心&lt;/a&gt;&lt;a&gt;应用行业&lt;/a&gt;&lt;a&gt;关于我们&lt;/a&gt;&lt;a&gt;新闻资讯&lt;/a&gt;&lt;a&gt;联系我们&lt;/a&gt;&lt;/nav&gt;
+  &lt;/div&gt;
+  &lt;!-- 深色页头：换反白版文件，不要给彩色版套 CSS 滤镜 --&gt;
+  &lt;div class="bar dark"&gt;
+    &lt;img src="../03-单色与反白/反白-横版-中英全标.svg" alt="恒力重工 HENGLI HEAVY INDUSTRY"&gt;
+    &lt;nav&gt;&lt;a&gt;首页&lt;/a&gt;&lt;a&gt;产品中心&lt;/a&gt;&lt;a&gt;应用行业&lt;/a&gt;&lt;a&gt;关于我们&lt;/a&gt;&lt;a&gt;新闻资讯&lt;/a&gt;&lt;a&gt;联系我们&lt;/a&gt;&lt;/nav&gt;
+  &lt;/div&gt;
+  &lt;p class="note"&gt;高度低于 40px（如移动端 26px）时，改用「标志-横版-中文.svg」——英文小字在小尺寸下会糊。图形标单独出现时用「标志-图形.svg」。&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div></div>
+</div></section>
+<section id="s09"><h2><span class="no">09</span>页面状态图</h2><p class="sec-note">404、空状态与图片占位图：以本包图形母题与品牌色构成，深炭 + 品牌色双色；反白版供深色页面。</p><div class="grid wide">
+<figure class="card " data-copy="09-页面状态图/404-图形.svg" style="margin:0"><div class="stage "><img src="./09-页面状态图/404-图形.svg" alt="404-图形.svg" loading="lazy"></div><figcaption>404-图形.svg<span class="spec">SVG · 360 × 240 · 页面不存在时用</span></figcaption></figure>
+<figure class="card " data-copy="09-页面状态图/404-图形-反白.svg" style="margin:0"><div class="stage dark"><img src="./09-页面状态图/404-图形-反白.svg" alt="404-图形-反白.svg" loading="lazy"></div><figcaption>404-图形-反白.svg<span class="spec">SVG · 深色 404 页用</span></figcaption></figure>
+<figure class="card " data-copy="09-页面状态图/空状态-图形.svg" style="margin:0"><div class="stage "><img src="./09-页面状态图/空状态-图形.svg" alt="空状态-图形.svg" loading="lazy"></div><figcaption>空状态-图形.svg<span class="spec">SVG · 240 × 180 · 列表为空时用</span></figcaption></figure>
+<figure class="card " data-copy="09-页面状态图/空状态-图形-反白.svg" style="margin:0"><div class="stage dark"><img src="./09-页面状态图/空状态-图形-反白.svg" alt="空状态-图形-反白.svg" loading="lazy"></div><figcaption>空状态-图形-反白.svg<span class="spec">SVG · 深色空状态用</span></figcaption></figure>
+</div><div style="margin-top:14px"><figure class="full" data-copy="09-页面状态图/占位图-16x9-800x450.png" style="margin:0"><img src="./09-页面状态图/占位图-16x9-800x450.png" alt="占位图-16x9-800x450.png" loading="lazy"><figcaption>占位图-16x9-800x450.png<span class="spec">PNG · 800 × 450 · 图片未就位时占位（另有 SVG 版）</span></figcaption></figure></div>
+</section>
+<footer>恒力重工 · 网站素材包（演示站系统品牌资产）<br>生成口径：母版标志拆件重组 + 矢量渲染 + 程序合成，部件与演示站页头逐像素一致；派生色与制作方式如实记录在 README.md。图标 Phosphor（ISC），字体 思源黑体 / Barlow（OFL）。</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+function showTab(btn){var g=btn.closest('[data-tabs]');g.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+btn.classList.add('on');g.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.dataset.pane===btn.dataset.tab)});}
+function copyText(t,msg){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(msg)})}
+else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(msg)}catch(e){}ta.remove()}}
+function copyFrom(id,msg){var el=document.getElementById(id);copyText(el.innerText,msg)}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1600)}
+document.addEventListener('click',function(e){var c=e.target.closest('[data-copy]');if(c){copyText(c.dataset.copy,'已复制路径：'+c.dataset.copy)}});
+</script>
+</body>
+</html>

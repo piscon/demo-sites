@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>页头示例 · 恒拓新材</title>
+<style>
+  body { margin:0; font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; color:#23272B; background:#F7F8F5; }
+  .bar { display:flex; align-items:center; gap:34px; padding:12px 28px; background:#FFF; border-bottom:1px solid #E3E6E1; }
+  .bar.dark { background:#23272B; border-bottom:0; margin-top:26px; }
+  .bar img { height:40px; width:auto; display:block; } /* 全站页头标志高 40px（规范 40–44） */
+  nav { display:flex; gap:24px; font-size:15px; }
+  nav a { color:inherit; text-decoration:none; }
+  .bar.dark nav { color:#FFF; }
+  .note { padding:14px 28px; font-size:13px; color:#7C8590; }
+</style>
+</head>
+<body>
+  <!-- 浅色页头：横版-中英全标主版 -->
+  <div class="bar">
+    <img src="../01-标志-矢量/标志-横版-中英全标.svg" alt="恒拓新材 HENGTUO NEW MATERIALS">
+    <nav><a>首页</a><a>产品中心</a><a>应用行业</a><a>关于我们</a><a>新闻资讯</a><a>联系我们</a></nav>
+  </div>
+  <!-- 深色页头：换反白版文件，不要给彩色版套 CSS 滤镜 -->
+  <div class="bar dark">
+    <img src="../03-单色与反白/反白-横版-中英全标.svg" alt="恒拓新材 HENGTUO NEW MATERIALS">
+    <nav><a>首页</a><a>产品中心</a><a>应用行业</a><a>关于我们</a><a>新闻资讯</a><a>联系我们</a></nav>
+  </div>
+  <p class="note">高度低于 40px（如移动端 26px）时，改用「标志-横版-中文.svg」——英文小字在小尺寸下会糊。图形标单独出现时用「标志-图形.svg」。</p>
+</body>
+</html>

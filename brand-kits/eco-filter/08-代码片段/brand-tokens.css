@@ -1,0 +1,40 @@
+/* ============================================================
+   清源过滤 QINGYUAN FILTRATION · 品牌变量（全站唯一取值来源，别在页面里写死色值）
+   品牌色 #0E9594（青绿）/ 深炭 #23272B / 纸色 #F7F8F5
+   配套：08-代码片段/favicon-seo-head.html
+   ============================================================ */
+:root {
+  /* —— 品牌 —— */
+  --qy-brand: #0E9594;          /* 主品牌色：图形标、强调、悬停、数据高亮 */
+  --qy-brand-dark: #0B7776;     /* 品牌深色（派生：主色明度 ×0.8）：链接、按钮悬停 */
+  --qy-brand-soft: #E2F2F2;     /* 品牌浅色（派生：主色与白混合 88%）：标签底、浅色区块 */
+  /* —— 中性（与全站演示系统共用） —— */
+  --qy-ink: #23272B;              /* 主文字、深炭底牌 */
+  --qy-ink-2: #4A5058;            /* 次级文字 */
+  --qy-muted: #7C8590;            /* 弱化文字（英文副标 #64748B 近似档） */
+  --qy-paper: #F7F8F5;            /* 页面浅底 */
+  --qy-line: #E3E6E1;             /* 分隔线、卡片描边 */
+  --qy-deep: #23272B;             /* 深色区块底 */
+  --qy-deep-2: #2E3338;           /* 深色区块里的卡片 */
+  /* —— 标志尺寸（全站统一，别逐页改） —— */
+  --qy-logo-h: 42px;              /* 桌面页头横版全标高（40–44 区间） */
+  --qy-logo-h-mobile: 26px;       /* 移动端页头高（此时用横版-中文版，见 README） */
+  /* —— 字体 —— */
+  --qy-font: "Noto Sans SC", "Source Han Sans SC", "PingFang SC",
+             "Microsoft YaHei", sans-serif;
+  --qy-font-en: "Barlow", "Noto Sans SC", sans-serif;
+}
+body { font-family: var(--qy-font); color: var(--qy-ink); background: var(--qy-paper); }
+a { color: var(--qy-brand-dark); }
+::selection { background: var(--qy-brand); color: var(--qy-ink); }
+
+/* 页头标志：高度由变量控制，宽度按比例自适应 */
+.qy-logo img { height: var(--qy-logo-h); width: auto; display: block; }
+@media (max-width: 640px) { .qy-logo img { height: var(--qy-logo-h-mobile); } }
+/* 深色页头换反白版文件，不要给彩色版套滤镜 */
+.qy-on-dark { background: var(--qy-deep); color: #FFF; }
+
+/* 按钮：主按钮深炭底，悬停转品牌深色 */
+.qy-btn-primary { background: var(--qy-ink); color: #FFF; border: 0; cursor: pointer;
+  padding: 12px 26px; border-radius: 8px; font: 600 15px/1 var(--qy-font); }
+.qy-btn-primary:hover { background: var(--qy-brand-dark); }

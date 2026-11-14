@@ -1,0 +1,40 @@
+/* ============================================================
+   恒岳金属 HENGYUE METAL · 品牌变量（全站唯一取值来源，别在页面里写死色值）
+   品牌色 #4E6E8E（钢灰蓝）/ 深炭 #23272B / 纸色 #F7F8F5
+   配套：08-代码片段/favicon-seo-head.html
+   ============================================================ */
+:root {
+  /* —— 品牌 —— */
+  --hy-brand: #4E6E8E;          /* 主品牌色：图形标、强调、悬停、数据高亮 */
+  --hy-brand-dark: #3E5872;     /* 品牌深色（派生：主色明度 ×0.8）：链接、按钮悬停 */
+  --hy-brand-soft: #EAEEF1;     /* 品牌浅色（派生：主色与白混合 88%）：标签底、浅色区块 */
+  /* —— 中性（与全站演示系统共用） —— */
+  --hy-ink: #23272B;              /* 主文字、深炭底牌 */
+  --hy-ink-2: #4A5058;            /* 次级文字 */
+  --hy-muted: #7C8590;            /* 弱化文字（英文副标 #64748B 近似档） */
+  --hy-paper: #F7F8F5;            /* 页面浅底 */
+  --hy-line: #E3E6E1;             /* 分隔线、卡片描边 */
+  --hy-deep: #23272B;             /* 深色区块底 */
+  --hy-deep-2: #2E3338;           /* 深色区块里的卡片 */
+  /* —— 标志尺寸（全站统一，别逐页改） —— */
+  --hy-logo-h: 42px;              /* 桌面页头横版全标高（40–44 区间） */
+  --hy-logo-h-mobile: 26px;       /* 移动端页头高（此时用横版-中文版，见 README） */
+  /* —— 字体 —— */
+  --hy-font: "Noto Sans SC", "Source Han Sans SC", "PingFang SC",
+             "Microsoft YaHei", sans-serif;
+  --hy-font-en: "Barlow", "Noto Sans SC", sans-serif;
+}
+body { font-family: var(--hy-font); color: var(--hy-ink); background: var(--hy-paper); }
+a { color: var(--hy-brand-dark); }
+::selection { background: var(--hy-brand); color: var(--hy-ink); }
+
+/* 页头标志：高度由变量控制，宽度按比例自适应 */
+.hy-logo img { height: var(--hy-logo-h); width: auto; display: block; }
+@media (max-width: 640px) { .hy-logo img { height: var(--hy-logo-h-mobile); } }
+/* 深色页头换反白版文件，不要给彩色版套滤镜 */
+.hy-on-dark { background: var(--hy-deep); color: #FFF; }
+
+/* 按钮：主按钮深炭底，悬停转品牌深色 */
+.hy-btn-primary { background: var(--hy-ink); color: #FFF; border: 0; cursor: pointer;
+  padding: 12px 26px; border-radius: 8px; font: 600 15px/1 var(--hy-font); }
+.hy-btn-primary:hover { background: var(--hy-brand-dark); }
