@@ -95,6 +95,25 @@
   .pfeat .pf .p{ font-size:12.5px; color:var(--brand-dark); font-weight:700; margin-top:2px; }
   .biz{ display:flex; flex-wrap:wrap; gap:8px; padding:6px 16px 15px; }
   .biz .b{ font-size:12.5px; color:#444; background:#fff; border:1px solid #e0e0e0; border-radius:99px; padding:6px 12px; cursor:pointer; }
+  /* 首页信息流（app 式连续流 + izumi 参照：小标签、留白、大图卡、Pickup 策展） */
+  .feed-search{ margin:12px 12px 0; background:#fff; border-radius:99px; padding:10px 14px; display:flex; align-items:center; gap:7px; color:#999; font-size:13.5px; box-shadow:0 1px 4px rgba(20,20,20,.05); cursor:pointer; }
+  .flow-claim{ text-align:center; font-size:13px; color:#777; padding:12px 30px 0; line-height:1.6; }
+  .flow-label{ margin:16px 16px 0; font-size:11px; letter-spacing:2.5px; color:#a8a8a8; font-weight:600; }
+  .catcard{ position:relative; height:118px; border-radius:12px; overflow:hidden; margin:10px 12px 0; cursor:pointer; background:#222; }
+  .catcard img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .catcard .cc-shade{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,10,10,.55), rgba(10,10,10,.05) 65%); }
+  .catcard .cc-cap{ position:absolute; left:16px; bottom:13px; color:#fff; }
+  .catcard .cc-t{ font-size:18px; font-weight:700; letter-spacing:1px; }
+  .catcard .cc-n{ font-size:11.5px; opacity:.85; margin-top:2px; }
+  .catcard .cc-arrow{ position:absolute; right:14px; top:50%; transform:translateY(-50%); }
+  .catcard .cc-arrow .chev{ color:rgba(255,255,255,.9); }
+  .pickup{ background:#fff; border-radius:12px; margin:10px 12px 0; overflow:hidden; cursor:pointer; }
+  .pickup img{ width:100%; height:148px; object-fit:cover; display:block; }
+  .pickup .pk-b{ padding:12px 14px 13px; }
+  .pickup .pk-t{ font-size:15.5px; font-weight:700; display:flex; align-items:center; gap:7px; }
+  .pickup .pk-d{ font-size:12.5px; color:var(--sub); line-height:1.6; margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .pickup .pk-p{ font-size:14px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
+  .end-note{ text-align:center; color:#b0b0b0; font-size:11.5px; padding:16px 0 0; letter-spacing:1px; }
   /* 产品中心（目录型：常驻搜索 + 左侧分类轨 + 密集列表） */
   .cat-search{ position:sticky; top:0; z-index:6; background:var(--pagebg); padding:12px 12px 10px; }
   .cat-search .in{ display:flex; align-items:center; gap:7px; background:#fff; border-radius:99px; padding:9px 14px; color:#999; box-shadow:0 1px 4px rgba(20,20,20,.05); }
@@ -174,7 +193,8 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S2 目录型 · 精简 3 栏（用户定版 tab 架构标准：适合产品线单一或重展示的工厂 / B2B 企业）</li>
-        <li>栏位：首页（品牌形象 / 核心亮点 / 企业简介融入本页 / 末尾以主推产品与分类深链分发）· 产品中心（目录主场：左侧分类导航 + 规格速览密集列表 + 常驻搜索）· 联系我们（资质荣誉 / 工厂地址与导航 / 询盘联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 式连续流：搜索入口前置 / 分类大图卡 / 亮点与简介作流内卡 / 统计单点 / Pickup 主推策展收尾）· 产品中心（目录主场：左侧分类导航 + 规格速览密集列表 + 常驻搜索）· 联系我们（资质荣誉 / 工厂地址与导航 / 询盘联系方式 / 在线留资表单）</li>
+        <li>设计参照：泉株式会社 izumi.inc（用户钦定品质标杆）——克制与留白、小标签 + 大图卡、Pickup 式策展；取其语言不搬其网站版式</li>
         <li>与 MP-S1 的分工：S1 是展示型（经典 4 栏，重品牌展示与动态背书）；S2 是目录型（精简 3 栏，重目录浏览与选型效率），本骨架不设动态栏</li>
         <li>转化设计：产品详情页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在联系我们栏出现一处；企业简介全文只在首页一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
@@ -277,7 +297,12 @@ function statsHTML() {
     '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
 }
 function renderHome() {
+  /* 首页 = app 式连续流（用户 2026-11-15 09:54 裁定 + izumi 参照）：任务入口前置、分类大图卡、
+     品牌元素（主张/亮点/简介/统计）压缩为流内元素、Pickup 策展收尾并明确完结；不做官网章节式堆叠 */
   const feats = P.products.slice(0, 3);
+  const cats = catList().slice(1);
+  const catImg = c => (P.products.find(p => p.cat === c) || {}).img;
+  const catN = c => P.products.filter(p => p.cat === c).length;
   return `
   <div class="swiper" id="swiper">
     <div class="track" style="transform:translateX(-${S.slide * 375}px)">
@@ -289,25 +314,38 @@ function renderHome() {
     </div>
     <div class="dots">${P.hero_slides.map((_, i) => `<i class="${i === S.slide ? "on" : ""}" data-slide="${i}"></i>`).join("")}</div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>核心亮点</b></div>
-    <div class="claim">${esc(P.tagline)}</div>
+  <div class="feed-search" data-search>${IC.search}<span>搜索产品 / 参数，如：${esc(P.search_example)}</span></div>
+  <div class="flow-claim">${esc(P.tagline)}</div>
+  <div class="flow-label">分类 · CATEGORY</div>
+  ${cats.map(c => `
+  <div class="catcard" data-catlink="${esc(c)}">
+    <img src="${catImg(c)}" alt="">
+    <div class="cc-shade"></div>
+    <div class="cc-cap"><div class="cc-t">${esc(c)}</div><div class="cc-n">${catN(c)} 项产品</div></div>
+    <div class="cc-arrow">${IC.chevR}</div>
+  </div>`).join("")}
+  <div class="flow-label">亮点 · HIGHLIGHTS</div>
+  <div class="card" style="margin-top:8px">
     ${P.why_points.map(w => `<div class="why-it"><div class="t"><i></i>${esc(w.title)}</div><div class="d">${esc(w.text)}</div></div>`).join("")}
     <div style="height:6px"></div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>企业简介</b></div>
-    <div class="lead-in">${esc(P.about_title)}</div>
+  <div class="flow-label">简介 · ABOUT</div>
+  <div class="card" style="margin-top:8px">
+    <div class="lead-in" style="padding-top:14px">${esc(P.about_title)}</div>
     <p class="about-txt">${esc(P.about_text)}</p>
   </div>
   ${statsHTML()}
-  <div class="card">
-    <div class="sec-title"><b>主推产品</b></div>
-    <div class="pfeat">${feats.map(p => `
-      <div class="pf" data-detail="${p.id}"><img src="${p.img}" alt=""><div class="t">${esc(p.title)}</div><div class="p">${esc(p.price)}</div></div>`).join("")}
+  <div class="flow-label">主推 · PICKUP</div>
+  ${feats.map(p => `
+  <div class="pickup" data-detail="${p.id}">
+    <img src="${p.img}" alt="">
+    <div class="pk-b">
+      <div class="pk-t">${esc(p.title)}<span class="tag">${esc(p.cat)}</span></div>
+      <div class="pk-d">${esc(p.text)}</div>
+      <div class="pk-p">${esc(p.price)}</div>
     </div>
-    <div class="biz" style="border-top:.5px solid var(--line);padding-top:12px">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
-  </div>
+  </div>`).join("")}
+  <div class="end-note">— 主推到此 · 全量目录在「产品中心」 —</div>
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
 
@@ -490,6 +528,8 @@ document.addEventListener("click", e => {
   const tab = e.target.closest("[data-tab]"); if (tab) { goTab(tab.dataset.tab); return; }
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; S.query = ""; render(); $("#page").scrollTop = 0; return; }
+  const catlink = e.target.closest("[data-catlink]"); if (catlink) { goProducts(catlink.dataset.catlink); return; }
+  const srch = e.target.closest("[data-search]"); if (srch) { goProducts("全部"); const q = $("#q"); if (q) q.focus(); return; }
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
