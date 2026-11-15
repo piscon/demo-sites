@@ -67,7 +67,6 @@
   .empty{ text-align:center; color:var(--sub); font-size:13px; padding:44px 0 30px; }
   .foot-note{ text-align:center; color:#b5b5b5; font-size:11px; padding:14px 30px 20px; line-height:1.7; }
   /* 首页信息流（app 式连续流 + izumi 参照：小标签、留白、大图卡、Pickup 策展） */
-  .feed-search{ margin:12px 12px 0; background:#fff; border-radius:99px; padding:10px 14px; display:flex; align-items:center; gap:7px; color:#999; font-size:13.5px; box-shadow:0 1px 4px rgba(20,20,20,.05); cursor:pointer; }
   .swiper{ position:relative; height:168px; overflow:hidden; background:#222; margin:12px 12px 0; border-radius:12px; }
   .swiper .track{ display:flex; height:100%; transition:transform .45s ease; }
   .swiper .slide{ flex:none; width:351px; height:100%; position:relative; }
@@ -230,14 +229,14 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S3 服务型 · 扩展 5 栏 · 交易/留资型（用户定版 tab 架构标准：适合中大型企业或带业务交互的官网）</li>
-        <li>栏位：首页（app 式连续流：搜索前置 / 分类大图卡 / 亮点·简介·资质·统计流内单点 / Pickup 策展收尾）· 产品中心（目录浏览 + 快速加入询价单）· 案例动态（信任背书，动态全文单点；案例待真实数据接入后合并）· 询价单（攒单 → 改量备注 → 留资提交 → 生成本地记录）· 我的（询价记录 / 收藏 / 最近浏览 / 企业联系卡）</li>
+        <li>栏位：首页（app 式连续流：Banner + 主张一行 / 分类大图卡 / 亮点·简介·资质·统计流内单点 / Pickup 策展收尾）· 产品中心（常驻搜索 + 目录浏览 + 快速加入询价单）· 案例动态（信任背书，动态全文单点；案例待真实数据接入后合并）· 询价单（攒单 → 改量备注 → 留资提交 → 生成本地记录）· 我的（询价记录 / 收藏 / 最近浏览 / 企业联系卡）</li>
         <li>设计参照：泉株式会社 izumi.inc（用户钦定品质标杆）——克制与留白、小标签 + 大图卡、Pickup 式策展；取其语言不搬其网站版式</li>
         <li>与 MP-S1 / S2 的分工：S1 展示型（经典 4 栏，重品牌展示）；S2 目录型（精简 3 栏，重目录选型）；S3 服务型（扩展 5 栏，重询价与客户自助交互）</li>
         <li>状态口径：询价单、收藏、询价记录、最近浏览均存浏览器本地（localStorage，按内容包隔离），刷新不丢；原生交付时对应微信端本地缓存与账号体系</li>
         <li>转化设计：详情页核心动作 = 加入询价单 / 立即询价，固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在「我的」企业联系卡出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
-        <li>可点动线：栏位切换、轮播、分类筛选、搜索、详情进出、收藏、加入询价单、询价单增删改量与备注、留资提交、记录查看（均为模拟反馈，状态本地保存）</li>
+        <li>可点动线：栏位切换、轮播、分类筛选、目录搜索、详情进出、收藏、加入询价单、询价单增删改量与备注、留资提交、记录查看（均为模拟反馈，状态本地保存）</li>
       </ul>
     </div>
     <div class="spec honest">
@@ -363,14 +362,14 @@ function statsHTML() {
     '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
 }
 function renderHome() {
-  /* 首页 = app 式连续流（定版口径）：搜索前置 → 瘦身 Banner + 主张一行 → 分类大图卡 → 亮点/简介/资质流内卡
-     → 统计带（流内元素，统计单点落位于此）→ Pickup 策展顺流收尾；不做官网章节式堆叠 */
+  /* 首页 = app 式连续流（定版口径）：瘦身 Banner + 主张一行 → 分类大图卡 → 亮点/简介/资质流内卡
+     → 统计带（流内元素，统计单点落位于此）→ Pickup 策展顺流收尾；不做官网章节式堆叠
+     搜索不入首页（跨骨架通则，S1 第十二轮 + S3 本轮）：搜索归产品中心常驻搜索，首页 Banner 直起 */
   const feats = P.products.slice(0, 3);
   const cats = catList().slice(1);
   const catImg = c => (P.products.find(p => p.cat === c) || {}).img;
   const catN = c => P.products.filter(p => p.cat === c).length;
   return `
-  <div class="feed-search" data-search>${IC.search}<span>搜索产品 / 参数，如：${esc(P.search_example)}</span></div>
   <div class="swiper" id="swiper">
     <div class="track" style="transform:translateX(-${S.slide * 351}px)">
       ${P.hero_slides.map((src, i) => `
@@ -683,7 +682,6 @@ document.addEventListener("click", e => {
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; S.query = ""; render(); $("#page").scrollTop = 0; return; }
   const catlink = e.target.closest("[data-catlink]"); if (catlink) { goProducts(catlink.dataset.catlink); return; }
-  const srch = e.target.closest("[data-search]"); if (srch) { goProducts("全部"); const q = $("#q"); if (q) q.focus(); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
     const a = act.dataset.act;
