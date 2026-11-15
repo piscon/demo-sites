@@ -133,8 +133,8 @@
   .biz .b{ font-size:12.5px; color:#444; background:#fff; border:1px solid #e0e0e0; border-radius:99px; padding:6px 12px; cursor:pointer; }
   .foot-note{ text-align:center; color:#b5b5b5; font-size:11px; padding:14px 30px 20px; line-height:1.7; }
   /* 产品 */
-  .search{ margin:12px 12px 0; background:#fff; border-radius:12px; padding:10px 12px; }
-  .search .in{ display:flex; align-items:center; gap:7px; background:#f3f3f3; border-radius:99px; padding:8px 13px; color:#999; }
+  .search{ margin:12px 12px 0; padding:10px 12px; }
+  .search .in{ display:flex; align-items:center; gap:7px; background:#fff; border-radius:99px; padding:8px 13px; color:#999; box-shadow:0 1px 4px rgba(20,20,20,.05); }
   .search input{ border:none; outline:none; background:transparent; font-size:13.5px; flex:1; font-family:inherit; color:var(--text); }
   .tabs{ display:flex; gap:4px; padding:12px 12px 2px; overflow-x:auto; scrollbar-width:none; }
   .tabs::-webkit-scrollbar{ display:none; }
@@ -160,8 +160,8 @@
   .detail .dhead .t{ font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; }
   .detail .dhead .p{ font-size:17px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
   .detail .dhead .d{ font-size:13.5px; color:#555; line-height:1.75; margin-top:8px; }
-  .spec-t{ background:#fff; margin-top:12px; padding:6px 16px 10px; }
-  .spec-t h4{ font-size:15px; margin:10px 0 4px; }
+  .spec-t{ background:#fff; margin:12px 12px 0; border-radius:12px; padding:6px 16px 10px; }
+  .spec-t h4{ font-size:12px; font-weight:600; color:#999; letter-spacing:2px; margin:10px 0 4px; }
   .spec-r{ display:flex; gap:14px; padding:9px 0; border-bottom:.5px solid var(--line); font-size:13.5px; }
   .spec-r:last-child{ border-bottom:none; }
   .spec-r .k{ width:86px; flex:none; color:var(--sub); }
@@ -580,18 +580,22 @@ function renderNews() {
   let h = "";
   if (compAvail("cases")) {
     h += `
-  <div class="card" id="sec-cases" data-comp="cases" style="margin-bottom:12px">
-    <div class="sec-title"><b>精选案例</b><span class="tag">交付实证</span></div>
+  <div id="sec-cases" data-comp="cases">
+    <div class="shead">精选案例</div>
+    <div class="card" style="margin-top:8px;margin-bottom:12px">
     ${P.cases.map(cs => `
     <div class="fl-case">${cs.img ? `<img src="${cs.img}" alt="">` : ""}<div><div class="t">${esc(cs.title)}</div><div class="d full">${esc(cs.text)}</div></div></div>`).join("")}
+    </div>
   </div>`;
   }
   if (compAvail("news")) {
     h += `
-  <div class="card" id="sec-news" data-comp="news" style="margin-bottom:16px">
-    <div class="sec-title"><b>企业动态</b><span class="tag">信任背书</span></div>
+  <div id="sec-news" data-comp="news">
+    <div class="shead">企业动态</div>
+    <div class="card" style="margin-top:8px;margin-bottom:16px">
     ${P.news.map(n => `
     <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div><div class="d full">${esc(n.text)}</div></div></div>`).join("")}
+    </div>
   </div>`;
   }
   return h + `
@@ -616,19 +620,24 @@ function renderAbout() {
     <div class="en">${esc(P.brand_en)}</div>
     <div class="tl" style="font-weight:600;color:#333;font-size:14px">${esc(P.company_full)}</div>
   </div>
-  <div class="card" id="sec-intro" data-comp="intro">
-    <div class="sec-title"><b>公司介绍</b></div>
-    <div class="lead-in">${esc(P.about_title)}</div>
-    <p class="about-txt">${esc(P.about_text)}</p>
+  <div id="sec-intro" data-comp="intro" style="margin-top:12px">
+    <div class="shead">公司介绍</div>
+    <div class="card" style="margin-top:8px">
+      <div class="lead-in" style="padding-top:14px">${esc(P.about_title)}</div>
+      <p class="about-txt">${esc(P.about_text)}</p>
+    </div>
   </div>
-  <div class="card" id="sec-gallery" data-comp="gallery">
-    <div class="sec-title"><b>工厂实景与资质荣誉</b></div>
-    <div style="padding:6px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
-    <div class="honors" style="padding-top:12px">${P.honors.filter(h => !isStatEcho(h)).map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
+  <div id="sec-gallery" data-comp="gallery">
+    <div class="shead">工厂实景与资质荣誉</div>
+    <div class="card" style="margin-top:8px">
+      <div style="padding:14px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
+      <div class="honors" style="padding-top:12px">${P.honors.filter(h => !isStatEcho(h)).map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
+    </div>
   </div>
-  ${comp("stats").enabled && !comp("stats").direct ? `<div id="sec-stats" data-comp="stats">${statsHTML()}</div>` : ""}
-  <div class="card">
-    <div class="sec-title"><b>服务支持</b></div>
+  ${comp("stats").enabled && !comp("stats").direct ? `<div id="sec-stats" data-comp="stats"><div class="shead">企业实力</div>${statsHTML()}</div>` : ""}
+  <div>
+    <div class="shead">服务支持</div>
+    <div class="card" style="margin-top:8px">
     <div style="padding:2px 12px 4px">
       <div class="pcard flat" data-detail="${svc.id}">
         <img src="${svc.img}" alt="">
@@ -645,9 +654,11 @@ function renderAbout() {
       </div>
     </div>` : ""}
     ${P.support.parts ? `<div class="cell" data-parts style="border-top:.5px solid var(--line)"><span style="color:var(--brand-dark)">${IC.layers}</span><div class="ct"><div class="t">${esc(P.support.parts.title)}</div><div class="d">${esc(P.support.parts.desc)}</div></div>${IC.chevR}</div>` : ""}
+    </div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>联系方式</b></div>
+  <div>
+    <div class="shead">联系方式</div>
+    <div class="card" style="margin-top:8px">
     <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div><div class="d">点按拨打服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
     <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
     <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
@@ -658,9 +669,11 @@ function renderAbout() {
       <div class="pin">${IC.pin}</div>
       <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
     </div>
+    </div>
   </div>
-  <div class="card" id="sec-lead" style="margin-bottom:16px">
-    <div class="sec-title"><b>在线留资</b></div>
+  <div id="sec-lead">
+    <div class="shead">在线留资</div>
+    <div class="card" style="margin-top:8px;margin-bottom:16px">
     <form class="lead-form" id="leadForm">
       <div class="lf-row"><label for="lfName">姓名</label><input id="lfName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
       <div class="lf-row"><label for="lfPhone">电话</label><input id="lfPhone" type="tel" placeholder="请输入手机号码" autocomplete="off"></div>
@@ -668,6 +681,7 @@ function renderAbout() {
       <button type="submit" class="btn-pri lf-sub">提交留言</button>
       <div class="lf-note">提交后企业将主动与您联系 · 本样板为模拟提交，不会真实发送</div>
     </form>
+    </div>
   </div>
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 地图为占位示意，原生版调用微信地图导航</div>`;
 }

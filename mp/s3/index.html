@@ -53,8 +53,6 @@
   .tab .badge{ position:absolute; top:0; left:calc(50% + 3px); min-width:16px; height:16px; border-radius:99px; background:#e34d3d; color:#fff; font-size:10px; font-weight:700; line-height:16px; text-align:center; padding:0 4px; }
   /* 通用组件（TDesign 语言） */
   .card{ background:#fff; border-radius:12px; margin:12px 12px 0; overflow:hidden; }
-  .sec-title{ display:flex; align-items:center; justify-content:space-between; padding:16px 16px 4px; }
-  .sec-title b{ font-size:16px; }
   .btn-pri{ background:var(--brand); color:var(--ink); border:none; font-family:inherit; font-weight:600; border-radius:10px; cursor:pointer; }
   .btn-line{ background:#fff; color:var(--text); border:1px solid #d6d6d6; font-family:inherit; border-radius:10px; cursor:pointer; }
   .tag{ display:inline-block; font-size:11px; color:var(--brand-dark); background:var(--brand-tint); border-radius:4px; padding:2px 7px; font-weight:600; }
@@ -123,7 +121,7 @@
   .ritem.on::before{ content:""; position:absolute; left:0; top:12px; bottom:12px; width:3.5px; border-radius:99px; background:var(--brand); }
   .ritem.on .n{ color:var(--brand-dark); }
   .clist{ flex:1; min-width:0; padding:2px 10px 14px 10px; }
-  .dcard{ background:#fff; border-radius:11px; padding:10px; display:flex; gap:10px; margin-top:8px; cursor:pointer; }
+  .dcard{ background:#fff; border-radius:12px; padding:10px; display:flex; gap:10px; margin-top:8px; cursor:pointer; }
   .dcard img{ width:76px; height:76px; border-radius:8px; object-fit:cover; flex:none; }
   .dcard .dc{ flex:1; min-width:0; display:flex; flex-direction:column; }
   .dcard .t{ font-size:14.5px; font-weight:600; line-height:1.4; display:flex; align-items:center; gap:6px; }
@@ -170,7 +168,7 @@
   .ord-card .o-meta{ font-size:12px; color:var(--sub); margin-top:5px; }
   .ord-card .o-items{ font-size:13px; color:#444; line-height:1.7; margin-top:5px; }
   .mini-empty{ margin:10px 12px 0; background:#fff; border-radius:12px; padding:18px 16px; font-size:13px; color:var(--sub); text-align:center; line-height:1.7; }
-  .mrow{ background:#fff; border-radius:11px; padding:10px; display:flex; gap:10px; margin:8px 12px 0; cursor:pointer; align-items:center; }
+  .mrow{ background:#fff; border-radius:12px; padding:10px; display:flex; gap:10px; margin:8px 12px 0; cursor:pointer; align-items:center; }
   .mrow img{ width:52px; height:52px; border-radius:8px; object-fit:cover; flex:none; }
   .mrow .mt{ flex:1; min-width:0; }
   .mrow .mt .t{ font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -190,8 +188,8 @@
   .detail .dhead .t{ font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; }
   .detail .dhead .p{ font-size:17px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
   .detail .dhead .d{ font-size:13.5px; color:#555; line-height:1.75; margin-top:8px; }
-  .spec-t{ background:#fff; margin-top:12px; padding:6px 16px 10px; }
-  .spec-t h4{ font-size:15px; margin:10px 0 4px; }
+  .spec-t{ background:#fff; margin:12px 12px 0; border-radius:12px; padding:6px 16px 10px; }
+  .spec-t h4{ font-size:11px; font-weight:600; color:#a8a8a8; letter-spacing:2.5px; margin:10px 0 4px; }
   .spec-r{ display:flex; gap:14px; padding:9px 0; border-bottom:.5px solid var(--line); font-size:13.5px; }
   .spec-r:last-child{ border-bottom:none; }
   .spec-r .k{ width:86px; flex:none; color:var(--sub); }
@@ -510,9 +508,9 @@ function renderCart() {
         <input class="iq-note" data-note="${p.id}" type="text" placeholder="备注：需求数量、交期等（选填）" value="${esc(note || "")}">
       </div>
     </div>`).join("");
+    h += `<div class="flow-label">提交信息 · SUBMIT</div>`;
     h += `
-    <div class="card" style="margin-bottom:16px">
-      <div class="sec-title"><b>提交信息</b></div>
+    <div class="card" style="margin-top:8px;margin-bottom:16px">
       <form class="lead-form" id="iqForm">
         <div class="lf-row"><label for="iqName">姓名</label><input id="iqName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
         <div class="lf-row"><label for="iqPhone">电话</label><input id="iqPhone" type="tel" placeholder="请输入手机号码" autocomplete="off"></div>

@@ -52,8 +52,6 @@
   .tab.on{ color:var(--brand-dark); }
   /* 通用组件（TDesign 语言） */
   .card{ background:#fff; border-radius:12px; margin:12px 12px 0; overflow:hidden; }
-  .sec-title{ display:flex; align-items:center; justify-content:space-between; padding:16px 16px 4px; }
-  .sec-title b{ font-size:16px; }
   .btn-pri{ background:var(--brand); color:var(--ink); border:none; font-family:inherit; font-weight:600; border-radius:10px; cursor:pointer; }
   .tag{ display:inline-block; font-size:11px; color:var(--brand-dark); background:var(--brand-tint); border-radius:4px; padding:2px 7px; font-weight:600; }
   .cell{ display:flex; align-items:center; gap:10px; padding:13px 16px; background:#fff; position:relative; cursor:pointer; }
@@ -128,7 +126,7 @@
   .ritem.on::before{ content:""; position:absolute; left:0; top:12px; bottom:12px; width:3.5px; border-radius:99px; background:var(--brand); }
   .ritem.on .n{ color:var(--brand-dark); }
   .clist{ flex:1; min-width:0; padding:2px 10px 14px 10px; }
-  .dcard{ background:#fff; border-radius:11px; padding:10px; display:flex; gap:10px; margin-top:8px; cursor:pointer; }
+  .dcard{ background:#fff; border-radius:12px; padding:10px; display:flex; gap:10px; margin-top:8px; cursor:pointer; }
   .dcard img{ width:76px; height:76px; border-radius:8px; object-fit:cover; flex:none; }
   .dcard .dc{ flex:1; min-width:0; display:flex; flex-direction:column; }
   .dcard .t{ font-size:14.5px; font-weight:600; line-height:1.4; display:flex; align-items:center; gap:6px; }
@@ -147,8 +145,8 @@
   .detail .dhead .t{ font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; }
   .detail .dhead .p{ font-size:17px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
   .detail .dhead .d{ font-size:13.5px; color:#555; line-height:1.75; margin-top:8px; }
-  .spec-t{ background:#fff; margin-top:12px; padding:6px 16px 10px; }
-  .spec-t h4{ font-size:15px; margin:10px 0 4px; }
+  .spec-t{ background:#fff; margin:12px 12px 0; border-radius:12px; padding:6px 16px 10px; }
+  .spec-t h4{ font-size:11px; font-weight:600; color:#a8a8a8; letter-spacing:2.5px; margin:10px 0 4px; }
   .spec-r{ display:flex; gap:14px; padding:9px 0; border-bottom:.5px solid var(--line); font-size:13.5px; }
   .spec-r:last-child{ border-bottom:none; }
   .spec-r .k{ width:86px; flex:none; color:var(--sub); }
@@ -402,13 +400,13 @@ function renderContact() {
   const statCore = s => s.label.replace(/（.*?）|\(.*?\)/g, "");
   const honorsShown = P.honors.filter(h => !P.stats.some(s => statNorm(h).includes(statNorm(statCore(s))) && statNorm(h).includes(statNorm(s.value))));
   return `
-  <div class="card">
-    <div class="sec-title"><b>资质荣誉</b></div>
+  <div class="flow-label">资质荣誉 · HONORS</div>
+  <div class="card" style="margin-top:8px">
     <div style="padding:6px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
     <div class="honors" style="padding-top:12px">${honorsShown.map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>工厂地址</b></div>
+  <div class="flow-label">工厂地址 · ADDRESS</div>
+  <div class="card" style="margin-top:8px">
     <div class="map-ph" style="margin:2px 16px 16px">
       <div class="road" style="left:0;right:0;top:56px;height:13px"></div>
       <div class="road" style="top:0;bottom:0;left:118px;width:13px"></div>
@@ -417,14 +415,14 @@ function renderContact() {
       <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
     </div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>询盘联系方式</b></div>
+  <div class="flow-label">询盘联系 · CONTACT</div>
+  <div class="card" style="margin-top:8px">
     <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div><div class="d">点按拨打服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
     <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
     <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
   </div>
-  <div class="card" style="margin-bottom:16px">
-    <div class="sec-title"><b>在线留资</b></div>
+  <div class="flow-label">在线留资 · MESSAGE</div>
+  <div class="card" style="margin-top:8px;margin-bottom:16px">
     <form class="lead-form" id="leadForm">
       <div class="lf-row"><label for="lfName">姓名</label><input id="lfName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
       <div class="lf-row"><label for="lfPhone">电话</label><input id="lfPhone" type="tel" placeholder="请输入手机号码" autocomplete="off"></div>
