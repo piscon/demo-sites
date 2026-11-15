@@ -1,0 +1,182 @@
+{
+  "presets": {
+    "mature": {
+      "label": "成熟内容型",
+      "desc": "内容齐备的成熟企业：组件全开，首页聚合简介、案例、动态、荣誉与定性实力卡，动态/案例以预览形态回首页作入口，全文仍归各栏单点。",
+      "components": [
+        {
+          "key": "intro",
+          "enabled": true,
+          "home": true,
+          "order": 1
+        },
+        {
+          "key": "cases",
+          "enabled": true,
+          "home": true,
+          "order": 2
+        },
+        {
+          "key": "news",
+          "enabled": true,
+          "home": true,
+          "order": 3
+        },
+        {
+          "key": "gallery",
+          "enabled": true,
+          "home": true,
+          "order": 4
+        },
+        {
+          "key": "stats",
+          "enabled": true,
+          "home": true,
+          "direct": false,
+          "order": 5
+        }
+      ],
+      "quick": [
+        {
+          "target": "products",
+          "label": "核心产品",
+          "icon": "grid"
+        },
+        {
+          "target": "cases",
+          "label": "交付案例",
+          "icon": "layers"
+        },
+        {
+          "target": "news",
+          "label": "企业动态",
+          "icon": "news"
+        },
+        {
+          "target": "gallery",
+          "label": "资质荣誉",
+          "icon": "factory"
+        },
+        {
+          "target": "intro",
+          "label": "关于我们",
+          "icon": "home"
+        }
+      ]
+    },
+    "hardware": {
+      "label": "实体硬件型",
+      "desc": "重硬件、无文章运营的传统实体企业：数据指标首页直显（关于我们互斥不重复）、实景与荣誉推首页，案例关闭、动态只归其栏不推首页。",
+      "components": [
+        {
+          "key": "stats",
+          "enabled": true,
+          "home": true,
+          "direct": true,
+          "order": 1
+        },
+        {
+          "key": "intro",
+          "enabled": true,
+          "home": true,
+          "order": 2
+        },
+        {
+          "key": "gallery",
+          "enabled": true,
+          "home": true,
+          "order": 3
+        },
+        {
+          "key": "cases",
+          "enabled": false,
+          "home": false,
+          "order": 4
+        },
+        {
+          "key": "news",
+          "enabled": true,
+          "home": false,
+          "order": 5
+        }
+      ],
+      "quick": [
+        {
+          "target": "products",
+          "label": "核心产品",
+          "icon": "grid"
+        },
+        {
+          "target": "stats",
+          "label": "生产实力",
+          "icon": "wrench"
+        },
+        {
+          "target": "gallery",
+          "label": "资质荣誉",
+          "icon": "factory"
+        },
+        {
+          "target": "lead",
+          "label": "合作咨询",
+          "icon": "phone"
+        }
+      ]
+    },
+    "minimal": {
+      "label": "极简型",
+      "desc": "资料极简的初创/小微企业：首页只聚合一张图文介绍卡，其余组件只在各自栏内呈现、不推首页，页面紧凑完整、绝不留空板块。",
+      "components": [
+        {
+          "key": "intro",
+          "enabled": true,
+          "home": true,
+          "order": 1
+        },
+        {
+          "key": "stats",
+          "enabled": true,
+          "home": false,
+          "direct": false,
+          "order": 2
+        },
+        {
+          "key": "gallery",
+          "enabled": true,
+          "home": false,
+          "order": 3
+        },
+        {
+          "key": "news",
+          "enabled": true,
+          "home": false,
+          "order": 4
+        },
+        {
+          "key": "cases",
+          "enabled": false,
+          "home": false,
+          "order": 5
+        }
+      ],
+      "quick": [
+        {
+          "target": "products",
+          "label": "核心产品",
+          "icon": "grid"
+        },
+        {
+          "target": "intro",
+          "label": "关于我们",
+          "icon": "home"
+        },
+        {
+          "target": "lead",
+          "label": "在线咨询",
+          "icon": "phone"
+        }
+      ]
+    }
+  },
+  "note": "三档预设为定版配置模板；逐包配置由预设生成（见各包同名文件），overrides 为预留的手动覆盖字段（样板阶段恒为空，产品形态不做逐项自由配置）。"
+}

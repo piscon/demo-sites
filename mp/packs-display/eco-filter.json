@@ -1,0 +1,56 @@
+{
+  "pack_id": "eco-filter",
+  "preset": "minimal",
+  "preset_label": "极简型",
+  "components": [
+    {
+      "key": "intro",
+      "enabled": true,
+      "home": true,
+      "order": 1
+    },
+    {
+      "key": "stats",
+      "enabled": true,
+      "home": false,
+      "direct": false,
+      "order": 2
+    },
+    {
+      "key": "gallery",
+      "enabled": true,
+      "home": false,
+      "order": 3
+    },
+    {
+      "key": "news",
+      "enabled": true,
+      "home": false,
+      "order": 4
+    },
+    {
+      "key": "cases",
+      "enabled": false,
+      "home": false,
+      "order": 5
+    }
+  ],
+  "quick": [
+    {
+      "target": "products",
+      "label": "核心产品",
+      "icon": "grid"
+    },
+    {
+      "target": "intro",
+      "label": "关于我们",
+      "icon": "home"
+    },
+    {
+      "target": "lead",
+      "label": "在线咨询",
+      "icon": "phone"
+    }
+  ],
+  "overrides": {}
+}

@@ -1,0 +1,61 @@
+{
+  "pack_id": "steel-metal",
+  "preset": "hardware",
+  "preset_label": "实体硬件型",
+  "components": [
+    {
+      "key": "stats",
+      "enabled": true,
+      "home": true,
+      "direct": true,
+      "order": 1
+    },
+    {
+      "key": "intro",
+      "enabled": true,
+      "home": true,
+      "order": 2
+    },
+    {
+      "key": "gallery",
+      "enabled": true,
+      "home": true,
+      "order": 3
+    },
+    {
+      "key": "cases",
+      "enabled": false,
+      "home": false,
+      "order": 4
+    },
+    {
+      "key": "news",
+      "enabled": true,
+      "home": false,
+      "order": 5
+    }
+  ],
+  "quick": [
+    {
+      "target": "products",
+      "label": "核心产品",
+      "icon": "grid"
+    },
+    {
+      "target": "stats",
+      "label": "生产实力",
+      "icon": "wrench"
+    },
+    {
+      "target": "gallery",
+      "label": "资质荣誉",
+      "icon": "factory"
+    },
+    {
+      "target": "lead",
+      "label": "合作咨询",
+      "icon": "phone"
+    }
+  ],
+  "overrides": {}
+}

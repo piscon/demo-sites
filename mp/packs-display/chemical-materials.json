@@ -1,0 +1,66 @@
+{
+  "pack_id": "chemical-materials",
+  "preset": "mature",
+  "preset_label": "成熟内容型",
+  "components": [
+    {
+      "key": "intro",
+      "enabled": true,
+      "home": true,
+      "order": 1
+    },
+    {
+      "key": "cases",
+      "enabled": true,
+      "home": true,
+      "order": 2
+    },
+    {
+      "key": "news",
+      "enabled": true,
+      "home": true,
+      "order": 3
+    },
+    {
+      "key": "gallery",
+      "enabled": true,
+      "home": true,
+      "order": 4
+    },
+    {
+      "key": "stats",
+      "enabled": true,
+      "home": true,
+      "direct": false,
+      "order": 5
+    }
+  ],
+  "quick": [
+    {
+      "target": "products",
+      "label": "核心产品",
+      "icon": "grid"
+    },
+    {
+      "target": "cases",
+      "label": "交付案例",
+      "icon": "layers"
+    },
+    {
+      "target": "news",
+      "label": "企业动态",
+      "icon": "news"
+    },
+    {
+      "target": "gallery",
+      "label": "资质荣誉",
+      "icon": "factory"
+    },
+    {
+      "target": "intro",
+      "label": "关于我们",
+      "icon": "home"
+    }
+  ],
+  "overrides": {}
+}

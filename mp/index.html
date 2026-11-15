@@ -232,6 +232,24 @@
   .svc-net .it .l{ font-size:11px; color:var(--sub); margin-top:2px; }
   .pcard.flat{ margin-top:0; }
   .lead-in{ padding:0 16px 2px; font-size:14.5px; font-weight:700; color:#333; line-height:1.6; }
+  /* 第八轮（展示配置与首页动态映射）：企业实力聚合区楼层——按展示配置动态渲染，未启用/无数据的组件不渲染、不留占位 */
+  .floor{ margin-top:24px; }
+  .floor-head{ display:flex; align-items:center; justify-content:space-between; padding:0 16px; }
+  .floor-head b{ font-size:15.5px; }
+  .floor-head .more{ font-size:12.5px; color:var(--sub); display:flex; align-items:center; gap:1px; cursor:pointer; }
+  .fl-intro-txt{ padding:2px 16px 15px; font-size:13.5px; color:#555; line-height:1.75; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .fl-gal{ padding:12px 16px 15px; }
+  .fl-gal img{ width:100%; height:132px; object-fit:cover; border-radius:9px; display:block; }
+  .fl-gal .honors{ padding:12px 0 0; }
+  .fl-news-it{ padding:11px 16px; display:flex; gap:10px; align-items:center; cursor:pointer; }
+  .fl-news-it + .fl-news-it{ border-top:.5px solid var(--line); }
+  .fl-news-it .t{ flex:1; min-width:0; font-size:14px; font-weight:600; line-height:1.5; }
+  .fl-case{ display:flex; gap:11px; padding:12px 16px; cursor:pointer; }
+  .fl-case + .fl-case{ border-top:.5px solid var(--line); }
+  .fl-case img{ width:86px; height:64px; object-fit:cover; border-radius:8px; flex:none; }
+  .fl-case .t{ font-size:14.5px; font-weight:600; }
+  .fl-case .d{ font-size:12.5px; color:var(--sub); line-height:1.6; margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .fl-case .d.full{ display:block; -webkit-line-clamp:unset; overflow:visible; }
   .hidden{ display:none !important; }
   @media (max-width:900px){ .stage{ flex-direction:column; align-items:center; } .panel{ width:min(399px,94vw); order:2; } }
   @media (max-width:430px){ .phone{ transform:scale(.88); transform-origin:top center; margin-bottom:-90px; } }
@@ -245,10 +263,11 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
-        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张与优势提炼行 → 分类大图卡 → Pickup 精选与产品流，企业实力定性卡融入流中）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书，本包以企业动态承载「案例/动态」槽位）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（入口随展示预设与启用状态自动生成）→ 分类大图卡与产品流 → 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
+        <li id="specPreset">展示预设：—（内容决定首页形态：组件开关 / 排序 / 推首页由预设生成，配置见 packs-display/）</li>
         <li>可点动线：栏位切换、轮播、分类筛选、搜索、详情进出、悬浮拨号 / 客服、复制 / 导航、留资表单提交（均为模拟反馈）</li>
       </ul>
     </div>
@@ -329,6 +348,41 @@ const IC = {
   news: '<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h13.5V18a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2V6"/><path d="M18.5 9H20a1 1 0 0 1 1 1v7.5a2.5 2.5 0 0 1-2.5 2.5H14"/><path d="M7.5 8h7.5M7.5 11.5h7.5M7.5 15h4.5"/></svg>'
 };
 let P = null; // pack-mp 数据
+let CFG = null; // packs-display 展示配置（与内容分离的一层：组件开关 / 排序 / 推首页，由预设生成）
+/* 展示配置缺失时的兜底 = 成熟内容型预设（与 packs-display/presets.json 同口径） */
+const DEFAULT_CFG = { preset: "mature", preset_label: "成熟内容型",
+  components: [
+    { key: "intro", enabled: true, home: true, order: 1 },
+    { key: "cases", enabled: true, home: true, order: 2 },
+    { key: "news", enabled: true, home: true, order: 3 },
+    { key: "gallery", enabled: true, home: true, order: 4 },
+    { key: "stats", enabled: true, home: true, direct: false, order: 5 }
+  ],
+  quick: [
+    { target: "products", label: "核心产品", icon: "grid" },
+    { target: "cases", label: "交付案例", icon: "layers" },
+    { target: "news", label: "企业动态", icon: "news" },
+    { target: "gallery", label: "资质荣誉", icon: "factory" },
+    { target: "intro", label: "关于我们", icon: "home" }
+  ],
+  overrides: {} };
+/* 组件池（固定五类，横跨案例·动态与关于我们两栏，不并栏）：key → 权威渲染栏 / 锚点 section / 楼层名 */
+const COMP_TAB = { intro: "about", stats: "about", gallery: "about", cases: "news", news: "news" };
+const COMP_SEC = { intro: "sec-intro", stats: "sec-stats", gallery: "sec-gallery", cases: "sec-cases", news: "sec-news" };
+const COMP_LABEL = { intro: "企业介绍", stats: "企业实力", gallery: "荣誉与实景", cases: "交付案例", news: "企业动态" };
+function comp(key) { return ((CFG && CFG.components) || []).find(c => c.key === key) || { key, enabled: false, home: false }; }
+function compData(key) { // 组件在内容池里是否有真实数据（无数据即自动抑制，绝不渲染空板块）
+  switch (key) {
+    case "intro": return !!((P.about_text || "").length);
+    case "stats": return (P.stats || []).length > 0;
+    case "gallery": return P.honors.filter(h => !isStatEcho(h)).length > 0 || !!P.factory_img;
+    case "cases": return (P.cases || []).length > 0;
+    case "news": return (P.news || []).length > 0;
+  }
+  return false;
+}
+function compAvail(key) { return !!comp(key).enabled && compData(key); } // 启用 ∧ 有数据 → 才渲染（栏内 section 与首页楼层同守此闸）
+function statsDirect() { const c = comp("stats"); return !!c.enabled && !!c.direct; } // 数据指标首页直显（开启则关于我们互斥不渲染）
 const S = { tab: "home", cat: "全部", query: "", detail: null, slide: 0, slideTimer: null };
 const TABS = [
   { id: "home", label: "首页", icon: IC.home, title: () => P.brand },
@@ -350,16 +404,64 @@ function statsHTML() {
   return '<div class="stats">' + P.stats.map(s =>
     '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
 }
-/* 首页流内定性卡：企业实力以定性文案融入产品流（用户 2026-11-15 裁定 + izumi 克制参照）——
-   只放各包既有的实力主张句 why_intro（定性文案、无统计数字、不与任何页全文复读）；统计数字单点归关于我们 */
+/* 企业实力定性卡：统计组件的「入口形态」——只放各包既有的实力主张句 why_intro
+   （定性文案、无统计数字、不与任何页全文复读）；统计数字的权威渲染位仍在关于我们（或预设直显时在首页楼层，二者互斥） */
 function strengthHTML() {
   if (!P.why_intro) return "";
   return '<div class="strength"><div class="s-k">企业实力</div><div class="s-t">' + esc(P.why_intro) + "</div></div>";
 }
-/* 首页（第七轮定版：app 信息流 × izumi 品质语言）——一条连续流而非官网板块堆叠：
-   搜索（携参深链产品中心）→ 瘦身 Banner → 主张句 + 素净提炼行 → 分类大图卡（图像主导、全预筛深链）
-   → 产品流（Pickup 精选大图在前、定性卡融入流中段、其余产品顺流续排）→ 流尾完结提示。
-   品牌元素压缩融入流中，不再成章；动态不回首页、统计不在首页（各归其栏单点）。 */
+/* 金刚区：条目随展示预设与启用状态自动生成（候选序见配置 quick，渲染时只保留目标真实存在的条目，上限 4） */
+function quickHTML() {
+  const items = [];
+  for (const q of (CFG.quick || [])) {
+    if (items.length >= 4) break;
+    if (q.target === "products" || q.target === "lead" || compAvail(q.target)) items.push(q);
+  }
+  if (!items.length) return "";
+  return '<div class="grid4">' + items.map(q =>
+    `<div class="gitem" data-quick="${esc(q.target)}"><span class="ic">${IC[q.icon] || IC.grid}</span><span class="lb">${esc(q.label)}</span></div>`).join("") + "</div>";
+}
+function floorHead(key, more) {
+  return `<div class="floor-head"><b>${COMP_LABEL[key]}</b>${more === false ? "" : `<span class="more" data-anchor="${key}">查看更多 ${IC.chevR}</span>`}</div>`;
+}
+/* 企业实力聚合区：按展示配置的顺序动态渲染楼层——每层只是该组件的预览入口形态，
+   全文只在所属栏的权威 section 渲染；未启用或无数据的组件不渲染、不留占位（cases 全包无数据即全抑制，为「绝不空板块」的实证） */
+function floorsHTML() {
+  const list = ((CFG && CFG.components) || []).filter(c => c.enabled && c.home && compData(c.key))
+    .sort((a, b) => (a.order || 99) - (b.order || 99));
+  return list.map(c => {
+    const key = c.key;
+    if (key === "intro") return `<div class="floor" data-comp="intro" id="floor-intro">${floorHead("intro")}
+      <div class="card"><div class="lead-in" style="padding-top:14px">${esc(P.about_title)}</div><p class="fl-intro-txt">${esc(P.about_text)}</p></div></div>`;
+    if (key === "stats") {
+      if (c.direct) return `<div class="floor" data-comp="stats" id="floor-stats">${floorHead("stats", false)}${statsHTML()}</div>`;
+      return `<div class="floor" data-comp="stats" id="floor-stats">${floorHead("stats")}${strengthHTML()}</div>`;
+    }
+    if (key === "gallery") { const hs = P.honors.filter(h => !isStatEcho(h)).slice(0, 4);
+      return `<div class="floor" data-comp="gallery" id="floor-gallery">${floorHead("gallery")}
+      <div class="card"><div class="fl-gal"><img src="${P.factory_img}" alt="工厂实景"><div class="honors">${hs.map(h => `<span class="h">${esc(h)}</span>`).join("")}</div></div></div></div>`;
+    }
+    if (key === "cases") return `<div class="floor" data-comp="cases" id="floor-cases">${floorHead("cases")}
+      <div class="card">${P.cases.slice(0, 2).map(cs => `<div class="fl-case" data-anchor="cases">${cs.img ? `<img src="${cs.img}" alt="">` : ""}<div><div class="t">${esc(cs.title)}</div><div class="d">${esc(cs.text)}</div></div></div>`).join("")}</div></div>`;
+    if (key === "news") return `<div class="floor" data-comp="news" id="floor-news">${floorHead("news")}
+      <div class="card">${P.news.slice(0, 3).map(n => `<div class="fl-news-it" data-anchor="news"><span class="tag">${esc(n.tag)}</span><span class="t">${esc(n.title)}</span>${IC.chevR}</div>`).join("")}</div></div>`;
+    return "";
+  }).join("");
+}
+/* 底部转化区：只放动作与锚点深链（留资表单 section），不陈列联系方式全文、不印号码 */
+function ctaHTML() {
+  return `<div class="cta-band">
+    <div class="t">获取产品报价与选型支持</div>
+    <div class="d">在线留资，厂家直接对接；急单可一键拨号</div>
+    <div class="row">
+      <button type="button" class="go" data-anchor="lead">在线留资</button>
+      <button type="button" class="dial" data-act="call" aria-label="一键拨号">${IC.phone}</button>
+    </div>
+  </div>`;
+}
+/* 首页（第八轮：展示配置与首页动态映射）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
+   → 金刚区（随预设生成）→ 核心产品（分类大图卡 + Pickup 精选与产品流）→ 企业实力聚合区（配置驱动的动态楼层）
+   → 底部转化区。内容决定模块生灭：楼层由展示配置（packs-display）与内容池数据共同决定，有啥展示啥。 */
 function renderHome() {
   const cats = [];
   P.products.forEach(p => { if (!cats.includes(p.cat)) cats.push(p.cat); });
@@ -401,6 +503,7 @@ function renderHome() {
     <div class="hc-t">${esc(P.tagline)}</div>
     <div class="hc-line">${P.why_points.map(w => esc(w.title)).join("　·　")}</div>
   </div>
+  ${quickHTML()}
   <div class="shead">产品分类</div>
   <div class="cat-grid">
     ${cats.map(c => { const fp = P.products.find(p => p.cat === c); return `
@@ -409,10 +512,11 @@ function renderHome() {
   <div class="shead">主推产品</div>
   <div class="stream">
     ${picks.map(pickHTML).join("")}
-    ${strengthHTML()}
     ${rest.map(cardHTML).join("")}
   </div>
   <div class="end-hint">— 已展示全部 ${P.products.length} 件产品 —</div>
+  ${floorsHTML()}
+  ${ctaHTML()}
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
 
@@ -438,12 +542,26 @@ function renderProducts() {
   <div class="foot-note">共 ${list.length} 项 · 价格口径与官网内容包一致</div>`;
 }
 function renderNews() {
-  return `
-  <div class="card" style="margin-bottom:16px">
+  /* 案例·动态栏：组件池在本栏的两个 section 各带稳定锚点承接首页深链；
+     cases 无真实数据时 section 整体抑制（不虚构案例、不留空板块），只呈现动态 */
+  let h = "";
+  if (compAvail("cases")) {
+    h += `
+  <div class="card" id="sec-cases" data-comp="cases" style="margin-bottom:12px">
+    <div class="sec-title"><b>精选案例</b><span class="tag">交付实证</span></div>
+    ${P.cases.map(cs => `
+    <div class="fl-case">${cs.img ? `<img src="${cs.img}" alt="">` : ""}<div><div class="t">${esc(cs.title)}</div><div class="d full">${esc(cs.text)}</div></div></div>`).join("")}
+  </div>`;
+  }
+  if (compAvail("news")) {
+    h += `
+  <div class="card" id="sec-news" data-comp="news" style="margin-bottom:16px">
     <div class="sec-title"><b>企业动态</b><span class="tag">信任背书</span></div>
     ${P.news.map(n => `
     <div class="news-it"><span class="tag">${esc(n.tag)}</span><div class="nt"><div class="t">${esc(n.title)}</div><div class="d full">${esc(n.text)}</div></div></div>`).join("")}
-  </div>
+  </div>`;
+  }
+  return h + `
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)}</div>`;
 }
 /* 同源去重（与 MP-S2 同口径，呈现层过滤、数据层不动）：荣誉文案若同时含某项统计的
@@ -465,17 +583,17 @@ function renderAbout() {
     <div class="en">${esc(P.brand_en)}</div>
     <div class="tl" style="font-weight:600;color:#333;font-size:14px">${esc(P.company_full)}</div>
   </div>
-  <div class="card">
+  <div class="card" id="sec-intro" data-comp="intro">
     <div class="sec-title"><b>公司介绍</b></div>
     <div class="lead-in">${esc(P.about_title)}</div>
     <p class="about-txt">${esc(P.about_text)}</p>
   </div>
-  <div class="card">
+  <div class="card" id="sec-gallery" data-comp="gallery">
     <div class="sec-title"><b>工厂实景与资质荣誉</b></div>
     <div style="padding:6px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
     <div class="honors" style="padding-top:12px">${P.honors.filter(h => !isStatEcho(h)).map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
   </div>
-  ${statsHTML()}
+  ${comp("stats").enabled && !comp("stats").direct ? `<div id="sec-stats" data-comp="stats">${statsHTML()}</div>` : ""}
   <div class="card">
     <div class="sec-title"><b>服务支持</b></div>
     <div style="padding:2px 12px 4px">
@@ -508,7 +626,7 @@ function renderAbout() {
       <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
     </div>
   </div>
-  <div class="card" style="margin-bottom:16px">
+  <div class="card" id="sec-lead" style="margin-bottom:16px">
     <div class="sec-title"><b>在线留资</b></div>
     <form class="lead-form" id="leadForm">
       <div class="lf-row"><label for="lfName">姓名</label><input id="lfName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
@@ -552,12 +670,32 @@ function syncFab() {
   fab.classList.toggle("hidden", !show);
   fab.classList.toggle("up", S.detail != null);
 }
+/* 锚点深链（第八轮）：首页楼层「查看更多」与金刚区条目携带组件目标 → 切到所属 tab 并滚动定位到该组件 section。
+   模拟器内以 .page 容器滚动实现；原生语义对应页面滚动锚点 / scroll-view scroll-into-view（见 PRODUCT-LINE 展示配置节） */
+let pendingAnchor = null;
+function scrollToId(id) {
+  const pg = $("#page"), el = document.getElementById(id);
+  if (!pg || !el) return false;
+  pg.scrollTop += el.getBoundingClientRect().top - pg.getBoundingClientRect().top - 8;
+  return true;
+}
+function anchorFor(target) { // 组件 key / lead → [权威渲染 tab, section id]；stats 直显时权威位在首页楼层
+  if (target === "lead") return ["about", "sec-lead"];
+  if (target === "stats" && statsDirect()) return ["home", "floor-stats"];
+  return [COMP_TAB[target], COMP_SEC[target]];
+}
+function goAnchor(tab, secId) {
+  if (S.tab === tab && S.detail == null) { scrollToId(secId); return; }
+  pendingAnchor = secId;
+  goTab(tab);
+}
 function render() {
   $("#page").innerHTML = RENDER[S.tab]();
   $("#page").scrollTop = 0;
   $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
   renderTabs();
   startSwiper();
+  if (pendingAnchor) { const id = pendingAnchor; pendingAnchor = null; requestAnimationFrame(() => scrollToId(id)); }
   const q = $("#q");
   if (q) q.addEventListener("input", () => {
     S.query = q.value;
@@ -625,6 +763,12 @@ document.addEventListener("click", e => {
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
   const catgo = e.target.closest("[data-catgo]"); if (catgo) { goProducts(catgo.dataset.catgo); return; }
   const parts = e.target.closest("[data-parts]"); if (parts) { goProducts(P.support.parts ? P.support.parts.cat : "全部"); return; }
+  const ank = e.target.closest("[data-anchor]");
+  if (ank) { const t = anchorFor(ank.dataset.anchor); if (t) goAnchor(t[0], t[1]); return; }
+  const qk = e.target.closest("[data-quick]");
+  if (qk) { const tg = qk.dataset.quick;
+    if (tg === "products") { goTab("products"); return; }
+    const t = anchorFor(tg); if (t) goAnchor(t[0], t[1]); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
     const a = act.dataset.act;
@@ -680,11 +824,15 @@ $("#packSel").addEventListener("change", () => {
   const id = $("#packSel").value;
   location.href = location.pathname + "?pack=" + encodeURIComponent(id);
 });
-fetch("packs-mp/" + PACK_ID + ".json").then(r => {
-  if (!r.ok) throw new Error("HTTP " + r.status);
-  return r.json();
-}).then(data => {
+Promise.all([
+  fetch("packs-mp/" + PACK_ID + ".json").then(r => {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }),
+  fetch("packs-display/" + PACK_ID + ".json").then(r => (r.ok ? r.json() : null)).catch(() => null)
+]).then(([data, cfg]) => {
   P = data;
+  CFG = cfg || DEFAULT_CFG;
   document.documentElement.style.setProperty("--brand", P.accent);
   document.documentElement.style.setProperty("--brand-dark", P.accent_dark);
   document.documentElement.style.setProperty("--brand-tint", P.accent_tint);
@@ -693,6 +841,7 @@ fetch("packs-mp/" + PACK_ID + ".json").then(r => {
   $("#panelH1").textContent = "MP-S1 展示型 × " + P.brand;
   $("#specPack").textContent = "内容包：" + P.industry + " · " + P.brand + "（与官网演示站同一份数据）";
   $("#specAccent").textContent = "主题色：内容包品牌 accent " + P.accent;
+  $("#specPreset").textContent = "展示预设：" + CFG.preset_label + "（" + CFG.preset + "）——组件开关 / 排序 / 推首页由预设生成，配置见 packs-display/" + P.pack_id + ".json";
   $("#packSel").value = P.pack_id;
   routeFromHash();
   window.addEventListener("hashchange", routeFromHash);
