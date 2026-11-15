@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小程序模拟样板 · MP-S2 目录型</title>
+<style>
+  :root{ --brand:#E4AF00; --brand-dark:#9A7400; --brand-tint:#FBF3D3; --ink:#23272B;
+         --text:#1a1a1a; --sub:#8a8a8a; --line:#e8e8e8; --pagebg:#f6f6f6; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#10141d; color:#e8ecf4; }
+  .stage{ max-width:1180px; margin:0 auto; padding:28px 20px 48px; display:flex; gap:36px; align-items:flex-start; justify-content:center; }
+  /* ---------- 壳外说明面板 ---------- */
+  .panel{ width:340px; flex:none; padding-top:8px; }
+  .panel h1{ font-size:21px; margin:0 0 6px; line-height:1.45; }
+  .panel .sub{ color:#9aa7bd; font-size:13px; line-height:1.75; margin:0 0 14px; }
+  .spec{ background:#171e2e; border:1px solid #26314a; border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+  .spec h3{ margin:0 0 8px; font-size:13px; color:#ffb37a; letter-spacing:.5px; }
+  .spec p,.spec li{ font-size:13px; color:#c6d0e2; line-height:1.8; margin:0; }
+  .spec ul{ margin:0; padding-left:17px; }
+  .honest{ border-color:#6b4a26; background:#221b10; }
+  .honest p{ color:#f0d9ac; }
+  .ctl{ display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
+  .ctl label{ font-size:12.5px; color:#8fa0bb; }
+  .ctl select,.ctl button{ font-family:inherit; font-size:13.5px; border-radius:9px; padding:10px 12px; }
+  .ctl select{ background:#171e2e; color:#e8ecf4; border:1px solid #2c3a58; width:100%; }
+  .ctl button{ background:#ff5e14; border:none; color:#fff; font-weight:600; cursor:pointer; }
+  .ctl button.ghost{ background:#171e2e; color:#c6d0e2; border:1px solid #2c3a58; font-weight:400; }
+  .tips{ font-size:12.5px; color:#67748e; line-height:1.9; }
+  /* ---------- 手机壳 ---------- */
+  .phone-wrap{ flex:none; }
+  .phone{ width:399px; padding:12px; background:#05070a; border-radius:52px; box-shadow:0 24px 70px rgba(0,0,0,.55), inset 0 0 0 2px #2a2f36; }
+  .screen{ position:relative; width:375px; height:748px; background:var(--pagebg); border-radius:42px; overflow:hidden; color:var(--text); display:flex; flex-direction:column; }
+  .stage.full .panel{ display:none; }
+  .stage.full .phone{ transform:scale(1.12); transform-origin:top center; }
+  /* 状态栏 + 导航栏 */
+  .statusbar{ height:42px; flex:none; display:flex; align-items:flex-end; justify-content:space-between; padding:0 22px 4px 26px; background:#fff; font-size:14.5px; font-weight:600; color:#111; }
+  .statusbar .sic{ display:flex; gap:6px; align-items:center; }
+  .navbar{ height:44px; flex:none; background:#fff; display:flex; align-items:center; justify-content:center; position:relative; border-bottom:.5px solid var(--line); }
+  .navbar .title{ font-size:16.5px; font-weight:600; color:#111; max-width:190px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .nav-back{ position:absolute; left:6px; top:0; height:44px; width:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .capsule{ position:absolute; right:8px; top:6px; width:87px; height:32px; border:1px solid rgba(0,0,0,.14); border-radius:99px; background:rgba(255,255,255,.65); display:flex; align-items:center; justify-content:space-evenly; color:#333; }
+  .capsule .div{ width:1px; height:16px; background:rgba(0,0,0,.14); }
+  /* 页面区 */
+  .viewport{ flex:1; position:relative; overflow:hidden; }
+  .page{ position:absolute; inset:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; }
+  .page::-webkit-scrollbar{ display:none; }
+  /* TabBar */
+  .tabbar{ flex:none; background:#fff; border-top:.5px solid var(--line); padding:6px 0 20px; display:flex; position:relative; }
+  .tabbar::after{ content:""; position:absolute; left:50%; bottom:6px; transform:translateX(-50%); width:134px; height:5px; border-radius:99px; background:#111; opacity:.85; }
+  .tab{ flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; padding:3px 0 1px; cursor:pointer; color:#7a7a7a; }
+  .tab .lb{ font-size:10.5px; line-height:1.2; }
+  .tab.on{ color:var(--brand-dark); }
+  /* 通用组件（TDesign 语言） */
+  .card{ background:#fff; border-radius:12px; margin:12px 12px 0; overflow:hidden; }
+  .sec-title{ display:flex; align-items:center; justify-content:space-between; padding:16px 16px 4px; }
+  .sec-title b{ font-size:16px; }
+  .btn-pri{ background:var(--brand); color:var(--ink); border:none; font-family:inherit; font-weight:600; border-radius:10px; cursor:pointer; }
+  .tag{ display:inline-block; font-size:11px; color:var(--brand-dark); background:var(--brand-tint); border-radius:4px; padding:2px 7px; font-weight:600; }
+  .cell{ display:flex; align-items:center; gap:10px; padding:13px 16px; background:#fff; position:relative; cursor:pointer; }
+  .cell + .cell::before{ content:""; position:absolute; top:0; left:16px; right:0; height:.5px; background:var(--line); }
+  .cell .ct{ flex:1; min-width:0; }
+  .cell .ct .t{ font-size:15px; }
+  .cell .ct .d{ font-size:12.5px; color:var(--sub); margin-top:2px; line-height:1.5; }
+  .cell .cv{ font-size:13.5px; color:#555; text-align:right; word-break:break-all; }
+  .chev{ color:#c4c4c4; flex:none; }
+  .empty{ text-align:center; color:var(--sub); font-size:13px; padding:44px 0 30px; }
+  .foot-note{ text-align:center; color:#b5b5b5; font-size:11px; padding:14px 30px 20px; line-height:1.7; }
+  /* 首页（轻量品牌页） */
+  .swiper{ position:relative; height:196px; overflow:hidden; background:#222; }
+  .swiper .track{ display:flex; height:100%; transition:transform .45s ease; }
+  .swiper .slide{ flex:none; width:375px; height:100%; position:relative; }
+  .swiper .slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .swiper .shade{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.06) 40%,rgba(0,0,0,.62)); }
+  .swiper .cap{ position:absolute; left:18px; right:18px; bottom:26px; color:#fff; }
+  .swiper .cap .kick{ font-size:12px; letter-spacing:1px; opacity:.92; margin-bottom:5px; }
+  .swiper .cap .tt{ font-size:20.5px; font-weight:700; line-height:1.35; }
+  .swiper .dots{ position:absolute; right:14px; bottom:12px; display:flex; gap:5px; }
+  .swiper .dots i{ width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.45); }
+  .swiper .dots i.on{ width:16px; background:var(--brand); }
+  .claim{ padding:2px 16px 6px; font-size:15px; font-weight:600; color:#333; line-height:1.7; }
+  .why-it{ padding:10px 16px; }
+  .why-it + .why-it{ border-top:.5px solid var(--line); }
+  .why-it .t{ font-size:14.5px; font-weight:600; display:flex; gap:8px; align-items:center; }
+  .why-it .t i{ width:7px; height:7px; border-radius:99px; background:var(--brand); flex:none; }
+  .why-it .d{ font-size:13px; color:#555; line-height:1.7; margin-top:4px; }
+  .lead-in{ padding:0 16px 2px; font-size:14.5px; font-weight:700; color:#333; line-height:1.6; }
+  .about-txt{ padding:2px 16px 15px; font-size:13.5px; color:#555; line-height:1.75; }
+  .stats{ display:flex; background:var(--ink); border-radius:12px; margin:12px 12px 0; padding:17px 6px 14px; }
+  .stats .st{ flex:1; text-align:center; }
+  .stats .v{ font-size:21px; font-weight:700; color:var(--brand); line-height:1.15; }
+  .stats .l{ font-size:11px; color:#c9cdd4; margin-top:3px; }
+  .pfeat{ display:flex; gap:11px; padding:10px 16px 14px; }
+  .pfeat .pf{ flex:1; cursor:pointer; min-width:0; }
+  .pfeat .pf img{ width:100%; height:86px; object-fit:cover; border-radius:9px; display:block; }
+  .pfeat .pf .t{ font-size:13.5px; font-weight:600; margin-top:7px; }
+  .pfeat .pf .p{ font-size:12.5px; color:var(--brand-dark); font-weight:700; margin-top:2px; }
+  .biz{ display:flex; flex-wrap:wrap; gap:8px; padding:6px 16px 15px; }
+  .biz .b{ font-size:12.5px; color:#444; background:#fff; border:1px solid #e0e0e0; border-radius:99px; padding:6px 12px; cursor:pointer; }
+  /* 产品中心（目录型：常驻搜索 + 左侧分类轨 + 密集列表） */
+  .cat-search{ position:sticky; top:0; z-index:6; background:var(--pagebg); padding:12px 12px 10px; }
+  .cat-search .in{ display:flex; align-items:center; gap:7px; background:#fff; border-radius:99px; padding:9px 14px; color:#999; box-shadow:0 1px 4px rgba(20,20,20,.05); }
+  .cat-search input{ border:none; outline:none; background:transparent; font-size:13.5px; flex:1; font-family:inherit; color:var(--text); }
+  .cat-count{ font-size:12px; color:var(--sub); padding:8px 4px 0; }
+  .catwrap{ display:flex; align-items:flex-start; }
+  .rail{ width:94px; flex:none; background:#eceef1; position:sticky; top:97px; max-height:calc(748px - 42px - 44px - 97px - 56px); overflow-y:auto; scrollbar-width:none; border-radius:0 0 12px 0; }
+  .rail::-webkit-scrollbar{ display:none; }
+  .ritem{ padding:12px 10px 11px; font-size:13px; color:#555; cursor:pointer; position:relative; line-height:1.35; }
+  .ritem .n{ display:block; font-size:11px; color:#9a9a9a; margin-top:2px; }
+  .ritem.on{ background:#fff; color:var(--text); font-weight:700; }
+  .ritem.on::before{ content:""; position:absolute; left:0; top:12px; bottom:12px; width:3.5px; border-radius:99px; background:var(--brand); }
+  .ritem.on .n{ color:var(--brand-dark); }
+  .clist{ flex:1; min-width:0; padding:2px 10px 14px 10px; }
+  .dcard{ background:#fff; border-radius:11px; padding:10px; display:flex; gap:10px; margin-top:8px; cursor:pointer; }
+  .dcard img{ width:76px; height:76px; border-radius:8px; object-fit:cover; flex:none; }
+  .dcard .dc{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .dcard .t{ font-size:14.5px; font-weight:600; line-height:1.4; display:flex; align-items:center; gap:6px; }
+  .dcard .t .tt{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .spec-chips{ display:flex; gap:5px; margin-top:6px; overflow:hidden; }
+  .chip-s{ flex:1 1 0; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10.5px; color:#666; background:#f3f4f5; border-radius:4px; padding:2.5px 6px; }
+  .dcard .t .tag{ flex:none; }
+  .dcard .pr{ margin-top:auto; padding-top:5px; display:flex; align-items:center; justify-content:space-between; }
+  .dcard .pr .p{ font-size:13.5px; color:var(--brand-dark); font-weight:700; }
+  /* 详情层 */
+  .detail{ position:absolute; inset:0; background:var(--pagebg); z-index:30; display:flex; flex-direction:column; }
+  .detail .dscroll{ flex:1; overflow-y:auto; scrollbar-width:none; }
+  .detail .dscroll::-webkit-scrollbar{ display:none; }
+  .detail .cover{ width:100%; height:238px; object-fit:cover; display:block; }
+  .detail .dhead{ background:#fff; padding:15px 16px 13px; }
+  .detail .dhead .t{ font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .detail .dhead .p{ font-size:17px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
+  .detail .dhead .d{ font-size:13.5px; color:#555; line-height:1.75; margin-top:8px; }
+  .spec-t{ background:#fff; margin-top:12px; padding:6px 16px 10px; }
+  .spec-t h4{ font-size:15px; margin:10px 0 4px; }
+  .spec-r{ display:flex; gap:14px; padding:9px 0; border-bottom:.5px solid var(--line); font-size:13.5px; }
+  .spec-r:last-child{ border-bottom:none; }
+  .spec-r .k{ width:86px; flex:none; color:var(--sub); }
+  .spec-r .v{ flex:1; }
+  .dbar{ flex:none; background:#fff; border-top:.5px solid var(--line); padding:10px 12px 24px; display:flex; gap:10px; }
+  .dbar button{ flex:1; height:44px; font-size:15px; font-weight:600; }
+  /* 联系我们 */
+  .fac-img{ width:100%; height:150px; object-fit:cover; display:block; border-radius:9px; }
+  .honors{ display:flex; flex-wrap:wrap; gap:8px; padding:4px 16px 15px; }
+  .honors .h{ font-size:12px; background:var(--brand-tint); color:var(--brand-dark); font-weight:600; border-radius:99px; padding:5px 11px; }
+  .map-ph{ margin:12px 16px 16px; background:#e9edf2; border-radius:12px; height:172px; position:relative; overflow:hidden;
+           background-image:linear-gradient(#d7dde6 1px,transparent 1px),linear-gradient(90deg,#d7dde6 1px,transparent 1px); background-size:34px 34px; }
+  .map-ph .road{ position:absolute; background:#fff; }
+  .map-ph .pin{ position:absolute; left:50%; top:44%; transform:translate(-50%,-100%); color:#e34d3d; text-align:center; }
+  .map-ph .addr{ position:absolute; left:0; right:0; bottom:0; background:rgba(255,255,255,.94); padding:10px 14px; font-size:12.5px; color:#444; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .map-ph .addr button{ flex:none; background:var(--brand); color:var(--ink); border:none; font-weight:600; font-size:12.5px; border-radius:7px; padding:7px 12px; font-family:inherit; cursor:pointer; }
+  /* 悬浮动作 / 留资表单 */
+  .fab{ position:absolute; right:14px; bottom:18px; z-index:40; display:flex; flex-direction:column; gap:10px; }
+  .fab.up{ bottom:98px; }
+  .fab-btn{ width:48px; height:48px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; background:#fff; color:#333; box-shadow:0 6px 18px rgba(20,20,20,.28); }
+  .fab-btn.call{ background:var(--brand); color:var(--ink); }
+  .lead-form{ padding:2px 16px 16px; }
+  .lf-row{ margin-top:12px; }
+  .lf-row label{ display:block; font-size:13px; font-weight:600; color:#555; margin-bottom:6px; }
+  .lf-row input,.lf-row textarea{ width:100%; border:1px solid #e2e2e2; border-radius:9px; padding:10px 12px; font-size:14px; font-family:inherit; background:#fafafa; color:var(--text); }
+  .lf-sub{ width:100%; height:44px; font-size:15px; margin-top:14px; }
+  .lf-note{ font-size:11.5px; color:var(--sub); text-align:center; margin-top:9px; line-height:1.6; }
+  /* Toast */
+  .toast{ position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); z-index:60; background:rgba(20,20,20,.86); color:#fff;
+          font-size:13.5px; line-height:1.6; padding:13px 18px; border-radius:10px; max-width:270px; text-align:center; opacity:0; pointer-events:none; transition:opacity .22s; }
+  .toast.show{ opacity:1; }
+  .hidden{ display:none !important; }
+  @media (max-width:900px){ .stage{ flex-direction:column; align-items:center; } .panel{ width:min(399px,94vw); order:2; } }
+  @media (max-width:430px){ .phone{ transform:scale(.88); transform-origin:top center; margin-bottom:-90px; } }
+</style></head>
+<body>
+<div class="stage" id="stage">
+  <aside class="panel">
+    <h1>小程序模拟样板<br><span id="panelH1">MP-S2 目录型 × 机械包</span></h1>
+    <p class="sub">微信小程序业务线第二个骨架样板：产品目录即核心，面向产品线较多的企业选型场景。与 MP-S1 展示型共用同一份内容包数据，界面层独立实现。</p>
+    <div class="spec">
+      <h3>样板构成</h3>
+      <ul>
+        <li>骨架：MP-S2 目录型 · 精简 3 栏（用户定版 tab 架构标准：适合产品线单一或重展示的工厂 / B2B 企业）</li>
+        <li>栏位：首页（品牌形象 / 核心亮点 / 企业简介融入本页 / 末尾以主推产品与分类深链分发）· 产品中心（目录主场：左侧分类导航 + 规格速览密集列表 + 常驻搜索）· 联系我们（资质荣誉 / 工厂地址与导航 / 询盘联系方式 / 在线留资表单）</li>
+        <li>与 MP-S1 的分工：S1 是展示型（经典 4 栏，重品牌展示与动态背书）；S2 是目录型（精简 3 栏，重目录浏览与选型效率），本骨架不设动态栏</li>
+        <li>转化设计：产品详情页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在联系我们栏出现一处；企业简介全文只在首页一处</li>
+        <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
+        <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
+        <li>可点动线：栏位切换、轮播、分类导航、搜索筛选、详情进出、悬浮拨号 / 客服、复制 / 导航、留资表单提交（均为模拟反馈）</li>
+      </ul>
+    </div>
+    <div class="spec honest">
+      <h3>能力边界（诚实口径）</h3>
+      <p>本样板为网页模拟效果，用于选型演示；微信登录、支付、分享等原生能力以原生交付为准。签约后按本样板 1:1 翻译为原生小程序（TDesign 组件同源）。</p>
+    </div>
+    <div class="ctl">
+      <label for="packSel">内容包（换包即换行业，7 个行业包与 MP-S1 共用同一套数据；也可通过 ?pack= 参数直达）</label>
+      <select id="packSel">
+        <option value="machinery" selected>机械设备 · 恒力重工</option>
+        <option value="eco-filter">环保过滤 · 清源过滤</option>
+        <option value="steel-metal">钢材金属 · 恒岳金属</option>
+        <option value="automation-electronics">自动化 · 华睿自动化</option>
+        <option value="chemical-materials">化工新材 · 恒拓新材</option>
+        <option value="general-manufacturing">通用制造 · 铭匠精密</option>
+        <option value="handicraft-woodwork">手工业 · 匠心木作</option>
+      </select>
+      <button id="fsBtn" type="button">全屏体验</button>
+      <button id="resetBtn" type="button" class="ghost">重置演示（回首页）</button>
+    </div>
+    <p class="tips">操作提示：直接点手机里的底部 tabBar、左侧分类轨与产品卡片体验目录动线；所有「拨打 / 复制 / 询价」动作都会给出模拟反馈 toast，不会真的外呼或提交。</p>
+  </aside>
+
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="screen" id="screen">
+        <div class="statusbar">
+          <span id="clock">9:41</span>
+          <span class="sic">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="#111"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 12" fill="#111"><path d="M8 9.6a1.9 1.9 0 1 1 0 3.8A1.9 1.9 0 0 1 8 9.6zM8 5.4c1.7 0 3.3.66 4.5 1.86l-1.5 1.5A4.4 4.4 0 0 0 8 7.7c-1.16 0-2.25.45-3 1.06L3.5 7.26A6.36 6.36 0 0 1 8 5.4zM8 1c2.9 0 5.63 1.13 7.68 3.18L14.2 5.66A8.6 8.6 0 0 0 8 3.2c-2.36 0-4.58.92-6.2 2.46L.32 4.18A10.8 10.8 0 0 1 8 1z" transform="scale(0.92)"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="20" height="11" rx="3.5" fill="none" stroke="#111" opacity=".4"/><rect x="2.2" y="2.2" width="14" height="7.6" rx="1.8" fill="#111"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4z" fill="#111" opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="navbar">
+          <span class="nav-back hidden" id="navBack"><svg width="11" height="19" viewBox="0 0 11 19" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"><path d="M9.5 1.5 2 9.5l7.5 8"/></svg></span>
+          <span class="title" id="navTitle">恒力重工</span>
+          <span class="capsule" aria-hidden="true">
+            <svg width="18" height="6" viewBox="0 0 18 6" fill="#333"><circle cx="3" cy="3" r="2.1"/><circle cx="9" cy="3" r="2.1"/><circle cx="15" cy="3" r="2.1"/></svg>
+            <span class="div"></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#333" stroke-width="1.5"><circle cx="8" cy="8" r="6.4"/><circle cx="8" cy="8" r="2.2" fill="#333" stroke="none"/></svg>
+          </span>
+        </div>
+        <div class="viewport">
+          <div class="page" id="page"></div>
+          <div class="detail hidden" id="detail"></div>
+          <div class="fab hidden" id="fab">
+            <button type="button" class="fab-btn" data-act="service" aria-label="在线客服"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="2.8" y="13" width="4" height="6.5" rx="2"/><rect x="17.2" y="13" width="4" height="6.5" rx="2"/><path d="M20 19.5c0 1.7-1.6 2.5-4 2.5h-2"/></svg></button>
+            <button type="button" class="fab-btn call" data-act="call" aria-label="一键拨号"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 4h3l1.7 4.4-2.3 1.7a12.6 12.6 0 0 0 6.3 6.3l1.7-2.3L20 15.8v3A2.2 2.2 0 0 1 17.7 21 16.8 16.8 0 0 1 3 6.3 2.2 2.2 0 0 1 5.2 4z"/></svg></button>
+          </div>
+        </div>
+        <div class="tabbar" id="tabbar"></div>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = (s, r) => (r || document).querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const IC = {
+  home: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.6V20h11.6V9.6"/><path d="M10 20v-5h4v5"/></svg>',
+  grid: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg>',
+  phone: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 4h3l1.7 4.4-2.3 1.7a12.6 12.6 0 0 0 6.3 6.3l1.7-2.3L20 15.8v3A2.2 2.2 0 0 1 17.7 21 16.8 16.8 0 0 1 3 6.3 2.2 2.2 0 0 1 5.2 4z"/></svg>',
+  chevR: '<svg class="chev" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 1.5 6.5 7l-5 5.5"/></svg>',
+  search: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.6 4.6"/></svg>',
+  pin: '<svg width="30" height="30" viewBox="0 0 24 24" fill="#e34d3d"><path d="M12 22s-6.8-5.6-6.8-11A6.8 6.8 0 0 1 12 4.2 6.8 6.8 0 0 1 18.8 11c0 5.4-6.8 11-6.8 11z"/><circle cx="12" cy="11" r="2.6" fill="#fff"/></svg>',
+  copy: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5.5 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.5"/></svg>',
+  mail: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7.5 8 6 8-6"/></svg>',
+  wechat: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.6 4C5 4 2 6.6 2 9.9c0 1.9 1 3.5 2.6 4.6l-.7 2.1 2.4-1.2c.7.2 1.5.3 2.3.3h.5A5.9 5.9 0 0 1 8.7 13c0-3.2 3-5.7 6.7-5.7h.5C15.3 5.4 12.2 4 8.6 4zm7 4.6c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.6 0 1.2-.1 1.8-.3l1.9 1-.6-1.7c1.4-.8 2.3-2 2.3-3.4 0-2.4-2.4-4.4-5.4-4.4zM7 8.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm4.4 0a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm2.5 3.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm4.3 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/></svg>'
+};
+/* S2 与 S1 共用同一套数据：页面部署于 /mp/s2/，数据与图片在上一级 /mp/ */
+const DATA_BASE = "../";
+let P = null; // packs-mp 数据
+const S = { tab: "home", cat: "全部", query: "", detail: null, slide: 0, slideTimer: null };
+const TABS = [
+  { id: "home", label: "首页", icon: IC.home, title: () => P.brand },
+  { id: "products", label: "产品中心", icon: IC.grid, title: () => "产品中心" },
+  { id: "contact", label: "联系我们", icon: IC.phone, title: () => "联系我们" }
+];
+let toastTimer = null;
+function toast(msg) {
+  const t = $("#toast"); t.innerHTML = esc(msg); t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 1700);
+}
+function simCall() { toast("模拟拨号：正在呼叫服务热线（模拟）"); }
+function simService() { toast("在线客服（模拟）：原生版将打开微信客服会话"); }
+function simInquiry(name) { toast("询价意向已记录（模拟）：" + name + "，原生版将直达厂家"); }
+
+/* ---------------- 页面渲染 ---------------- */
+function statsHTML() {
+  return '<div class="stats">' + P.stats.map(s =>
+    '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
+}
+function renderHome() {
+  const feats = P.products.slice(0, 3);
+  return `
+  <div class="swiper" id="swiper">
+    <div class="track" style="transform:translateX(-${S.slide * 375}px)">
+      ${P.hero_slides.map((src, i) => `
+      <div class="slide"><img src="${src}" alt="">
+        <div class="shade"></div>
+        ${i === 0 ? `<div class="cap"><div class="kick">${esc(P.hero_kicker)}</div><div class="tt">${esc(P.hero_title)}</div></div>` : ""}
+      </div>`).join("")}
+    </div>
+    <div class="dots">${P.hero_slides.map((_, i) => `<i class="${i === S.slide ? "on" : ""}" data-slide="${i}"></i>`).join("")}</div>
+  </div>
+  <div class="card">
+    <div class="sec-title"><b>核心亮点</b></div>
+    <div class="claim">${esc(P.tagline)}</div>
+    ${P.why_points.map(w => `<div class="why-it"><div class="t"><i></i>${esc(w.title)}</div><div class="d">${esc(w.text)}</div></div>`).join("")}
+    <div style="height:6px"></div>
+  </div>
+  <div class="card">
+    <div class="sec-title"><b>企业简介</b></div>
+    <div class="lead-in">${esc(P.about_title)}</div>
+    <p class="about-txt">${esc(P.about_text)}</p>
+  </div>
+  ${statsHTML()}
+  <div class="card">
+    <div class="sec-title"><b>主推产品</b></div>
+    <div class="pfeat">${feats.map(p => `
+      <div class="pf" data-detail="${p.id}"><img src="${p.img}" alt=""><div class="t">${esc(p.title)}</div><div class="p">${esc(p.price)}</div></div>`).join("")}
+    </div>
+    <div class="biz" style="border-top:.5px solid var(--line);padding-top:12px">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
+  </div>
+  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
+}
+
+function catList() { return ["全部", ...new Set(P.products.map(p => p.cat))]; }
+function filteredProducts() {
+  if (S.query) {
+    return P.products.filter(p => (p.title + p.text + p.specs.map(s => s.k + s.v).join("")).includes(S.query));
+  }
+  return P.products.filter(p => S.cat === "全部" || p.cat === S.cat);
+}
+function renderProducts() {
+  const cats = catList();
+  const list = filteredProducts();
+  const countOf = c => c === "全部" ? P.products.length : P.products.filter(p => p.cat === c).length;
+  return `
+  <div class="cat-search">
+    <div class="in">${IC.search}<input id="q" type="text" placeholder="搜索产品 / 参数，如：${esc(P.search_example)}" value="${esc(S.query)}"></div>
+    <div class="cat-count">${S.query ? `全目录搜索「${esc(S.query)}」` : `当前分类：${esc(S.cat)}`} · 共 ${list.length} 项</div>
+  </div>
+  <div class="catwrap">
+    <div class="rail">${cats.map(c => `<div class="ritem ${c === S.cat && !S.query ? "on" : ""}" data-cat="${c}">${c}<span class="n">${countOf(c)} 项</span></div>`).join("")}</div>
+    <div class="clist">
+      ${list.length ? list.map(p => `
+      <div class="dcard" data-detail="${p.id}">
+        <img src="${p.img}" alt="">
+        <div class="dc">
+          <div class="t"><span class="tt">${esc(p.title)}</span><span class="tag">${esc(p.cat)}</span></div>
+          <div class="spec-chips">${p.specs.slice(0, 2).map(s => `<span class="chip-s">${esc(s.k)}：${esc(s.v)}</span>`).join("")}</div>
+          <div class="pr"><span class="p">${esc(p.price)}</span>${IC.chevR}</div>
+        </div>
+      </div>`).join("") : '<div class="empty">没有匹配的产品，换个关键词试试</div>'}
+    </div>
+  </div>
+  <div class="foot-note">产品目录与官网内容包一致 · 点分类轨切换，点卡片看参数全文</div>`;
+}
+function renderContact() {
+  /* 荣誉呈现去重（原则 1 + 统计单点裁定）：与统计组同源的荣誉条目（如「累计交付项目 750 余套」「年产整机 3,200 台」复述统计条，
+     标签去括号、数值去逗号后同现即判同源）不再现，统计只归首页 */
+  const statNorm = s => String(s).replace(/[,\s]/g, "");
+  const statCore = s => s.label.replace(/（.*?）|\(.*?\)/g, "");
+  const honorsShown = P.honors.filter(h => !P.stats.some(s => statNorm(h).includes(statNorm(statCore(s))) && statNorm(h).includes(statNorm(s.value))));
+  return `
+  <div class="card">
+    <div class="sec-title"><b>资质荣誉</b></div>
+    <div style="padding:6px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
+    <div class="honors" style="padding-top:12px">${honorsShown.map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
+  </div>
+  <div class="card">
+    <div class="sec-title"><b>工厂地址</b></div>
+    <div class="map-ph" style="margin:2px 16px 16px">
+      <div class="road" style="left:0;right:0;top:56px;height:13px"></div>
+      <div class="road" style="top:0;bottom:0;left:118px;width:13px"></div>
+      <div class="road" style="left:0;right:0;top:112px;height:8px;opacity:.75"></div>
+      <div class="pin">${IC.pin}</div>
+      <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title"><b>询盘联系方式</b></div>
+    <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div><div class="d">点按拨打服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
+    <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
+    <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="sec-title"><b>在线留资</b></div>
+    <form class="lead-form" id="leadForm">
+      <div class="lf-row"><label for="lfName">姓名</label><input id="lfName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
+      <div class="lf-row"><label for="lfPhone">电话</label><input id="lfPhone" type="tel" placeholder="请输入手机号码" autocomplete="off"></div>
+      <div class="lf-row"><label for="lfMsg">留言</label><textarea id="lfMsg" rows="3" placeholder="想咨询的产品、数量或问题"></textarea></div>
+      <button type="submit" class="btn-pri lf-sub">提交留言</button>
+      <div class="lf-note">提交后企业将主动与您联系 · 本样板为模拟提交，不会真实发送</div>
+    </form>
+  </div>
+  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 地图为占位示意，原生版调用微信地图导航</div>`;
+}
+
+function renderDetail(p) {
+  return `
+  <div class="dscroll">
+    <img class="cover" src="${p.img}" alt="">
+    <div class="dhead">
+      <div class="t">${esc(p.title)}<span class="tag">${esc(p.cat)}</span></div>
+      <div class="p">${esc(p.price)}</div>
+      <div class="d">${esc(p.text)}</div>
+    </div>
+    <div class="spec-t"><h4>产品参数</h4>
+      ${p.specs.map(s => `<div class="spec-r"><span class="k">${esc(s.k)}</span><span class="v">${esc(s.v)}</span></div>`).join("")}
+    </div>
+    <div style="height:14px"></div>
+  </div>
+  <div class="dbar">
+    <button type="button" class="btn-pri" data-act="inquiry" data-name="${esc(p.title)}">立即询价</button>
+  </div>`;
+}
+
+/* ---------------- 导航与交互 ---------------- */
+const RENDER = { home: renderHome, products: renderProducts, contact: renderContact };
+function renderTabs() {
+  $("#tabbar").innerHTML = TABS.map(t =>
+    `<div class="tab ${t.id === S.tab ? "on" : ""}" data-tab="${t.id}">${t.icon}<span class="lb">${t.label}</span></div>`).join("");
+}
+function syncFab() {
+  const fab = $("#fab");
+  const show = S.detail != null;
+  fab.classList.toggle("hidden", !show);
+  fab.classList.toggle("up", S.detail != null);
+}
+function render() {
+  $("#page").innerHTML = RENDER[S.tab]();
+  $("#page").scrollTop = 0;
+  $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
+  renderTabs();
+  startSwiper();
+  attachSearch();
+  bindPageBits();
+  syncFab();
+}
+function attachSearch() {
+  const q = $("#q");
+  if (!q) return;
+  q.addEventListener("input", () => {
+    S.query = q.value;
+    if (S.query) S.cat = "全部";
+    const pos = q.selectionStart;
+    $("#page").innerHTML = renderProducts();
+    const nq = $("#q"); nq.focus(); nq.setSelectionRange(pos, pos);
+    bindPageBits();
+    attachSearch();
+  });
+}
+function bindPageBits() {
+  const sw = $("#swiper");
+  if (sw) sw.querySelectorAll("[data-slide]").forEach(d =>
+    d.addEventListener("click", () => { S.slide = +d.dataset.slide; refreshSwiper(); }));
+}
+function refreshSwiper() {
+  const tr = $("#swiper .track"); if (!tr) return;
+  tr.style.transform = `translateX(-${S.slide * 375}px)`;
+  $("#swiper").querySelectorAll("[data-slide]").forEach((d, i) => d.classList.toggle("on", i === S.slide));
+}
+function startSwiper() {
+  clearInterval(S.slideTimer);
+  if (S.tab !== "home") return;
+  S.slideTimer = setInterval(() => { S.slide = (S.slide + 1) % P.hero_slides.length; refreshSwiper(); }, 4200);
+}
+function goTab(id) {
+  S.tab = id; S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  history.replaceState(null, "", "#/" + id);
+  render();
+}
+function goProducts(cat) {
+  S.cat = cat || "全部"; S.query = ""; S.tab = "products"; S.detail = null;
+  $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  history.replaceState(null, "", "#/products");
+  render();
+}
+function openDetail(id) {
+  const p = P.products.find(x => x.id === id); if (!p) return;
+  S.detail = id;
+  const d = $("#detail"); d.innerHTML = renderDetail(p); d.classList.remove("hidden");
+  d.querySelector(".dscroll").scrollTop = 0;
+  $("#tabbar").style.display = "none";
+  $("#navTitle").textContent = "产品详情";
+  $("#navBack").classList.remove("hidden");
+  history.replaceState(null, "", "#/product/" + id);
+  syncFab();
+}
+function closeDetail() {
+  S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = "";
+  $("#navBack").classList.add("hidden");
+  $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
+  history.replaceState(null, "", "#/" + S.tab);
+  syncFab();
+}
+
+document.addEventListener("click", e => {
+  const tab = e.target.closest("[data-tab]"); if (tab) { goTab(tab.dataset.tab); return; }
+  const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
+  const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; S.query = ""; render(); $("#page").scrollTop = 0; return; }
+  const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
+  const act = e.target.closest("[data-act]");
+  if (act) {
+    const a = act.dataset.act;
+    if (a === "call") simCall();
+    else if (a === "service") simService();
+    else if (a === "inquiry") simInquiry(act.dataset.name || "");
+    else if (a === "nav") toast("打开地图导航（模拟）：目的地为公司地址");
+    else if (a === "wechat") {
+      if (navigator.clipboard) navigator.clipboard.writeText(P.wechat).catch(() => {});
+      toast("微信号已复制（模拟），去微信粘贴添加");
+    }
+    return;
+  }
+  if (e.target.closest("#navBack")) { if (S.detail != null) closeDetail(); }
+});
+document.addEventListener("submit", e => {
+  if (!e.target.closest("#leadForm")) return;
+  e.preventDefault();
+  const name = $("#lfName").value.trim(), phone = $("#lfPhone").value.trim();
+  if (!name || !phone) { toast("请先填写姓名与电话（模拟校验）"); return; }
+  toast("留言已提交（模拟），原生版将直达企业并同步提醒");
+  e.target.reset();
+});
+
+$("#fsBtn").addEventListener("click", () => {
+  const st = $("#stage"); st.classList.toggle("full");
+  $("#fsBtn").textContent = st.classList.contains("full") ? "退出全屏体验" : "全屏体验";
+});
+$("#resetBtn").addEventListener("click", () => { S.cat = "全部"; S.query = ""; S.slide = 0; goTab("home"); toast("演示已重置"); });
+function tickClock() {
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  $("#clock").textContent = p(d.getHours()) + ":" + p(d.getMinutes());
+}
+function routeFromHash() {
+  const h = location.hash || "";
+  const m = h.match(/^#\/product\/(\d+)$/);
+  S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  if (m) { S.tab = "products"; render(); openDetail(+m[1]); return; }
+  if (h === "#/contact" || h === "#/about" || h === "#/profile" || h === "#/service") { S.tab = "contact"; render(); return; }
+  if (h.startsWith("#/")) { const id = h.slice(2); if (RENDER[id]) S.tab = id; }
+  render();
+}
+const PACK_ID = new URLSearchParams(location.search).get("pack") || "machinery";
+$("#packSel").addEventListener("change", () => {
+  const id = $("#packSel").value;
+  location.href = location.pathname + "?pack=" + encodeURIComponent(id);
+});
+fetch(DATA_BASE + "packs-mp/" + PACK_ID + ".json").then(r => {
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}).then(data => {
+  P = data;
+  /* 图片路径在数据中相对 /mp/ 书写，本页位于 /mp/s2/，统一补上一级前缀（数据仍只有一份） */
+  const fix = u => (typeof u === "string" && u.startsWith("assets/")) ? DATA_BASE + u : u;
+  P.logo = fix(P.logo); P.factory_img = fix(P.factory_img);
+  P.hero_slides = P.hero_slides.map(fix);
+  P.products = P.products.map(p => ({ ...p, img: fix(p.img) }));
+  document.documentElement.style.setProperty("--brand", P.accent);
+  document.documentElement.style.setProperty("--brand-dark", P.accent_dark);
+  document.documentElement.style.setProperty("--brand-tint", P.accent_tint);
+  document.documentElement.style.setProperty("--ink", P.charcoal);
+  document.title = "小程序模拟样板 · MP-S2 目录型 × " + P.brand;
+  $("#panelH1").textContent = "MP-S2 目录型 × " + P.brand;
+  $("#specPack").textContent = "内容包：" + P.industry + " · " + P.brand + "（与官网演示站同一份数据）";
+  $("#specAccent").textContent = "主题色：内容包品牌 accent " + P.accent;
+  $("#packSel").value = P.pack_id;
+  routeFromHash();
+  window.addEventListener("hashchange", routeFromHash);
+  tickClock(); setInterval(tickClock, 20000);
+}).catch(err => {
+  $("#page").innerHTML = '<div class="empty">样板数据加载失败：' + esc(err.message) + "<br>（请通过 http(s) 访问本页）</div>";
+});
+</script>
+</body></html>
