@@ -262,7 +262,7 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
-        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：上产品图 + 下分类名，单行横滑——产品分类 4–8 个全量入格、超过 8 个按产品数取前 8、不足 4 个整区不渲染，点击预筛产品中心，数据驱动、与展示预设无关）→ Pickup 精选与产品流（分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 信息流：瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：上产品图 + 下分类名，单行横滑——产品分类 4–8 个全量入格、超过 8 个按产品数取前 8、不足 4 个整区不渲染，点击预筛产品中心，数据驱动、与展示预设无关）→ 主推产品流（Pickup 精选 + 产品卡，主推封顶 6 件；分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（搜索 / 分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
@@ -473,13 +473,19 @@ function ctaHTML() {
     </div>
   </div>`;
 }
-/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化；第十轮：金刚区图格化；第十一轮：金刚区单行横滑）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
-   → 金刚区（只放产品分类：上图下名、单行横滑覆盖 4–8 类，数据驱动）→ 核心产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
+/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化；第十轮：金刚区图格化；第十一轮：金刚区单行横滑；
+   第十二轮：搜索撤出首页、主推封顶 6）——骨架定版：瘦身 Banner + 主张提炼行
+   → 金刚区（只放产品分类：上图下名、单行横滑覆盖 4–8 类，数据驱动）→ 主推产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
    → 企业实力聚合区（配置驱动的动态楼层）→ 底部转化区。
+   搜索归位（第十二轮）：首页是品牌展示面、不设搜索；搜索是产品中心的工具，归产品中心顶部常驻
+   （与 MP-S2 同口径：按名称/参数关键词全目录检索，有查询时忽略分类，点分类片即清查询）。
+   主推封顶（第十二轮）：首页产品流最多 6 件（前 3 Pickup 大卡 + 后 3 普通卡），不足 6 全量；
+   选取以目录序前 6 代行——真实客户包应在资料整理层以主推标记策展，不由前端临场决定。
    内容决定模块生灭：楼层由展示配置（packs-display）与内容池数据共同决定，有啥展示啥。 */
 function renderHome() {
-  const picks = P.products.slice(0, 3);
-  const rest = P.products.slice(3);
+  const shown = P.products.slice(0, 6); // 主推封顶 6：目录序前 6（策展口径见上方注释）
+  const picks = shown.slice(0, 3);
+  const rest = shown.slice(3);
   const specPair = p => p.specs.slice(0, 2).map(s => esc(s.k) + " " + esc(s.v)).join(" · ");
   const pickHTML = p => `
     <div class="pick" data-detail="${p.id}">
@@ -501,7 +507,6 @@ function renderHome() {
       </div>
     </div>`;
   return `
-  <form class="search" id="homeSearch"><div class="in">${IC.search}<input id="hq" type="text" placeholder="搜索产品，如：${esc(P.search_example)}"></div></form>
   <div class="swiper" id="swiper" style="margin-top:12px">
     <div class="track" style="transform:translateX(-${S.slide * 375}px)">
       ${P.hero_slides.map((src, i) => `
@@ -522,7 +527,9 @@ function renderHome() {
     ${picks.map(pickHTML).join("")}
     ${rest.map(cardHTML).join("")}
   </div>
-  <div class="end-hint">— 已展示全部 ${P.products.length} 件产品 —</div>
+  ${P.products.length > 6
+    ? `<div class="end-hint">仅展示主推产品，全部 ${P.products.length} 件见产品中心</div>`
+    : `<div class="end-hint">— 已展示全部 ${P.products.length} 件产品 —</div>`}
   ${floorsHTML()}
   ${ctaHTML()}
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
@@ -530,11 +537,14 @@ function renderHome() {
 
 function renderProducts() {
   const cats = ["全部", ...new Set(P.products.map(p => p.cat))];
-  const list = P.products.filter(p =>
-    (S.cat === "全部" || p.cat === S.cat) &&
-    (!S.query || (p.title + p.text).includes(S.query)));
+  /* 搜索与分类共存口径（与 MP-S2 常驻搜索一致，第十二轮归位）：有查询时全目录检索
+     （名称 + 简介 + 参数键值）、忽略分类；无查询时按分类筛选。
+     点分类片清查询（见点击处理），金刚区深链进场亦清查询（见 goProducts）。 */
+  const list = S.query
+    ? P.products.filter(p => (p.title + p.text + p.specs.map(s => s.k + s.v).join("")).includes(S.query))
+    : P.products.filter(p => S.cat === "全部" || p.cat === S.cat);
   return `
-  <div class="search"><div class="in">${IC.search}<input id="q" type="text" placeholder="搜索产品，如：${esc(P.search_example)}" value="${esc(S.query)}"></div></div>
+  <div class="search"><div class="in">${IC.search}<input id="q" type="text" placeholder="搜索产品 / 参数，如：${esc(P.search_example)}" value="${esc(S.query)}"></div></div>
   <div class="tabs">${cats.map(c => `<span class="tb ${c === S.cat ? "on" : ""}" data-cat="${c}">${c}</span>`).join("")}</div>
   <div class="plist">
     ${list.length ? list.map(p => `
@@ -705,16 +715,25 @@ function render() {
   renderTabs();
   startSwiper();
   if (pendingAnchor) { const id = pendingAnchor; pendingAnchor = null; requestAnimationFrame(() => scrollToId(id)); }
+  bindQuery();
+  bindPageBits();
+  syncFab();
+}
+
+/* 产品中心搜索框接线：输入即全目录检索（口径见 renderProducts）；替换列表后须为新输入框重绑，
+   否则连续输入第二字起不再过滤。有查询时分类片高亮回「全部」（与 MP-S2 同口径）。 */
+function bindQuery() {
   const q = $("#q");
-  if (q) q.addEventListener("input", () => {
+  if (!q) return;
+  q.addEventListener("input", () => {
     S.query = q.value;
+    if (S.query) S.cat = "全部";
     const pos = q.selectionStart;
     $("#page").innerHTML = renderProducts();
     const nq = $("#q"); nq.focus(); nq.setSelectionRange(pos, pos);
+    bindQuery();
     bindPageBits();
   });
-  bindPageBits();
-  syncFab();
 }
 
 function bindPageBits() {
@@ -739,7 +758,7 @@ function goTab(id) {
   render();
 }
 function goProducts(cat) {
-  S.cat = cat || "全部"; S.tab = "products"; S.detail = null;
+  S.cat = cat || "全部"; S.query = ""; S.tab = "products"; S.detail = null;
   $("#detail").classList.add("hidden");
   $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
   history.replaceState(null, "", "#/products");
@@ -768,7 +787,7 @@ function closeDetail() {
 document.addEventListener("click", e => {
   const tab = e.target.closest("[data-tab]"); if (tab) { goTab(tab.dataset.tab); return; }
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
-  const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; render(); return; }
+  const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; S.query = ""; render(); return; }
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
   const catnav = e.target.closest("[data-catnav]"); if (catnav) { goProducts(catnav.dataset.catnav); return; }
   const parts = e.target.closest("[data-parts]"); if (parts) { goProducts(P.support.parts ? P.support.parts.cat : "全部"); return; }
@@ -790,13 +809,6 @@ document.addEventListener("click", e => {
   if (e.target.closest("#navBack")) { if (S.detail != null) closeDetail(); }
 });
 document.addEventListener("submit", e => {
-  if (e.target.closest("#homeSearch")) {
-    e.preventDefault();
-    S.query = $("#hq").value.trim();
-    S.cat = "全部";
-    goTab("products");
-    return;
-  }
   if (!e.target.closest("#leadForm")) return;
   e.preventDefault();
   const name = $("#lfName").value.trim(), phone = $("#lfPhone").value.trim();
