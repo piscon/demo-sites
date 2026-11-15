@@ -76,9 +76,11 @@
   .swiper .dots{ position:absolute; right:14px; bottom:12px; display:flex; gap:5px; }
   .swiper .dots i{ width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.45); }
   .swiper .dots i.on{ width:16px; background:var(--brand); }
-  .grid4{ display:flex; background:#fff; border-radius:12px; margin:12px 12px 0; padding:16px 4px 13px; }
-  .gitem{ flex:1; display:flex; flex-direction:column; align-items:center; gap:7px; cursor:pointer; }
-  .gitem .ic{ width:46px; height:46px; border-radius:13px; background:var(--brand-tint); display:flex; align-items:center; justify-content:center; color:var(--brand-dark); }
+  .grid4{ display:grid; background:#fff; border-radius:12px; margin:12px 12px 0; padding:14px 10px 12px; gap:12px 8px; }
+  .grid4.c4{ grid-template-columns:repeat(4,1fr); }
+  .grid4.c5{ grid-template-columns:repeat(5,1fr); }
+  .gitem{ display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; min-width:0; }
+  .gitem img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:9px; display:block; background:#f2f2f2; }
   .gitem .lb{ font-size:12.5px; color:#333; }
   .stats{ display:flex; background:var(--ink); border-radius:12px; margin:12px 12px 0; padding:17px 6px 14px; }
   .stats .st{ flex:1; text-align:center; }
@@ -89,7 +91,7 @@
   .strength .s-k{ font-size:11px; letter-spacing:2px; color:var(--sub); font-weight:700; margin-bottom:7px; }
   .strength .s-t{ font-size:14.5px; color:#333; line-height:1.8; }
   .stream .strength{ margin:16px 0 0; }
-  /* 首页流（第七轮，第九轮修订）：主张提炼行 / 金刚区（产品分类格）/ Pickup / 规格 chips / 流尾 */
+  /* 首页流（第七轮，第十轮修订）：主张提炼行 / 金刚区（产品分类图格：上图下名）/ Pickup / 规格 chips / 流尾 */
   .hero-claim{ padding:20px 18px 2px; }
   .hero-claim .hc-t{ font-size:17.5px; font-weight:700; color:#1a1a1a; line-height:1.55; }
   .hero-claim .hc-line{ margin-top:7px; font-size:12px; color:var(--sub); letter-spacing:.5px; line-height:1.7; }
@@ -258,7 +260,7 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
-        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：图标 + 分类原名，点击预筛产品中心，数据驱动、与展示预设无关）→ Pickup 精选与产品流（分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：上产品图 + 下分类名，格数只用主流档 4/5/8/10、向下取舍、产品分类不足 4 个整区不渲染，点击预筛产品中心，数据驱动、与展示预设无关）→ Pickup 精选与产品流（分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
@@ -398,32 +400,35 @@ function strengthHTML() {
   if (!P.why_intro) return "";
   return '<div class="strength"><div class="s-k">企业实力</div><div class="s-t">' + esc(P.why_intro) + "</div></div>";
 }
-/* 金刚区（第九轮定版，用户选定 B 方案）：只放产品分类——单维度，取当前包产品数据自身的
-   分类（products[].cat），按产品数降序（同数按首次出现序）取前 4，图标 + 分类原名；
-   每格为携上下文深链，点击切产品中心并预筛该分类（goProducts，与原大图卡 W1 同一机制）。
-   分类不足有几个放几个，不拿栏目/组件/动作凑数；无分类则整区不渲染。
+/* 金刚区（第十轮定版）：只放产品分类，格子形态 = 上产品图 + 下分类名（不再用图标格）。
+   - 分类集合与计数取当前包产品数据自身的分类（products[].cat）；服务/售后/维修等非产品分类
+     一律排除（含此类名者不入格）；承载可售产品/业务线的分类（如加工、机加工）属产品分类，保留。
+   - 格数只用主流档 {4, 5, 8, 10}（单行 4/5、双行 8=4 列 ×2、10=5 列 ×2）：实际产品分类数恰为
+     合法档用原数；多于某档、不足下一档时向下取舍到最大合法档（6、7 类→5 类，9 类→8 类，>10→10 类），
+     入选分类按产品数降序（同数按首次出现序）；产品分类不足 4 个 → 整区不渲染（不凑数、不留占位）。
+   - 每格顶部图 = 该分类下首个产品的图，固定比例（4:3）cover 裁切；每格为携上下文深链，
+     点击切产品中心并预筛该分类（goProducts，与原大图卡 W1 同一机制）。
    金刚区由产品数据驱动、与展示配置（预设）无关——packs-display 的 quick 字段已废弃移除。 */
-const CAT_ICON_RULES = [
-  [/整机|设备|产线/, "factory"],
-  [/零部件|属具|耗材|模具|机加工|钣金|注塑|表面处理|加工|改造|集成|电控/, "wrench"],
-  [/板材|型材|塑料|树脂|胶粘|复合材料|助剂|检测/, "layers"],
-  [/家具|空间|定制|礼品/, "home"],
-  [/服务/, "wechat"]
-];
-function catIcon(cat) {
-  for (const [re, ic] of CAT_ICON_RULES) if (re.test(cat)) return IC[ic];
-  return IC.grid;
-}
+const NON_PRODUCT_CAT = /服务|售后|维修/;
+const TILE_TIERS = [4, 5, 8, 10];
+function tileTier(n) { let t = 0; for (const x of TILE_TIERS) if (n >= x) t = x; return t; }
 function topCats() {
-  const seq = [], cnt = {};
-  P.products.forEach(p => { if (!(p.cat in cnt)) { cnt[p.cat] = 0; seq.push(p.cat); } cnt[p.cat]++; });
-  return seq.map((c, i) => ({ c, n: cnt[c], i })).sort((a, b) => b.n - a.n || a.i - b.i).slice(0, 4).map(x => x.c);
+  const seq = [], cnt = {}, rep = {};
+  P.products.forEach(p => {
+    if (NON_PRODUCT_CAT.test(p.cat)) return;
+    if (!(p.cat in cnt)) { cnt[p.cat] = 0; seq.push(p.cat); rep[p.cat] = p.img; }
+    cnt[p.cat]++;
+  });
+  const ranked = seq.map((c, i) => ({ c, n: cnt[c], i, img: rep[c] }))
+    .sort((a, b) => b.n - a.n || a.i - b.i);
+  return ranked.slice(0, tileTier(ranked.length));
 }
 function quickHTML() {
-  const cats = topCats();
-  if (!cats.length) return "";
-  return '<div class="grid4">' + cats.map(c =>
-    `<div class="gitem" data-catnav="${esc(c)}"><span class="ic">${catIcon(c)}</span><span class="lb">${esc(c)}</span></div>`).join("") + "</div>";
+  const tiles = topCats();
+  if (!tiles.length) return "";
+  const cols = tiles.length <= 5 ? tiles.length : (tiles.length === 8 ? 4 : 5);
+  return `<div class="grid4 c${cols}">` + tiles.map(t =>
+    `<div class="gitem" data-catnav="${esc(t.c)}"><img src="${esc(t.img)}" alt=""><span class="lb">${esc(t.c)}</span></div>`).join("") + "</div>";
 }
 function floorHead(key, more) {
   return `<div class="floor-head"><b>${COMP_LABEL[key]}</b>${more === false ? "" : `<span class="more" data-anchor="${key}">查看更多 ${IC.chevR}</span>`}</div>`;
@@ -463,8 +468,8 @@ function ctaHTML() {
     </div>
   </div>`;
 }
-/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
-   → 金刚区（只放产品分类，数据驱动）→ 核心产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
+/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化；第十轮：金刚区图格化与数量落档）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
+   → 金刚区（只放产品分类：上图下名、主流档落数，数据驱动）→ 核心产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
    → 企业实力聚合区（配置驱动的动态楼层）→ 底部转化区。
    内容决定模块生灭：楼层由展示配置（packs-display）与内容池数据共同决定，有啥展示啥。 */
 function renderHome() {
