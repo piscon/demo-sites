@@ -76,11 +76,11 @@
   .swiper .dots{ position:absolute; right:14px; bottom:12px; display:flex; gap:5px; }
   .swiper .dots i{ width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.45); }
   .swiper .dots i.on{ width:16px; background:var(--brand); }
-  .grid4{ display:grid; background:#fff; border-radius:12px; margin:12px 12px 0; padding:14px 10px 12px; gap:12px 8px; }
+  .grid4{ display:grid; margin:12px 12px 0; gap:12px 8px; }
   .grid4.c4{ grid-template-columns:repeat(4,1fr); }
   .grid4.c5{ grid-template-columns:repeat(5,1fr); }
   .gitem{ display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; min-width:0; }
-  .gitem img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:9px; display:block; background:#f2f2f2; }
+  .gitem img{ width:100%; aspect-ratio:1/1; object-fit:cover; display:block; }
   .gitem .lb{ font-size:12.5px; color:#333; }
   .stats{ display:flex; background:var(--ink); border-radius:12px; margin:12px 12px 0; padding:17px 6px 14px; }
   .stats .st{ flex:1; text-align:center; }
@@ -406,7 +406,9 @@ function strengthHTML() {
    - 格数只用主流档 {4, 5, 8, 10}（单行 4/5、双行 8=4 列 ×2、10=5 列 ×2）：实际产品分类数恰为
      合法档用原数；多于某档、不足下一档时向下取舍到最大合法档（6、7 类→5 类，9 类→8 类，>10→10 类），
      入选分类按产品数降序（同数按首次出现序）；产品分类不足 4 个 → 整区不渲染（不凑数、不留占位）。
-   - 每格顶部图 = 该分类下首个产品的图，固定比例（4:3）cover 裁切；每格为携上下文深链，
+   - 每格顶部图 = 该分类下首个产品的图，1:1 正方形 cover 裁切、无框平铺（第十轮补正，用户纠正：
+     图片改 1:1 且不要框中框——格子不套卡片框，容器与格子均无边框/底色/衬边，图片本体直接呈现，
+     圆角口径与首页主推产品卡图片一致，即不设圆角）；每格为携上下文深链，
      点击切产品中心并预筛该分类（goProducts，与原大图卡 W1 同一机制）。
    金刚区由产品数据驱动、与展示配置（预设）无关——packs-display 的 quick 字段已废弃移除。 */
 const NON_PRODUCT_CAT = /服务|售后|维修/;
