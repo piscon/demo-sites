@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小程序模拟样板 · MP-S3 服务型</title>
+<style>
+  :root{ --brand:#E4AF00; --brand-dark:#9A7400; --brand-tint:#FBF3D3; --ink:#23272B;
+         --text:#1a1a1a; --sub:#8a8a8a; --line:#e8e8e8; --pagebg:#f6f6f6; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#10141d; color:#e8ecf4; }
+  .stage{ max-width:1180px; margin:0 auto; padding:28px 20px 48px; display:flex; gap:36px; align-items:flex-start; justify-content:center; }
+  /* ---------- 壳外说明面板 ---------- */
+  .panel{ width:340px; flex:none; padding-top:8px; }
+  .panel h1{ font-size:21px; margin:0 0 6px; line-height:1.45; }
+  .panel .sub{ color:#9aa7bd; font-size:13px; line-height:1.75; margin:0 0 14px; }
+  .spec{ background:#171e2e; border:1px solid #26314a; border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+  .spec h3{ margin:0 0 8px; font-size:13px; color:#ffb37a; letter-spacing:.5px; }
+  .spec p,.spec li{ font-size:13px; color:#c6d0e2; line-height:1.8; margin:0; }
+  .spec ul{ margin:0; padding-left:17px; }
+  .honest{ border-color:#6b4a26; background:#221b10; }
+  .honest p{ color:#f0d9ac; }
+  .ctl{ display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
+  .ctl label{ font-size:12.5px; color:#8fa0bb; }
+  .ctl select,.ctl button{ font-family:inherit; font-size:13.5px; border-radius:9px; padding:10px 12px; }
+  .ctl select{ background:#171e2e; color:#e8ecf4; border:1px solid #2c3a58; width:100%; }
+  .ctl button{ background:#ff5e14; border:none; color:#fff; font-weight:600; cursor:pointer; }
+  .ctl button.ghost{ background:#171e2e; color:#c6d0e2; border:1px solid #2c3a58; font-weight:400; }
+  .tips{ font-size:12.5px; color:#67748e; line-height:1.9; }
+  /* ---------- 手机壳 ---------- */
+  .phone-wrap{ flex:none; }
+  .phone{ width:399px; padding:12px; background:#05070a; border-radius:52px; box-shadow:0 24px 70px rgba(0,0,0,.55), inset 0 0 0 2px #2a2f36; }
+  .screen{ position:relative; width:375px; height:748px; background:var(--pagebg); border-radius:42px; overflow:hidden; color:var(--text); display:flex; flex-direction:column; }
+  .stage.full .panel{ display:none; }
+  .stage.full .phone{ transform:scale(1.12); transform-origin:top center; }
+  /* 状态栏 + 导航栏 */
+  .statusbar{ height:42px; flex:none; display:flex; align-items:flex-end; justify-content:space-between; padding:0 22px 4px 26px; background:#fff; font-size:14.5px; font-weight:600; color:#111; }
+  .statusbar .sic{ display:flex; gap:6px; align-items:center; }
+  .navbar{ height:44px; flex:none; background:#fff; display:flex; align-items:center; justify-content:center; position:relative; border-bottom:.5px solid var(--line); }
+  .navbar .title{ font-size:16.5px; font-weight:600; color:#111; max-width:190px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .nav-back{ position:absolute; left:6px; top:0; height:44px; width:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .capsule{ position:absolute; right:8px; top:6px; width:87px; height:32px; border:1px solid rgba(0,0,0,.14); border-radius:99px; background:rgba(255,255,255,.65); display:flex; align-items:center; justify-content:space-evenly; color:#333; }
+  .capsule .div{ width:1px; height:16px; background:rgba(0,0,0,.14); }
+  /* 页面区 */
+  .viewport{ flex:1; position:relative; overflow:hidden; }
+  .page{ position:absolute; inset:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; }
+  .page::-webkit-scrollbar{ display:none; }
+  /* TabBar（5 栏） */
+  .tabbar{ flex:none; background:#fff; border-top:.5px solid var(--line); padding:6px 0 20px; display:flex; position:relative; }
+  .tabbar::after{ content:""; position:absolute; left:50%; bottom:6px; transform:translateX(-50%); width:134px; height:5px; border-radius:99px; background:#111; opacity:.85; }
+  .tab{ flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; padding:3px 0 1px; cursor:pointer; color:#7a7a7a; position:relative; }
+  .tab .lb{ font-size:10.5px; line-height:1.2; }
+  .tab.on{ color:var(--brand-dark); }
+  .tab .badge{ position:absolute; top:0; left:calc(50% + 3px); min-width:16px; height:16px; border-radius:99px; background:#e34d3d; color:#fff; font-size:10px; font-weight:700; line-height:16px; text-align:center; padding:0 4px; }
+  /* 通用组件（TDesign 语言） */
+  .card{ background:#fff; border-radius:12px; margin:12px 12px 0; overflow:hidden; }
+  .sec-title{ display:flex; align-items:center; justify-content:space-between; padding:16px 16px 4px; }
+  .sec-title b{ font-size:16px; }
+  .btn-pri{ background:var(--brand); color:var(--ink); border:none; font-family:inherit; font-weight:600; border-radius:10px; cursor:pointer; }
+  .btn-line{ background:#fff; color:var(--text); border:1px solid #d6d6d6; font-family:inherit; border-radius:10px; cursor:pointer; }
+  .tag{ display:inline-block; font-size:11px; color:var(--brand-dark); background:var(--brand-tint); border-radius:4px; padding:2px 7px; font-weight:600; }
+  .cell{ display:flex; align-items:center; gap:10px; padding:13px 16px; background:#fff; position:relative; cursor:pointer; }
+  .cell + .cell::before{ content:""; position:absolute; top:0; left:16px; right:0; height:.5px; background:var(--line); }
+  .cell .ct{ flex:1; min-width:0; }
+  .cell .ct .t{ font-size:15px; }
+  .cell .ct .d{ font-size:12.5px; color:var(--sub); margin-top:2px; line-height:1.5; }
+  .cell .cv{ font-size:13.5px; color:#555; text-align:right; word-break:break-all; }
+  .chev{ color:#c4c4c4; flex:none; }
+  .empty{ text-align:center; color:var(--sub); font-size:13px; padding:44px 0 30px; }
+  .foot-note{ text-align:center; color:#b5b5b5; font-size:11px; padding:14px 30px 20px; line-height:1.7; }
+  /* 首页信息流（app 式连续流 + izumi 参照：小标签、留白、大图卡、Pickup 策展） */
+  .feed-search{ margin:12px 12px 0; background:#fff; border-radius:99px; padding:10px 14px; display:flex; align-items:center; gap:7px; color:#999; font-size:13.5px; box-shadow:0 1px 4px rgba(20,20,20,.05); cursor:pointer; }
+  .swiper{ position:relative; height:168px; overflow:hidden; background:#222; margin:12px 12px 0; border-radius:12px; }
+  .swiper .track{ display:flex; height:100%; transition:transform .45s ease; }
+  .swiper .slide{ flex:none; width:351px; height:100%; position:relative; }
+  .swiper .slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .swiper .shade{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.06) 40%,rgba(0,0,0,.62)); }
+  .swiper .cap{ position:absolute; left:16px; right:16px; bottom:22px; color:#fff; }
+  .swiper .cap .kick{ font-size:11.5px; letter-spacing:1px; opacity:.92; margin-bottom:4px; }
+  .swiper .cap .tt{ font-size:19px; font-weight:700; line-height:1.35; }
+  .swiper .dots{ position:absolute; right:12px; bottom:10px; display:flex; gap:5px; }
+  .swiper .dots i{ width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.45); }
+  .swiper .dots i.on{ width:16px; background:var(--brand); }
+  .flow-claim{ text-align:center; font-size:13px; color:#777; padding:12px 30px 0; line-height:1.6; }
+  .flow-label{ margin:18px 16px 0; font-size:11px; letter-spacing:2.5px; color:#a8a8a8; font-weight:600; }
+  .catcard{ position:relative; height:118px; border-radius:12px; overflow:hidden; margin:10px 12px 0; cursor:pointer; background:#222; }
+  .catcard img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .catcard .cc-shade{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,10,10,.55), rgba(10,10,10,.05) 65%); }
+  .catcard .cc-cap{ position:absolute; left:16px; bottom:13px; color:#fff; }
+  .catcard .cc-t{ font-size:18px; font-weight:700; letter-spacing:1px; }
+  .catcard .cc-n{ font-size:11.5px; opacity:.85; margin-top:2px; }
+  .catcard .cc-arrow{ position:absolute; right:14px; top:50%; transform:translateY(-50%); }
+  .catcard .cc-arrow .chev{ color:rgba(255,255,255,.9); }
+  .why-it{ padding:10px 16px; }
+  .why-it + .why-it{ border-top:.5px solid var(--line); }
+  .why-it .t{ font-size:14.5px; font-weight:600; display:flex; gap:8px; align-items:center; }
+  .why-it .t i{ width:7px; height:7px; border-radius:99px; background:var(--brand); flex:none; }
+  .why-it .d{ font-size:13px; color:#555; line-height:1.7; margin-top:4px; }
+  .lead-in{ padding:0 16px 2px; font-size:14.5px; font-weight:700; color:#333; line-height:1.6; }
+  .about-txt{ padding:2px 16px 15px; font-size:13.5px; color:#555; line-height:1.75; }
+  .honors{ display:flex; flex-wrap:wrap; gap:8px; padding:2px 16px 4px; }
+  .honors .h{ font-size:12px; background:var(--brand-tint); color:var(--brand-dark); font-weight:600; border-radius:99px; padding:5px 11px; }
+  .stats{ display:flex; background:var(--ink); border-radius:12px; margin:10px 12px 0; padding:17px 6px 14px; }
+  .stats .st{ flex:1; text-align:center; }
+  .stats .v{ font-size:21px; font-weight:700; color:var(--brand); line-height:1.15; }
+  .stats .l{ font-size:11px; color:#c9cdd4; margin-top:3px; }
+  .pickup{ background:#fff; border-radius:12px; margin:10px 12px 0; overflow:hidden; cursor:pointer; }
+  .pickup img{ width:100%; height:148px; object-fit:cover; display:block; }
+  .pickup .pk-b{ padding:12px 14px 13px; }
+  .pickup .pk-t{ font-size:15.5px; font-weight:700; display:flex; align-items:center; gap:7px; }
+  .pickup .pk-d{ font-size:12.5px; color:var(--sub); line-height:1.6; margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .pickup .pk-p{ font-size:14px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
+  .end-note{ text-align:center; color:#b0b0b0; font-size:11.5px; padding:16px 0 0; letter-spacing:1px; }
+  /* 产品中心（常驻搜索 + 左侧分类轨 + 密集列表 + 快速加入询价单） */
+  .cat-search{ position:sticky; top:0; z-index:6; background:var(--pagebg); padding:12px 12px 10px; }
+  .cat-search .in{ display:flex; align-items:center; gap:7px; background:#fff; border-radius:99px; padding:9px 14px; color:#999; box-shadow:0 1px 4px rgba(20,20,20,.05); }
+  .cat-search input{ border:none; outline:none; background:transparent; font-size:13.5px; flex:1; font-family:inherit; color:var(--text); }
+  .cat-count{ font-size:12px; color:var(--sub); padding:8px 4px 0; }
+  .catwrap{ display:flex; align-items:flex-start; }
+  .rail{ width:94px; flex:none; background:#eceef1; position:sticky; top:97px; max-height:calc(748px - 42px - 44px - 97px - 56px); overflow-y:auto; scrollbar-width:none; border-radius:0 0 12px 0; }
+  .rail::-webkit-scrollbar{ display:none; }
+  .ritem{ padding:12px 10px 11px; font-size:13px; color:#555; cursor:pointer; position:relative; line-height:1.35; }
+  .ritem .n{ display:block; font-size:11px; color:#9a9a9a; margin-top:2px; }
+  .ritem.on{ background:#fff; color:var(--text); font-weight:700; }
+  .ritem.on::before{ content:""; position:absolute; left:0; top:12px; bottom:12px; width:3.5px; border-radius:99px; background:var(--brand); }
+  .ritem.on .n{ color:var(--brand-dark); }
+  .clist{ flex:1; min-width:0; padding:2px 10px 14px 10px; }
+  .dcard{ background:#fff; border-radius:11px; padding:10px; display:flex; gap:10px; margin-top:8px; cursor:pointer; }
+  .dcard img{ width:76px; height:76px; border-radius:8px; object-fit:cover; flex:none; }
+  .dcard .dc{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .dcard .t{ font-size:14.5px; font-weight:600; line-height:1.4; display:flex; align-items:center; gap:6px; }
+  .dcard .t .tt{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .spec-chips{ display:flex; gap:5px; margin-top:6px; overflow:hidden; }
+  .chip-s{ flex:1 1 0; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10.5px; color:#666; background:#f3f4f5; border-radius:4px; padding:2.5px 6px; }
+  .dcard .t .tag{ flex:none; }
+  .dcard .pr{ margin-top:auto; padding-top:5px; display:flex; align-items:center; justify-content:space-between; gap:6px; }
+  .dcard .pr .p{ font-size:13.5px; color:var(--brand-dark); font-weight:700; }
+  .addbtn{ flex:none; border:1px solid var(--brand); background:var(--brand-tint); color:var(--brand-dark); font-family:inherit; font-size:11.5px; font-weight:700; border-radius:99px; padding:4px 10px; cursor:pointer; }
+  /* 案例动态 */
+  .ncard{ background:#fff; border-radius:12px; margin:10px 12px 0; padding:14px 16px 13px; }
+  .ncard .n-t{ font-size:15px; font-weight:700; line-height:1.5; margin-top:7px; }
+  .ncard .n-d{ font-size:13px; color:#555; line-height:1.75; margin-top:5px; }
+  /* 询价单 */
+  .iq-empty{ text-align:center; padding:64px 34px 30px; color:var(--sub); }
+  .iq-empty .ic{ width:74px; height:74px; margin:0 auto 14px; border-radius:50%; background:#eceef1; display:flex; align-items:center; justify-content:center; color:#a8adb5; }
+  .iq-empty .t{ font-size:16px; font-weight:700; color:#333; }
+  .iq-empty .d{ font-size:13px; line-height:1.7; margin-top:7px; }
+  .iq-empty button{ margin-top:18px; height:42px; padding:0 22px; font-size:14.5px; }
+  .ok-card{ margin:12px 12px 0; background:#eef7ee; border:1px solid #cfe6cf; border-radius:12px; padding:14px 16px; }
+  .ok-card .t{ font-size:15px; font-weight:700; color:#2c6e2c; display:flex; align-items:center; gap:7px; }
+  .ok-card .d{ font-size:12.5px; color:#4c7a4c; line-height:1.7; margin-top:4px; }
+  .iq-item{ background:#fff; border-radius:12px; margin:10px 12px 0; padding:11px; display:flex; gap:11px; }
+  .iq-item img{ width:64px; height:64px; border-radius:8px; object-fit:cover; flex:none; }
+  .iq-item .iq-c{ flex:1; min-width:0; }
+  .iq-item .iq-t{ font-size:14.5px; font-weight:600; display:flex; align-items:center; gap:6px; }
+  .iq-item .iq-p{ font-size:13px; color:var(--brand-dark); font-weight:700; margin-top:2px; }
+  .iq-ops{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
+  .stepper{ display:flex; align-items:center; gap:2px; }
+  .stepper button{ width:26px; height:26px; border-radius:7px; border:1px solid #ddd; background:#fafafa; font-size:15px; color:#333; cursor:pointer; font-family:inherit; line-height:1; }
+  .stepper .qty{ min-width:30px; text-align:center; font-size:14px; font-weight:600; }
+  .iq-del{ border:none; background:none; color:#b0b0b0; font-size:12.5px; font-family:inherit; cursor:pointer; padding:4px 2px; }
+  .iq-note{ width:100%; margin-top:9px; border:1px solid #e8e8e8; border-radius:8px; background:#fafafa; padding:7px 10px; font-size:12.5px; font-family:inherit; color:var(--text); }
+  /* 我的 */
+  .mine-head{ padding:18px 16px 4px; display:flex; align-items:center; gap:12px; }
+  .mine-head img{ width:52px; height:52px; border-radius:12px; object-fit:contain; background:#fff; padding:5px; }
+  .mine-head .b{ font-size:16.5px; font-weight:700; }
+  .mine-head .c{ font-size:12px; color:var(--sub); margin-top:2px; }
+  .ord-card{ background:#fff; border-radius:12px; margin:10px 12px 0; padding:13px 15px; }
+  .ord-card .o-top{ display:flex; align-items:center; justify-content:space-between; }
+  .ord-card .o-no{ font-size:14px; font-weight:700; }
+  .ord-card .o-st{ font-size:11px; color:#2c6e2c; background:#eef7ee; border-radius:99px; padding:3px 9px; font-weight:600; }
+  .ord-card .o-meta{ font-size:12px; color:var(--sub); margin-top:5px; }
+  .ord-card .o-items{ font-size:13px; color:#444; line-height:1.7; margin-top:5px; }
+  .mini-empty{ margin:10px 12px 0; background:#fff; border-radius:12px; padding:18px 16px; font-size:13px; color:var(--sub); text-align:center; line-height:1.7; }
+  .mrow{ background:#fff; border-radius:11px; padding:10px; display:flex; gap:10px; margin:8px 12px 0; cursor:pointer; align-items:center; }
+  .mrow img{ width:52px; height:52px; border-radius:8px; object-fit:cover; flex:none; }
+  .mrow .mt{ flex:1; min-width:0; }
+  .mrow .mt .t{ font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mrow .mt .p{ font-size:12.5px; color:var(--brand-dark); font-weight:700; margin-top:2px; }
+  .map-ph{ margin:2px 16px 16px; background:#e9edf2; border-radius:12px; height:172px; position:relative; overflow:hidden;
+           background-image:linear-gradient(#d7dde6 1px,transparent 1px),linear-gradient(90deg,#d7dde6 1px,transparent 1px); background-size:34px 34px; }
+  .map-ph .road{ position:absolute; background:#fff; }
+  .map-ph .pin{ position:absolute; left:50%; top:44%; transform:translate(-50%,-100%); color:#e34d3d; text-align:center; }
+  .map-ph .addr{ position:absolute; left:0; right:0; bottom:0; background:rgba(255,255,255,.94); padding:10px 14px; font-size:12.5px; color:#444; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .map-ph .addr button{ flex:none; background:var(--brand); color:var(--ink); border:none; font-weight:600; font-size:12.5px; border-radius:7px; padding:7px 12px; font-family:inherit; cursor:pointer; }
+  /* 详情层 */
+  .detail{ position:absolute; inset:0; background:var(--pagebg); z-index:30; display:flex; flex-direction:column; }
+  .detail .dscroll{ flex:1; overflow-y:auto; scrollbar-width:none; }
+  .detail .dscroll::-webkit-scrollbar{ display:none; }
+  .detail .cover{ width:100%; height:238px; object-fit:cover; display:block; }
+  .detail .dhead{ background:#fff; padding:15px 16px 13px; }
+  .detail .dhead .t{ font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .detail .dhead .p{ font-size:17px; color:var(--brand-dark); font-weight:700; margin-top:6px; }
+  .detail .dhead .d{ font-size:13.5px; color:#555; line-height:1.75; margin-top:8px; }
+  .spec-t{ background:#fff; margin-top:12px; padding:6px 16px 10px; }
+  .spec-t h4{ font-size:15px; margin:10px 0 4px; }
+  .spec-r{ display:flex; gap:14px; padding:9px 0; border-bottom:.5px solid var(--line); font-size:13.5px; }
+  .spec-r:last-child{ border-bottom:none; }
+  .spec-r .k{ width:86px; flex:none; color:var(--sub); }
+  .spec-r .v{ flex:1; }
+  .dbar{ flex:none; background:#fff; border-top:.5px solid var(--line); padding:10px 12px 24px; display:flex; gap:9px; }
+  .dbar button{ height:44px; font-size:14.5px; font-weight:600; }
+  .dbar .favbtn{ flex:0 0 auto; padding:0 13px; display:flex; align-items:center; gap:5px; }
+  .dbar .favbtn.on{ color:#e34d3d; border-color:#f0c4bd; }
+  .dbar .addbtn2{ flex:1; }
+  .dbar .inqbtn{ flex:1.25; }
+  /* 悬浮动作 / 留资表单 */
+  .fab{ position:absolute; right:14px; bottom:18px; z-index:40; display:flex; flex-direction:column; gap:10px; }
+  .fab.up{ bottom:98px; }
+  .fab-btn{ width:48px; height:48px; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; background:#fff; color:#333; box-shadow:0 6px 18px rgba(20,20,20,.28); }
+  .fab-btn.call{ background:var(--brand); color:var(--ink); }
+  .lead-form{ padding:2px 16px 16px; }
+  .lf-row{ margin-top:12px; }
+  .lf-row label{ display:block; font-size:13px; font-weight:600; color:#555; margin-bottom:6px; }
+  .lf-row input,.lf-row textarea{ width:100%; border:1px solid #e2e2e2; border-radius:9px; padding:10px 12px; font-size:14px; font-family:inherit; background:#fafafa; color:var(--text); }
+  .lf-sub{ width:100%; height:44px; font-size:15px; margin-top:14px; }
+  .lf-note{ font-size:11.5px; color:var(--sub); text-align:center; margin-top:9px; line-height:1.6; }
+  /* Toast */
+  .toast{ position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); z-index:60; background:rgba(20,20,20,.86); color:#fff;
+          font-size:13.5px; line-height:1.6; padding:13px 18px; border-radius:10px; max-width:270px; text-align:center; opacity:0; pointer-events:none; transition:opacity .22s; }
+  .toast.show{ opacity:1; }
+  .hidden{ display:none !important; }
+  @media (max-width:900px){ .stage{ flex-direction:column; align-items:center; } .panel{ width:min(399px,94vw); order:2; } }
+  @media (max-width:430px){ .phone{ transform:scale(.88); transform-origin:top center; margin-bottom:-90px; } }
+</style></head>
+<body>
+<div class="stage" id="stage">
+  <aside class="panel">
+    <h1>小程序模拟样板<br><span id="panelH1">MP-S3 服务型 × 机械包</span></h1>
+    <p class="sub">微信小程序业务线第三个骨架样板：面向带业务交互的企业，签名能力是「询价单」任务流——从产品详情把产品攒进询价单、一次提交留资，企业在「我的」里留痕可查。与 MP-S1 / MP-S2 共用同一份内容包数据，界面层独立实现。</p>
+    <div class="spec">
+      <h3>样板构成</h3>
+      <ul>
+        <li>骨架：MP-S3 服务型 · 扩展 5 栏 · 交易/留资型（用户定版 tab 架构标准：适合中大型企业或带业务交互的官网）</li>
+        <li>栏位：首页（app 式连续流：搜索前置 / 分类大图卡 / 亮点·简介·资质·统计流内单点 / Pickup 策展收尾）· 产品中心（目录浏览 + 快速加入询价单）· 案例动态（信任背书，动态全文单点；案例待真实数据接入后合并）· 询价单（攒单 → 改量备注 → 留资提交 → 生成本地记录）· 我的（询价记录 / 收藏 / 最近浏览 / 企业联系卡）</li>
+        <li>设计参照：泉株式会社 izumi.inc（用户钦定品质标杆）——克制与留白、小标签 + 大图卡、Pickup 式策展；取其语言不搬其网站版式</li>
+        <li>与 MP-S1 / S2 的分工：S1 展示型（经典 4 栏，重品牌展示）；S2 目录型（精简 3 栏，重目录选型）；S3 服务型（扩展 5 栏，重询价与客户自助交互）</li>
+        <li>状态口径：询价单、收藏、询价记录、最近浏览均存浏览器本地（localStorage，按内容包隔离），刷新不丢；原生交付时对应微信端本地缓存与账号体系</li>
+        <li>转化设计：详情页核心动作 = 加入询价单 / 立即询价，固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在「我的」企业联系卡出现一处</li>
+        <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
+        <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
+        <li>可点动线：栏位切换、轮播、分类筛选、搜索、详情进出、收藏、加入询价单、询价单增删改量与备注、留资提交、记录查看（均为模拟反馈，状态本地保存）</li>
+      </ul>
+    </div>
+    <div class="spec honest">
+      <h3>能力边界（诚实口径）</h3>
+      <p>本样板为网页模拟效果，用于选型演示；询价提交为模拟动作、不会真实发送，提交记录仅保存在本机浏览器。微信登录、支付、分享等原生能力以原生交付为准。签约后按本样板 1:1 翻译为原生小程序（TDesign 组件同源）。</p>
+    </div>
+    <div class="ctl">
+      <label for="packSel">内容包（换包即换行业，7 个行业包与 MP-S1 / S2 共用同一套数据；也可通过 ?pack= 参数直达）</label>
+      <select id="packSel">
+        <option value="machinery" selected>机械设备 · 恒力重工</option>
+        <option value="eco-filter">环保过滤 · 清源过滤</option>
+        <option value="steel-metal">钢材金属 · 恒岳金属</option>
+        <option value="automation-electronics">自动化 · 华睿自动化</option>
+        <option value="chemical-materials">化工新材 · 恒拓新材</option>
+        <option value="general-manufacturing">通用制造 · 铭匠精密</option>
+        <option value="handicraft-woodwork">手工业 · 匠心木作</option>
+      </select>
+      <button id="fsBtn" type="button">全屏体验</button>
+      <button id="resetBtn" type="button" class="ghost">重置演示（清本地状态，回首页）</button>
+    </div>
+    <p class="tips">操作提示：在产品详情点「加入询价单」攒单，去「询价单」栏改数量、填备注并提交，再到「我的」查看询价记录；所有提交均为模拟反馈，不会真的发送。</p>
+  </aside>
+
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="screen" id="screen">
+        <div class="statusbar">
+          <span id="clock">9:41</span>
+          <span class="sic">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="#111"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 12" fill="#111"><path d="M8 9.6a1.9 1.9 0 1 1 0 3.8A1.9 1.9 0 0 1 8 9.6zM8 5.4c1.7 0 3.3.66 4.5 1.86l-1.5 1.5A4.4 4.4 0 0 0 8 7.7c-1.16 0-2.25.45-3 1.06L3.5 7.26A6.36 6.36 0 0 1 8 5.4zM8 1c2.9 0 5.63 1.13 7.68 3.18L14.2 5.66A8.6 8.6 0 0 0 8 3.2c-2.36 0-4.58.92-6.2 2.46L.32 4.18A10.8 10.8 0 0 1 8 1z" transform="scale(0.92)"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="20" height="11" rx="3.5" fill="none" stroke="#111" opacity=".4"/><rect x="2.2" y="2.2" width="14" height="7.6" rx="1.8" fill="#111"/><path d="M23 4v4a2.2 2.2 0 0 0 0-4z" fill="#111" opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="navbar">
+          <span class="nav-back hidden" id="navBack"><svg width="11" height="19" viewBox="0 0 11 19" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"><path d="M9.5 1.5 2 9.5l7.5 8"/></svg></span>
+          <span class="title" id="navTitle">恒力重工</span>
+          <span class="capsule" aria-hidden="true">
+            <svg width="18" height="6" viewBox="0 0 18 6" fill="#333"><circle cx="3" cy="3" r="2.1"/><circle cx="9" cy="3" r="2.1"/><circle cx="15" cy="3" r="2.1"/></svg>
+            <span class="div"></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#333" stroke-width="1.5"><circle cx="8" cy="8" r="6.4"/><circle cx="8" cy="8" r="2.2" fill="#333" stroke="none"/></svg>
+          </span>
+        </div>
+        <div class="viewport">
+          <div class="page" id="page"></div>
+          <div class="detail hidden" id="detail"></div>
+          <div class="fab hidden" id="fab">
+            <button type="button" class="fab-btn" data-act="service" aria-label="在线客服"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="2.8" y="13" width="4" height="6.5" rx="2"/><rect x="17.2" y="13" width="4" height="6.5" rx="2"/><path d="M20 19.5c0 1.7-1.6 2.5-4 2.5h-2"/></svg></button>
+            <button type="button" class="fab-btn call" data-act="call" aria-label="一键拨号"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 4h3l1.7 4.4-2.3 1.7a12.6 12.6 0 0 0 6.3 6.3l1.7-2.3L20 15.8v3A2.2 2.2 0 0 1 17.7 21 16.8 16.8 0 0 1 3 6.3 2.2 2.2 0 0 1 5.2 4z"/></svg></button>
+          </div>
+        </div>
+        <div class="tabbar" id="tabbar"></div>
+        <div class="toast" id="toast"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = (s, r) => (r || document).querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const IC = {
+  home: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.2 9.6V20h11.6V9.6"/><path d="M10 20v-5h4v5"/></svg>',
+  grid: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg>',
+  news: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5A1.5 1.5 0 0 1 5.5 5H18v13.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5z"/><path d="M18 9h1.5A1.5 1.5 0 0 1 21 10.5V18a2 2 0 0 1-2 2"/><path d="M7.5 9h7M7.5 12.5h7M7.5 16h4"/></svg>',
+  cart: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="17" rx="2"/><path d="M9 4.5a3 3 0 0 1 6 0"/><path d="m9 13.5 2.2 2.2L15.5 11"/></svg>',
+  user: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.8"/><path d="M5 20c.8-3.4 3.6-5 7-5s6.2 1.6 7 5"/></svg>',
+  phone: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 4h3l1.7 4.4-2.3 1.7a12.6 12.6 0 0 0 6.3 6.3l1.7-2.3L20 15.8v3A2.2 2.2 0 0 1 17.7 21 16.8 16.8 0 0 1 3 6.3 2.2 2.2 0 0 1 5.2 4z"/></svg>',
+  chevR: '<svg class="chev" width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 1.5 6.5 7l-5 5.5"/></svg>',
+  search: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.6 4.6"/></svg>',
+  pin: '<svg width="30" height="30" viewBox="0 0 24 24" fill="#e34d3d"><path d="M12 22s-6.8-5.6-6.8-11A6.8 6.8 0 0 1 12 4.2 6.8 6.8 0 0 1 18.8 11c0 5.4-6.8 11-6.8 11z"/><circle cx="12" cy="11" r="2.6" fill="#fff"/></svg>',
+  copy: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5.5 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.5"/></svg>',
+  mail: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7.5 8 6 8-6"/></svg>',
+  heart: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5C7 16.5 3.5 13.3 3.5 9.6A4.6 4.6 0 0 1 8.1 5c1.6 0 3.1.8 3.9 2.1A4.6 4.6 0 0 1 15.9 5a4.6 4.6 0 0 1 4.6 4.6c0 3.7-3.5 6.9-8.5 10.9z"/></svg>',
+  heartFill: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5C7 16.5 3.5 13.3 3.5 9.6A4.6 4.6 0 0 1 8.1 5c1.6 0 3.1.8 3.9 2.1A4.6 4.6 0 0 1 15.9 5a4.6 4.6 0 0 1 4.6 4.6c0 3.7-3.5 6.9-8.5 10.9z"/></svg>',
+  check: '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/></svg>',
+  clip: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="17" rx="2"/><path d="M9 4.5a3 3 0 0 1 6 0"/><path d="M9 12.5h6M9 16h4"/></svg>',
+  wechat: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.6 4C5 4 2 6.6 2 9.9c0 1.9 1 3.5 2.6 4.6l-.7 2.1 2.4-1.2c.7.2 1.5.3 2.3.3h.5A5.9 5.9 0 0 1 8.7 13c0-3.2 3-5.7 6.7-5.7h.5C15.3 5.4 12.2 4 8.6 4zm7 4.6c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.6 0 1.2-.1 1.8-.3l1.9 1-.6-1.7c1.4-.8 2.3-2 2.3-3.4 0-2.4-2.4-4.4-5.4-4.4zM7 8.3a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm4.4 0a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zm2.5 3.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm4.3 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/></svg>'
+};
+/* S3 与 S1 / S2 共用同一套数据：页面部署于 /mp/s3/，数据与图片在上一级 /mp/ */
+const DATA_BASE = "../";
+let P = null; // packs-mp 数据
+const S = { tab: "home", cat: "全部", query: "", detail: null, slide: 0, slideTimer: null, lastOrder: null };
+/* 本地状态（按内容包隔离存 localStorage，刷新不丢）：询价单 / 已提交记录 / 收藏 / 最近浏览 */
+let LS = { cart: [], orders: [], favs: [], recent: [] };
+const LSKEY = () => "mps3:" + P.pack_id + ":v1";
+function loadLS() {
+  try {
+    const raw = localStorage.getItem(LSKEY());
+    if (raw) { const d = JSON.parse(raw); LS = { cart: d.cart || [], orders: d.orders || [], favs: d.favs || [], recent: d.recent || [] }; }
+  } catch (e) { /* 本地状态不可用时以空态运行 */ }
+}
+function saveLS() { try { localStorage.setItem(LSKEY(), JSON.stringify(LS)); } catch (e) {} }
+const prod = id => P.products.find(p => p.id === id);
+const cartItem = id => LS.cart.find(i => i.id === id);
+const cartCount = () => LS.cart.length;
+
+const TABS = [
+  { id: "home", label: "首页", icon: IC.home, title: () => P.brand },
+  { id: "products", label: "产品中心", icon: IC.grid, title: () => "产品中心" },
+  { id: "news", label: "案例动态", icon: IC.news, title: () => "案例动态" },
+  { id: "cart", label: "询价单", icon: IC.cart, title: () => "询价单", badge: () => cartCount() },
+  { id: "mine", label: "我的", icon: IC.user, title: () => "我的" }
+];
+let toastTimer = null;
+function toast(msg) {
+  const t = $("#toast"); t.innerHTML = esc(msg); t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 1700);
+}
+function simCall() { toast("模拟拨号：正在呼叫服务热线（模拟）"); }
+function simService() { toast("在线客服（模拟）：原生版将打开微信客服会话"); }
+/* 荣誉同源去重（与 MP-S2 同口径）：复述统计组（标签核心词 + 数值同现）的荣誉条目不在呈现层出现，统计只归首页 */
+function honorsShown() {
+  const norm = s => String(s).replace(/[,\s]/g, "");
+  const core = s => s.label.replace(/（.*?）|\(.*?\)/g, "");
+  return P.honors.filter(h => !P.stats.some(s => norm(h).includes(norm(core(s))) && norm(h).includes(norm(s.value))));
+}
+
+/* ---------------- 页面渲染 ---------------- */
+function statsHTML() {
+  return '<div class="stats">' + P.stats.map(s =>
+    '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
+}
+function renderHome() {
+  /* 首页 = app 式连续流（定版口径）：搜索前置 → 瘦身 Banner + 主张一行 → 分类大图卡 → 亮点/简介/资质流内卡
+     → 统计带（流内元素，统计单点落位于此）→ Pickup 策展顺流收尾；不做官网章节式堆叠 */
+  const feats = P.products.slice(0, 3);
+  const cats = catList().slice(1);
+  const catImg = c => (P.products.find(p => p.cat === c) || {}).img;
+  const catN = c => P.products.filter(p => p.cat === c).length;
+  return `
+  <div class="feed-search" data-search>${IC.search}<span>搜索产品 / 参数，如：${esc(P.search_example)}</span></div>
+  <div class="swiper" id="swiper">
+    <div class="track" style="transform:translateX(-${S.slide * 351}px)">
+      ${P.hero_slides.map((src, i) => `
+      <div class="slide"><img src="${src}" alt="">
+        <div class="shade"></div>
+        ${i === 0 ? `<div class="cap"><div class="kick">${esc(P.hero_kicker)}</div><div class="tt">${esc(P.hero_title)}</div></div>` : ""}
+      </div>`).join("")}
+    </div>
+    <div class="dots">${P.hero_slides.map((_, i) => `<i class="${i === S.slide ? "on" : ""}" data-slide="${i}"></i>`).join("")}</div>
+  </div>
+  <div class="flow-claim">${esc(P.tagline)}</div>
+  <div class="flow-label">分类 · CATEGORY</div>
+  ${cats.map(c => `
+  <div class="catcard" data-catlink="${esc(c)}">
+    <img src="${catImg(c)}" alt="">
+    <div class="cc-shade"></div>
+    <div class="cc-cap"><div class="cc-t">${esc(c)}</div><div class="cc-n">${catN(c)} 项产品</div></div>
+    <div class="cc-arrow">${IC.chevR}</div>
+  </div>`).join("")}
+  <div class="flow-label">亮点 · HIGHLIGHTS</div>
+  <div class="card" style="margin-top:8px">
+    ${P.why_points.map(w => `<div class="why-it"><div class="t"><i></i>${esc(w.title)}</div><div class="d">${esc(w.text)}</div></div>`).join("")}
+    <div style="height:6px"></div>
+  </div>
+  <div class="flow-label">简介 · ABOUT</div>
+  <div class="card" style="margin-top:8px">
+    <div class="lead-in" style="padding-top:14px">${esc(P.about_title)}</div>
+    <p class="about-txt">${esc(P.about_text)}</p>
+  </div>
+  <div class="flow-label">资质 · HONORS</div>
+  <div class="card" style="margin-top:8px;padding:12px 0 10px">
+    <div class="honors">${honorsShown().map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
+  </div>
+  ${statsHTML()}
+  <div class="flow-label">主推 · PICKUP</div>
+  ${feats.map(p => `
+  <div class="pickup" data-detail="${p.id}">
+    <img src="${p.img}" alt="">
+    <div class="pk-b">
+      <div class="pk-t">${esc(p.title)}<span class="tag">${esc(p.cat)}</span></div>
+      <div class="pk-d">${esc(p.text)}</div>
+      <div class="pk-p">${esc(p.price)}</div>
+    </div>
+  </div>`).join("")}
+  <div class="end-note">— 主推到此 · 全量目录在「产品中心」 —</div>
+  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
+}
+
+function catList() { return ["全部", ...new Set(P.products.map(p => p.cat))]; }
+function filteredProducts() {
+  if (S.query) {
+    return P.products.filter(p => (p.title + p.text + p.specs.map(s => s.k + s.v).join("")).includes(S.query));
+  }
+  return P.products.filter(p => S.cat === "全部" || p.cat === S.cat);
+}
+function renderProducts() {
+  const cats = catList();
+  const list = filteredProducts();
+  const countOf = c => c === "全部" ? P.products.length : P.products.filter(p => p.cat === c).length;
+  return `
+  <div class="cat-search">
+    <div class="in">${IC.search}<input id="q" type="text" placeholder="搜索产品 / 参数，如：${esc(P.search_example)}" value="${esc(S.query)}"></div>
+    <div class="cat-count">${S.query ? `全目录搜索「${esc(S.query)}」` : `当前分类：${esc(S.cat)}`} · 共 ${list.length} 项 · 点「＋询价单」可直接攒单</div>
+  </div>
+  <div class="catwrap">
+    <div class="rail">${cats.map(c => `<div class="ritem ${c === S.cat && !S.query ? "on" : ""}" data-cat="${c}">${c}<span class="n">${countOf(c)} 项</span></div>`).join("")}</div>
+    <div class="clist">
+      ${list.length ? list.map(p => `
+      <div class="dcard" data-detail="${p.id}">
+        <img src="${p.img}" alt="">
+        <div class="dc">
+          <div class="t"><span class="tt">${esc(p.title)}</span><span class="tag">${esc(p.cat)}</span></div>
+          <div class="spec-chips">${p.specs.slice(0, 2).map(s => `<span class="chip-s">${esc(s.k)}：${esc(s.v)}</span>`).join("")}</div>
+          <div class="pr"><span class="p">${esc(p.price)}</span><button type="button" class="addbtn" data-add="${p.id}">＋ 询价单</button></div>
+        </div>
+      </div>`).join("") : '<div class="empty">没有匹配的产品，换个关键词试试</div>'}
+    </div>
+  </div>
+  <div class="foot-note">产品目录与官网内容包一致 · 攒够产品后去「询价单」一次提交</div>`;
+}
+function renderNews() {
+  /* 案例/动态合并槽位：包内只有动态数据，动态全文单点落此栏；案例不虚构，待真实案例数据接入后合并呈现 */
+  return `
+  <div class="flow-label" style="margin-top:14px">动态 · NEWS</div>
+  ${P.news.map(n => `
+  <div class="ncard">
+    <span class="tag">${esc(n.tag)}</span>
+    <div class="n-t">${esc(n.title)}</div>
+    <div class="n-d">${esc(n.text)}</div>
+  </div>`).join("")}
+  <div class="foot-note">企业动态持续更新 · 合作案例将在接入真实案例数据后于本栏合并呈现（本样板不虚构案例）<br>${esc(P.company_full)} · ${esc(P.demo_note)}</div>`;
+}
+
+function renderCart() {
+  /* 签名栏：询价单任务流——攒单（增删/改量/单条备注）→ 留资表单 → 模拟提交 → 生成本地记录并清空清单 */
+  const items = LS.cart.map(i => ({ ...i, p: prod(i.id) })).filter(i => i.p);
+  let h = "";
+  if (S.lastOrder) {
+    h += `<div class="ok-card"><div class="t">${IC.check}询价已提交（模拟）</div>
+      <div class="d">单号 ${esc(S.lastOrder)} · 企业将尽快与您联系，记录已存入「我的 · 询价记录」。本样板为模拟提交，未真实发送。</div></div>`;
+  }
+  if (!items.length && !S.lastOrder) {
+    return `<div class="iq-empty">
+      <div class="ic">${IC.clip}</div>
+      <div class="t">询价单还是空的</div>
+      <div class="d">把感兴趣的产品加入询价单，填一次联系方式即可整体询价，不必逐个产品重复留资。</div>
+      <button type="button" class="btn-pri" data-goproducts>去产品中心选产品</button>
+    </div>
+    <div class="foot-note">询价单保存在本机，刷新不会丢失 · 原生版将同步到企业询盘系统</div>`;
+  }
+  if (items.length) {
+    h += `<div class="flow-label" style="margin-top:14px">待询价产品 · ${items.length} 件</div>`;
+    h += items.map(({ p, qty, note }) => `
+    <div class="iq-item" data-iqrow="${p.id}">
+      <img src="${p.img}" alt="">
+      <div class="iq-c">
+        <div class="iq-t">${esc(p.title)}<span class="tag">${esc(p.cat)}</span></div>
+        <div class="iq-p">${esc(p.price)}</div>
+        <div class="iq-ops">
+          <div class="stepper"><button type="button" data-dec="${p.id}" aria-label="减少">−</button><span class="qty" data-qty="${p.id}">${qty}</span><button type="button" data-inc="${p.id}" aria-label="增加">＋</button></div>
+          <button type="button" class="iq-del" data-del="${p.id}">删除</button>
+        </div>
+        <input class="iq-note" data-note="${p.id}" type="text" placeholder="备注：需求数量、交期等（选填）" value="${esc(note || "")}">
+      </div>
+    </div>`).join("");
+    h += `
+    <div class="card" style="margin-bottom:16px">
+      <div class="sec-title"><b>提交信息</b></div>
+      <form class="lead-form" id="iqForm">
+        <div class="lf-row"><label for="iqName">姓名</label><input id="iqName" type="text" placeholder="请输入您的姓名" autocomplete="off"></div>
+        <div class="lf-row"><label for="iqPhone">电话</label><input id="iqPhone" type="tel" placeholder="请输入手机号码" autocomplete="off"></div>
+        <div class="lf-row"><label for="iqCompany">公司</label><input id="iqCompany" type="text" placeholder="请输入公司名称（选填）" autocomplete="off"></div>
+        <div class="lf-row"><label for="iqNoteAll">总备注</label><textarea id="iqNoteAll" rows="3" placeholder="整体需求、期望交期或收货地等"></textarea></div>
+        <button type="submit" class="btn-pri lf-sub">提交询价</button>
+        <div class="lf-note">提交后生成本地询价记录，可在「我的」查看 · 本样板为模拟提交，不会真实发送</div>
+      </form>
+    </div>`;
+  }
+  h += `<div class="foot-note">询价单保存在本机，刷新不会丢失 · 原生版将同步到企业询盘系统</div>`;
+  return h;
+}
+function mrowHTML(p) {
+  return `<div class="mrow" data-detail="${p.id}"><img src="${p.img}" alt=""><div class="mt"><div class="t">${esc(p.title)}</div><div class="p">${esc(p.price)}</div></div>${IC.chevR}</div>`;
+}
+function renderMine() {
+  /* 本地状态面：询价记录 / 收藏 / 最近浏览 + 企业联系卡（联系方式全文单点落位于此，全样板仅此一次） */
+  const favs = LS.favs.map(prod).filter(Boolean);
+  const recent = LS.recent.map(prod).filter(Boolean);
+  return `
+  <div class="mine-head">
+    <img src="${P.logo}" alt="">
+    <div><div class="b">${esc(P.brand)}</div><div class="c">${esc(P.company_full)}</div></div>
+  </div>
+  <div class="flow-label">询价记录 · RECORDS</div>
+  ${LS.orders.length ? LS.orders.map(o => `
+  <div class="ord-card">
+    <div class="o-top"><span class="o-no">${esc(o.no)}</span><span class="o-st">已提交（模拟）</span></div>
+    <div class="o-meta">${esc(o.time)} · ${o.items.length} 件产品 · ${esc(o.name)} ${esc(o.phone)}</div>
+    <div class="o-items">${o.items.map(i => esc(i.title) + " ×" + i.qty).join("、")}</div>
+  </div>`).join("") : '<div class="mini-empty">暂无询价记录<br>在产品详情把产品加入询价单，提交后会留痕在这里</div>'}
+  <div class="flow-label">收藏 · FAVORITES</div>
+  ${favs.length ? favs.map(mrowHTML).join("") : '<div class="mini-empty">还没有收藏的产品<br>在产品详情点「收藏」即可收进这里</div>'}
+  <div class="flow-label">最近浏览 · RECENT</div>
+  ${recent.length ? recent.map(mrowHTML).join("") : '<div class="mini-empty">暂无浏览记录</div>'}
+  <div class="flow-label">企业联系 · CONTACT</div>
+  <div class="card" style="margin-top:10px">
+    <div class="cell" data-act="call"><span style="color:var(--brand-dark)">${IC.phone}</span><div class="ct"><div class="t">电话</div><div class="d">点按拨打服务热线</div></div><span class="cv">${esc(P.phone)}</span></div>
+    <div class="cell" data-act="wechat"><span style="color:#3aa832">${IC.wechat}</span><div class="ct"><div class="t">微信号</div><div class="d">点按复制，去微信添加</div></div><span class="cv">${esc(P.wechat)}</span><span style="color:var(--brand-dark)">${IC.copy}</span></div>
+    <div class="cell"><span style="color:var(--brand-dark)">${IC.mail}</span><div class="ct"><div class="t">邮箱</div></div><span class="cv">${esc(P.email)}</span></div>
+    <div class="map-ph">
+      <div class="road" style="left:0;right:0;top:56px;height:13px"></div>
+      <div class="road" style="top:0;bottom:0;left:118px;width:13px"></div>
+      <div class="road" style="left:0;right:0;top:112px;height:8px;opacity:.75"></div>
+      <div class="pin">${IC.pin}</div>
+      <div class="addr"><span>${esc(P.address)}</span><button type="button" data-act="nav">导航</button></div>
+    </div>
+  </div>
+  <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 地图为占位示意，原生版调用微信地图导航</div>`;
+}
+
+function renderDetail(p) {
+  const faved = LS.favs.includes(p.id);
+  return `
+  <div class="dscroll">
+    <img class="cover" src="${p.img}" alt="">
+    <div class="dhead">
+      <div class="t">${esc(p.title)}<span class="tag">${esc(p.cat)}</span></div>
+      <div class="p">${esc(p.price)}</div>
+      <div class="d">${esc(p.text)}</div>
+    </div>
+    <div class="spec-t"><h4>产品参数</h4>
+      ${p.specs.map(s => `<div class="spec-r"><span class="k">${esc(s.k)}</span><span class="v">${esc(s.v)}</span></div>`).join("")}
+    </div>
+    <div style="height:14px"></div>
+  </div>
+  <div class="dbar">
+    <button type="button" class="btn-line favbtn ${faved ? "on" : ""}" data-act="fav">${faved ? IC.heartFill : IC.heart}<span>${faved ? "已收藏" : "收藏"}</span></button>
+    <button type="button" class="btn-line addbtn2" data-act="addcart">加入询价单</button>
+    <button type="button" class="btn-pri inqbtn" data-act="inquiry">立即询价</button>
+  </div>`;
+}
+
+/* ---------------- 询价单状态操作 ---------------- */
+function addToCart(id, silent) {
+  const it = cartItem(id);
+  if (it) it.qty += 1; else LS.cart.push({ id, qty: 1, note: "" });
+  S.lastOrder = null;
+  saveLS(); renderTabs();
+  if (!silent) toast("已加入询价单（模拟）：" + prod(id).title);
+}
+function refreshDetailBar() {
+  if (S.detail == null) return;
+  const d = $("#detail");
+  const bar = d.querySelector(".dbar");
+  if (bar) { const tmp = document.createElement("div"); tmp.innerHTML = renderDetail(prod(S.detail)); bar.replaceWith(tmp.querySelector(".dbar")); }
+}
+
+/* ---------------- 导航与交互 ---------------- */
+const RENDER = { home: renderHome, products: renderProducts, news: renderNews, cart: renderCart, mine: renderMine };
+function renderTabs() {
+  $("#tabbar").innerHTML = TABS.map(t =>
+    `<div class="tab ${t.id === S.tab ? "on" : ""}" data-tab="${t.id}">${t.icon}<span class="lb">${t.label}</span>${t.badge && t.badge() ? `<span class="badge">${t.badge()}</span>` : ""}</div>`).join("");
+}
+function syncFab() {
+  const fab = $("#fab");
+  fab.classList.toggle("hidden", S.detail == null);
+  fab.classList.toggle("up", S.detail != null);
+}
+function render() {
+  $("#page").innerHTML = RENDER[S.tab]();
+  $("#page").scrollTop = 0;
+  $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
+  renderTabs();
+  startSwiper();
+  attachSearch();
+  bindPageBits();
+  syncFab();
+}
+function attachSearch() {
+  const q = $("#q");
+  if (!q) return;
+  q.addEventListener("input", () => {
+    S.query = q.value;
+    if (S.query) S.cat = "全部";
+    const pos = q.selectionStart;
+    $("#page").innerHTML = renderProducts();
+    const nq = $("#q"); nq.focus(); nq.setSelectionRange(pos, pos);
+    bindPageBits();
+    attachSearch();
+  });
+}
+function bindPageBits() {
+  const sw = $("#swiper");
+  if (sw) sw.querySelectorAll("[data-slide]").forEach(d =>
+    d.addEventListener("click", () => { S.slide = +d.dataset.slide; refreshSwiper(); }));
+}
+function refreshSwiper() {
+  const tr = $("#swiper .track"); if (!tr) return;
+  tr.style.transform = `translateX(-${S.slide * 351}px)`;
+  $("#swiper").querySelectorAll("[data-slide]").forEach((d, i) => d.classList.toggle("on", i === S.slide));
+}
+function startSwiper() {
+  clearInterval(S.slideTimer);
+  if (S.tab !== "home") return;
+  S.slideTimer = setInterval(() => { S.slide = (S.slide + 1) % P.hero_slides.length; refreshSwiper(); }, 4200);
+}
+function goTab(id) {
+  S.tab = id; S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  history.replaceState(null, "", "#/" + id);
+  render();
+}
+function goProducts(cat) {
+  S.cat = cat || "全部"; S.query = ""; S.tab = "products"; S.detail = null;
+  $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  history.replaceState(null, "", "#/products");
+  render();
+}
+function openDetail(id) {
+  const p = prod(id); if (!p) return;
+  S.detail = id;
+  LS.recent = [id, ...LS.recent.filter(x => x !== id)].slice(0, 6);
+  saveLS();
+  const d = $("#detail"); d.innerHTML = renderDetail(p); d.classList.remove("hidden");
+  d.querySelector(".dscroll").scrollTop = 0;
+  $("#tabbar").style.display = "none";
+  $("#navTitle").textContent = "产品详情";
+  $("#navBack").classList.remove("hidden");
+  history.replaceState(null, "", "#/product/" + id);
+  syncFab();
+}
+function closeDetail() {
+  S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = "";
+  $("#navBack").classList.add("hidden");
+  $("#navTitle").textContent = TABS.find(t => t.id === S.tab).title();
+  history.replaceState(null, "", "#/" + S.tab);
+  render();
+  syncFab();
+}
+
+document.addEventListener("click", e => {
+  const tab = e.target.closest("[data-tab]"); if (tab) { goTab(tab.dataset.tab); return; }
+  const add = e.target.closest("[data-add]"); if (add) { addToCart(+add.dataset.add); return; }
+  const inc = e.target.closest("[data-inc]"); if (inc) { const it = cartItem(+inc.dataset.inc); if (it) { it.qty += 1; saveLS(); const q = document.querySelector(`[data-qty="${it.id}"]`); if (q) q.textContent = it.qty; } return; }
+  const dec = e.target.closest("[data-dec]"); if (dec) { const it = cartItem(+dec.dataset.dec); if (it) { it.qty = Math.max(1, it.qty - 1); saveLS(); const q = document.querySelector(`[data-qty="${it.id}"]`); if (q) q.textContent = it.qty; } return; }
+  const del = e.target.closest("[data-del]"); if (del) { LS.cart = LS.cart.filter(i => i.id !== +del.dataset.del); saveLS(); render(); toast("已从询价单移除"); return; }
+  const gp = e.target.closest("[data-goproducts]"); if (gp) { goProducts("全部"); return; }
+  const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
+  const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; S.query = ""; render(); $("#page").scrollTop = 0; return; }
+  const catlink = e.target.closest("[data-catlink]"); if (catlink) { goProducts(catlink.dataset.catlink); return; }
+  const srch = e.target.closest("[data-search]"); if (srch) { goProducts("全部"); const q = $("#q"); if (q) q.focus(); return; }
+  const act = e.target.closest("[data-act]");
+  if (act) {
+    const a = act.dataset.act;
+    if (a === "call") simCall();
+    else if (a === "service") simService();
+    else if (a === "nav") toast("打开地图导航（模拟）：目的地为公司地址");
+    else if (a === "wechat") {
+      if (navigator.clipboard) navigator.clipboard.writeText(P.wechat).catch(() => {});
+      toast("微信号已复制（模拟），去微信粘贴添加");
+    }
+    else if (a === "fav" && S.detail != null) {
+      const id = S.detail;
+      if (LS.favs.includes(id)) { LS.favs = LS.favs.filter(x => x !== id); toast("已取消收藏"); }
+      else { LS.favs.push(id); toast("已收藏，可在「我的」查看"); }
+      saveLS(); refreshDetailBar();
+    }
+    else if (a === "addcart" && S.detail != null) addToCart(S.detail);
+    else if (a === "inquiry" && S.detail != null) {
+      const id = S.detail;
+      if (!cartItem(id)) { LS.cart.push({ id, qty: 1, note: "" }); S.lastOrder = null; saveLS(); }
+      goTab("cart");
+      toast("立即询价（模拟）：已预置该产品，请确认后提交");
+    }
+    return;
+  }
+  if (e.target.closest("#navBack")) { if (S.detail != null) closeDetail(); }
+});
+document.addEventListener("input", e => {
+  const n = e.target.closest("[data-note]");
+  if (n) { const it = cartItem(+n.dataset.note); if (it) { it.note = n.value; saveLS(); } }
+});
+document.addEventListener("submit", e => {
+  if (!e.target.closest("#iqForm")) return;
+  e.preventDefault();
+  const name = $("#iqName").value.trim(), phone = $("#iqPhone").value.trim();
+  if (!name || !phone) { toast("请先填写姓名与电话（模拟校验）"); return; }
+  const pad = n => String(n).padStart(2, "0");
+  const now = new Date();
+  const order = {
+    no: "XJ" + String(Date.now()).slice(-8),
+    time: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`,
+    name, phone,
+    company: $("#iqCompany").value.trim(),
+    note: $("#iqNoteAll").value.trim(),
+    items: LS.cart.map(i => { const p = prod(i.id); return { id: i.id, title: p ? p.title : "", price: p ? p.price : "", qty: i.qty, note: i.note || "" }; })
+  };
+  LS.orders.unshift(order);
+  LS.cart = [];
+  S.lastOrder = order.no;
+  saveLS();
+  render();
+  toast("询价已提交（模拟），记录已存入「我的」");
+});
+
+$("#fsBtn").addEventListener("click", () => {
+  const st = $("#stage"); st.classList.toggle("full");
+  $("#fsBtn").textContent = st.classList.contains("full") ? "退出全屏体验" : "全屏体验";
+});
+$("#resetBtn").addEventListener("click", () => {
+  try { localStorage.removeItem(LSKEY()); } catch (err) {}
+  LS = { cart: [], orders: [], favs: [], recent: [] };
+  S.cat = "全部"; S.query = ""; S.slide = 0; S.lastOrder = null;
+  goTab("home"); toast("演示已重置（本地状态已清）");
+});
+function tickClock() {
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  $("#clock").textContent = p(d.getHours()) + ":" + p(d.getMinutes());
+}
+function routeFromHash() {
+  const h = location.hash || "";
+  const m = h.match(/^#\/product\/(\d+)$/);
+  S.detail = null; $("#detail").classList.add("hidden");
+  $("#tabbar").style.display = ""; $("#navBack").classList.add("hidden");
+  if (m) { S.tab = "products"; render(); openDetail(+m[1]); return; }
+  if (h.startsWith("#/")) { const id = h.slice(2); if (RENDER[id]) S.tab = id; }
+  render();
+}
+const PACK_ID = new URLSearchParams(location.search).get("pack") || "machinery";
+$("#packSel").addEventListener("change", () => {
+  const id = $("#packSel").value;
+  location.href = location.pathname + "?pack=" + encodeURIComponent(id);
+});
+fetch(DATA_BASE + "packs-mp/" + PACK_ID + ".json").then(r => {
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}).then(data => {
+  P = data;
+  /* 图片路径在数据中相对 /mp/ 书写，本页位于 /mp/s3/，统一补上一级前缀（数据仍只有一份） */
+  const fix = u => (typeof u === "string" && u.startsWith("assets/")) ? DATA_BASE + u : u;
+  P.logo = fix(P.logo); P.factory_img = fix(P.factory_img);
+  P.hero_slides = P.hero_slides.map(fix);
+  P.products = P.products.map(p => ({ ...p, img: fix(p.img) }));
+  loadLS();
+  document.documentElement.style.setProperty("--brand", P.accent);
+  document.documentElement.style.setProperty("--brand-dark", P.accent_dark);
+  document.documentElement.style.setProperty("--brand-tint", P.accent_tint);
+  document.documentElement.style.setProperty("--ink", P.charcoal);
+  document.title = "小程序模拟样板 · MP-S3 服务型 × " + P.brand;
+  $("#panelH1").textContent = "MP-S3 服务型 × " + P.brand;
+  $("#specPack").textContent = "内容包：" + P.industry + " · " + P.brand + "（与官网演示站同一份数据）";
+  $("#specAccent").textContent = "主题色：内容包品牌 accent " + P.accent;
+  $("#packSel").value = P.pack_id;
+  routeFromHash();
+  window.addEventListener("hashchange", routeFromHash);
+  tickClock(); setInterval(tickClock, 20000);
+}).catch(err => {
+  $("#page").innerHTML = '<div class="empty">样板数据加载失败：' + esc(err.message) + "<br>（请通过 http(s) 访问本页）</div>";
+});
+</script>
+</body></html>
