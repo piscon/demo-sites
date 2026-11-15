@@ -30,7 +30,8 @@
   .phone{ width:399px; padding:12px; background:#05070a; border-radius:52px; box-shadow:0 24px 70px rgba(0,0,0,.55), inset 0 0 0 2px #2a2f36; }
   .screen{ position:relative; width:375px; height:748px; background:var(--pagebg); border-radius:42px; overflow:hidden; color:var(--text); display:flex; flex-direction:column; }
   .stage.full .panel{ display:none; }
-  .stage.full .phone{ transform:scale(1.12); transform-origin:top center; }
+  /* 全屏体验：缩放倍率由 JS 按视口适配（fitFull），此处只定变换基准，避免固定倍率在窄屏越框 */
+  .stage.full .phone{ transform-origin:top center; }
   /* 状态栏 + 导航栏 */
   .statusbar{ height:42px; flex:none; display:flex; align-items:flex-end; justify-content:space-between; padding:0 22px 4px 26px; background:#fff; font-size:14.5px; font-weight:600; color:#111; }
   .statusbar .sic{ display:flex; gap:6px; align-items:center; }
@@ -736,9 +737,26 @@ document.addEventListener("submit", e => {
   toast("询价已提交（模拟），记录已存入「我的」");
 });
 
+/* 全屏体验适配：倍率取「视口宽/高均容得下框体」的最大值（上限 1.12 保持桌面观感），
+   窄屏自动缩小至不越界；视口尺寸以 visualViewport 为准（页面自身在窄屏有布局溢出时
+   innerWidth 会被撑宽、布局中心≠视口中心），缩放后再按实测框体位置做一次水平居中校正；
+   退出全屏清除内联变换，恢复样式表（含小屏媒体查询）口径 */
+function fitFull(){
+  const st = $("#stage"), ph = $(".phone");
+  if (!st.classList.contains("full")) { ph.style.transform = ""; return; }
+  const vv = window.visualViewport;
+  const vw = vv ? vv.width : window.innerWidth, vh = vv ? vv.height : window.innerHeight;
+  const s = Math.min(1.12, (vw - 16) / ph.offsetWidth, (vh - 44) / ph.offsetHeight);
+  ph.style.transform = "scale(" + s.toFixed(4) + ")";
+  const r = ph.getBoundingClientRect(), dx = (vw - r.width) / 2 - r.left;
+  if (Math.abs(dx) > 0.5) ph.style.transform = "translateX(" + dx.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
+}
+window.addEventListener("resize", fitFull);
 $("#fsBtn").addEventListener("click", () => {
   const st = $("#stage"); st.classList.toggle("full");
   $("#fsBtn").textContent = st.classList.contains("full") ? "退出全屏体验" : "全屏体验";
+  if (st.classList.contains("full")) $(".phone-wrap").scrollIntoView({ block: "start", inline: "nearest" });
+  fitFull();
 });
 $("#resetBtn").addEventListener("click", () => {
   try { localStorage.removeItem(LSKEY()); } catch (err) {}
