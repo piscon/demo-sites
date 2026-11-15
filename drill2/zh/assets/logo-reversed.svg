@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" width="1260" height="360" role="img" aria-label="华骏流体 HUAJUN FLUID">
+<rect x="16" y="16" width="88" height="88" rx="10" fill="#23272B"/>
+<path d="M60 28 C60 28 37 57 37 73 a23 23 0 0 0 46 0 C83 57 60 28 60 28 Z" fill="#0E7490"/>
+<circle cx="51" cy="76" r="5.5" fill="#FFFFFF" opacity="0.55"/>
+<text x="122" y="69" font-family="'Noto Sans SC','Source Han Sans SC',sans-serif" font-size="43" font-weight="900" letter-spacing="3" fill="#FFFFFF">华骏流体</text>
+<text x="124" y="95" font-family="'Noto Sans SC','Source Han Sans SC',sans-serif" font-size="16" font-weight="700" letter-spacing="4.5" fill="#B9C4CE">HUAJUN FLUID</text>
+</svg>
