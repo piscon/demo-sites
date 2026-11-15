@@ -1,0 +1,256 @@
+{
+ "pack_id": "general-manufacturing",
+ "industry": "通用制造",
+ "brand": "铭匠精密",
+ "brand_en": "MINGJIANG PRECISION",
+ "company_full": "苏州铭匠精密制造有限公司",
+ "tagline": "公差不将就，交期不含糊",
+ "demo_note": "演示示例公司，数据为虚构",
+ "accent": "#C23B2A",
+ "accent_dark": "#93281A",
+ "accent_tint": "#F8E7E5",
+ "charcoal": "#23272B",
+ "hero_kicker": "加工设备 180 台 · 年交付零件 700 万件",
+ "hero_title": "图纸进来，零件出去",
+ "hero_sub": "CNC 精密加工、钣金与注塑一站式打样到量产，公差 ±0.005mm，首件全尺寸报告随货交付。",
+ "hero_slides": [
+  "assets/general-manufacturing/img/hero-a.jpg",
+  "assets/general-manufacturing/img/factory.jpg",
+  "assets/general-manufacturing/img/product.jpg"
+ ],
+ "stats": [
+  {
+   "label": "年行业经验",
+   "value": "12"
+  },
+  {
+   "label": "员工与技术人员",
+   "value": "230"
+  },
+  {
+   "label": "服务客户",
+   "value": "640"
+  },
+  {
+   "label": "年交付零件（万件）",
+   "value": "700"
+  }
+ ],
+ "about_title": "精密零部件一站式制造服务商",
+ "about_text": "铭匠精密成立于 2014 年，拥有 25,000 平方米厂房，五轴加工中心、车铣复合、激光切割与注塑机共 180 台。通过 ISO 9001 与 ISO 13485 认证，年交付零件 700 万件，服务自动化设备、医疗器械、汽车与消费电子行业客户，DFM 评审 24 小时内回复。",
+ "about_points": [
+  "CNC 精密加工",
+  "钣金制造",
+  "注塑成型",
+  "表面处理",
+  "组件装配"
+ ],
+ "why_intro": "外协加工最怕失控。这三条，是客户把急件也敢交给我们的理由。",
+ "why_points": [
+  {
+   "text": "每批次首件出全尺寸检测报告，三坐标数据随货走，不靠抽检蒙混。",
+   "title": "首件全尺寸报告"
+  },
+  {
+   "text": "报价单拆成材料、工时与表面处理三项，涨跌都有依据可查。",
+   "title": "成本拆项报价"
+  },
+  {
+   "text": "打样到量产同一个工艺团队跟到底，设计变更 24 小时内出新版报价。",
+   "title": "同一团队跟到底"
+  }
+ ],
+ "honors": [
+  "加工设备 180 台",
+  "年交付零件 700 万件",
+  "公差 ±0.005mm",
+  "ISO 13485 认证"
+ ],
+ "products": [
+  {
+   "id": 0,
+   "title": "CNC 精密加工",
+   "text": "三轴到五轴联动，铝合金、不锈钢、钛合金与工程塑料，公差 ±0.005mm。",
+   "price": "¥38 / 件起",
+   "cat": "机加工",
+   "img": "assets/general-manufacturing/img/product.jpg",
+   "specs": [
+    {
+     "k": "加工能力",
+     "v": "三轴到五轴联动"
+    },
+    {
+     "k": "材料",
+     "v": "铝合金、不锈钢、钛合金与工程塑料"
+    },
+    {
+     "k": "公差",
+     "v": "±0.005mm"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "title": "钣金加工",
+   "text": "激光切割、折弯、焊接与喷涂一体，机箱机柜与结构件 7 天交付。",
+   "price": "¥26 / 件起",
+   "cat": "钣金",
+   "img": "assets/general-manufacturing/img/factory.jpg",
+   "specs": [
+    {
+     "k": "工艺",
+     "v": "激光切割、折弯、焊接与喷涂一体"
+    },
+    {
+     "k": "产品",
+     "v": "机箱机柜与结构件"
+    },
+    {
+     "k": "交付",
+     "v": "7 天交付"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "title": "注塑成型",
+   "text": "80-650T 注塑机 24 台，自有模具车间，量产前先做 T0 试模报告。",
+   "price": "¥0.8 / 件起",
+   "cat": "注塑",
+   "img": "assets/general-manufacturing/img/hero-a.jpg",
+   "specs": [
+    {
+     "k": "设备",
+     "v": "80–650T 注塑机 24 台"
+    },
+    {
+     "k": "配套",
+     "v": "自有模具车间"
+    },
+    {
+     "k": "量产前",
+     "v": "先做 T0 试模报告"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "title": "模具设计与制造",
+   "text": "注塑模与冲压模，模流分析先行，模具寿命与保养记录随模移交。",
+   "price": "¥18,000 / 套起",
+   "cat": "模具",
+   "img": "assets/general-manufacturing/img/workshop.jpg",
+   "specs": [
+    {
+     "k": "类型",
+     "v": "注塑模与冲压模"
+    },
+    {
+     "k": "设计",
+     "v": "模流分析先行"
+    },
+    {
+     "k": "移交",
+     "v": "模具寿命与保养记录随模移交"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "title": "表面处理",
+   "text": "阳极氧化、喷砂、电镀与丝印，色差与膜厚按批次抽检并记录。",
+   "price": "¥6 / 件起",
+   "cat": "表面处理",
+   "img": "assets/general-manufacturing/img/hero-b.jpg",
+   "specs": [
+    {
+     "k": "工艺",
+     "v": "阳极氧化、喷砂、电镀与丝印"
+    },
+    {
+     "k": "质检",
+     "v": "色差与膜厚按批次抽检并记录"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "title": "打样与小批量",
+   "text": "3D 打印加 CNC 组合打样，最快 3 天交样，DFM 修改建议免费给。",
+   "price": "24 小时内报价",
+   "cat": "服务",
+   "img": "assets/general-manufacturing/img/extra.jpg",
+   "specs": [
+    {
+     "k": "方式",
+     "v": "3D 打印 + CNC 组合打样"
+    },
+    {
+     "k": "交样",
+     "v": "最快 3 天交样"
+    },
+    {
+     "k": "报价",
+     "v": "24 小时内报价"
+    },
+    {
+     "k": "增值",
+     "v": "DFM 修改建议免费"
+    }
+   ]
+  }
+ ],
+ "news": [
+  {
+   "tag": "打样报价",
+   "title": "打样最快 3 天，报价 24 小时内回复",
+   "text": "CNC 精密加工、钣金与注塑一站式打样到量产，公差 ±0.005mm，首件全尺寸报告随货交付。"
+  },
+  {
+   "tag": "报价透明",
+   "title": "成本拆项报价",
+   "text": "报价单拆成材料、工时与表面处理三项，涨跌都有依据可查。"
+  },
+  {
+   "tag": "首件报告",
+   "title": "首件全尺寸报告",
+   "text": "每批次首件出全尺寸检测报告，三坐标数据随货走，不靠抽检蒙混。"
+  }
+ ],
+ "phone": "400-891-2056",
+ "email": "sales@mingjiang-precision.example",
+ "address": "江苏省苏州市吴中区精密制造产业园铭匠路 6 号",
+ "wechat": "mingjiang-precision",
+ "emergency_title": "急件插单？先打这个电话",
+ "promo_line": "打样最快 3 天，报价 24 小时内回复",
+ "logo": "assets/general-manufacturing/logo.png",
+ "factory_img": "assets/general-manufacturing/img/factory.jpg",
+ "biz_cats": [
+  "机加工",
+  "钣金",
+  "注塑",
+  "表面处理",
+  "全部"
+ ],
+ "support": {
+  "metrics": [
+   {
+    "v": "3",
+    "unit": "天",
+    "l": "打样最快交付"
+   },
+   {
+    "v": "24",
+    "unit": "小时",
+    "l": "报价回复"
+   },
+   {
+    "v": "180",
+    "unit": "台",
+    "l": "加工设备"
+   }
+  ],
+  "parts": null
+ },
+ "search_example": "模具"
+}

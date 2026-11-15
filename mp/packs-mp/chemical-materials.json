@@ -1,0 +1,248 @@
+{
+ "pack_id": "chemical-materials",
+ "industry": "化工新材料",
+ "brand": "恒拓新材",
+ "brand_en": "HENGTUO NEW MATERIALS",
+ "company_full": "淄博恒拓新材料科技有限公司",
+ "tagline": "批次稳，性能才稳",
+ "demo_note": "演示示例公司，数据为虚构",
+ "accent": "#6D4AC8",
+ "accent_dark": "#4E31A3",
+ "accent_tint": "#EDE9F8",
+ "charcoal": "#23272B",
+ "hero_kicker": "年产新材料 6.5 万吨 · 通过 IATF 16949",
+ "hero_title": "材料先行，性能说话",
+ "hero_sub": "工程塑料、特种树脂与复合材料，批次稳定性内控 ±1%，附第三方检测报告与 MSDS 全套资料。",
+ "hero_slides": [
+  "assets/chemical-materials/img/hero-a.jpg",
+  "assets/chemical-materials/img/factory.jpg",
+  "assets/chemical-materials/img/product.jpg"
+ ],
+ "stats": [
+  {
+   "label": "年行业经验",
+   "value": "14"
+  },
+  {
+   "label": "员工与技术人员",
+   "value": "280"
+  },
+  {
+   "label": "合作客户",
+   "value": "560"
+  },
+  {
+   "label": "年产新材料（万吨）",
+   "value": "6.5"
+  }
+ ],
+ "about_title": "工程塑料与特种树脂生产商",
+ "about_text": "恒拓新材成立于 2012 年，占地 68,000 平方米，拥有双螺杆挤出产线 22 条与万吨级树脂合成装置，年产改性工程塑料与特种树脂 6.5 万吨。通过 ISO 9001 与 IATF 16949 认证，产品用于汽车零部件、电子电器、轨道交通与医疗器械行业，3,000 余个牌号的性能数据库开放选型查询。",
+ "about_points": [
+  "改性工程塑料",
+  "特种树脂与胶粘剂",
+  "碳纤维复合材料",
+  "色母粒与功能助剂",
+  "材料检测服务"
+ ],
+ "why_intro": "新材料最怕批次飘。这三条，是客户把我们写进 AVL 合格供应商名录的理由。",
+ "why_points": [
+  {
+   "text": "关键指标内控 ±1%，批批留样 24 个月，客户来料检数据可以逐项对账。",
+   "title": "批次波动 ≤±1%"
+  },
+  {
+   "text": "每袋料带批次二维码，原料来源、产线与检测结果一扫可查。",
+   "title": "全批次二维码追溯"
+  },
+  {
+   "text": "3,000 余个牌号的性能数据库开放查询，替代进口料先送样验证再切换。",
+   "title": "开放材料数据库"
+  }
+ ],
+ "honors": [
+  "年产新材料 6.5 万吨",
+  "IATF 16949 认证",
+  "牌号数据库 3,000 余个",
+  "批次内控 ±1%"
+ ],
+ "products": [
+  {
+   "id": 0,
+   "title": "改性尼龙 PA6 / PA66",
+   "text": "玻纤增强、阻燃、增韧牌号齐全，UL94 V-0 与灼热丝测试报告随货。",
+   "price": "¥16,800 / 吨起",
+   "cat": "工程塑料",
+   "img": "assets/chemical-materials/img/product.jpg",
+   "specs": [
+    {
+     "k": "牌号",
+     "v": "玻纤增强、阻燃、增韧牌号齐全"
+    },
+    {
+     "k": "阻燃等级",
+     "v": "UL94 V-0"
+    },
+    {
+     "k": "随货资料",
+     "v": "灼热丝测试报告"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "title": "PC / ABS 合金",
+   "text": "电镀级、喷涂级与低气味牌号，汽车内饰与电子外壳专用料。",
+   "price": "¥19,500 / 吨起",
+   "cat": "工程塑料",
+   "img": "assets/chemical-materials/img/hero-a.jpg",
+   "specs": [
+    {
+     "k": "牌号",
+     "v": "电镀级、喷涂级与低气味牌号"
+    },
+    {
+     "k": "应用",
+     "v": "汽车内饰与电子外壳专用料"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "title": "特种树脂与胶粘剂",
+   "text": "环氧、聚氨酯与有机硅体系，按固化曲线定制，附批次粘度记录。",
+   "price": "¥28,000 / 吨起",
+   "cat": "树脂胶粘",
+   "img": "assets/chemical-materials/img/factory.jpg",
+   "specs": [
+    {
+     "k": "体系",
+     "v": "环氧、聚氨酯与有机硅体系"
+    },
+    {
+     "k": "定制",
+     "v": "按固化曲线定制"
+    },
+    {
+     "k": "随货记录",
+     "v": "附批次粘度记录"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "title": "碳纤维复合材料",
+   "text": "短切碳纤增强颗粒与预浸料，拉伸强度批次波动 ≤3%。",
+   "price": "按规格报价",
+   "cat": "复合材料",
+   "img": "assets/chemical-materials/img/workshop.jpg",
+   "specs": [
+    {
+     "k": "产品",
+     "v": "短切碳纤增强颗粒与预浸料"
+    },
+    {
+     "k": "批次稳定性",
+     "v": "拉伸强度批次波动 ≤3%"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "title": "色母粒与功能助剂",
+   "text": "按 RAL 与 Pantone 色卡打样，48 小时出样，耐候与抗 UV 等级可选。",
+   "price": "¥9,600 / 吨起",
+   "cat": "助剂",
+   "img": "assets/chemical-materials/img/product.jpg",
+   "specs": [
+    {
+     "k": "打样",
+     "v": "按 RAL 与 Pantone 色卡打样"
+    },
+    {
+     "k": "出样",
+     "v": "48 小时出样"
+    },
+    {
+     "k": "可选等级",
+     "v": "耐候与抗 UV 等级可选"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "title": "材料检测与选型服务",
+   "text": "自有 CNAS 认可实验室，力学、热学与阻燃全项检测，3 天出报告。",
+   "price": "¥2,800 / 次起",
+   "cat": "服务",
+   "img": "assets/chemical-materials/img/hero-b.jpg",
+   "specs": [
+    {
+     "k": "实验室",
+     "v": "CNAS 认可实验室"
+    },
+    {
+     "k": "检测范围",
+     "v": "力学、热学与阻燃全项检测"
+    },
+    {
+     "k": "报告",
+     "v": "3 天出报告"
+    }
+   ]
+  }
+ ],
+ "news": [
+  {
+   "tag": "库存配送",
+   "title": "常用牌号常备库存，江浙沪鲁 48 小时送达",
+   "text": "工程塑料、特种树脂与复合材料，批次稳定性内控 ±1%，附第三方检测报告与 MSDS 全套资料。"
+  },
+  {
+   "tag": "批次追溯",
+   "title": "全批次二维码追溯",
+   "text": "每袋料带批次二维码，原料来源、产线与检测结果一扫可查。"
+  },
+  {
+   "tag": "批次稳定",
+   "title": "批次波动 ≤±1%",
+   "text": "关键指标内控 ±1%，批批留样 24 个月，客户来料检数据可以逐项对账。"
+  }
+ ],
+ "phone": "400-660-9158",
+ "email": "sales@hengtuo-materials.example",
+ "address": "山东省淄博市临淄区化工产业园恒拓路 18 号",
+ "wechat": "hengtuo-materials",
+ "emergency_title": "产线断料？先打这个电话",
+ "promo_line": "常用牌号常备库存，江浙沪鲁 48 小时送达",
+ "logo": "assets/chemical-materials/logo.png",
+ "factory_img": "assets/chemical-materials/img/factory.jpg",
+ "biz_cats": [
+  "工程塑料",
+  "树脂胶粘",
+  "复合材料",
+  "助剂",
+  "服务"
+ ],
+ "support": {
+  "metrics": [
+   {
+    "v": "48",
+    "unit": "小时",
+    "l": "江浙沪鲁送达"
+   },
+   {
+    "v": "3000",
+    "unit": "余个",
+    "l": "牌号数据库"
+   },
+   {
+    "v": "24",
+    "unit": "个月",
+    "l": "批批留样"
+   }
+  ],
+  "parts": null
+ },
+ "search_example": "尼龙"
+}

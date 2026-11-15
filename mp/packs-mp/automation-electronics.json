@@ -1,0 +1,252 @@
+{
+ "pack_id": "automation-electronics",
+ "industry": "自动化电子",
+ "brand": "华睿自动化",
+ "brand_en": "HUARUI AUTOMATION",
+ "company_full": "深圳市华睿自动化科技有限公司",
+ "tagline": "节拍、良率、稼动率，都用数字说话",
+ "demo_note": "演示示例公司，数据为虚构",
+ "accent": "#2F7DE1",
+ "accent_dark": "#1B5BB5",
+ "accent_tint": "#E6EFFB",
+ "charcoal": "#23272B",
+ "hero_kicker": "累计交付 750+ 自动化项目",
+ "hero_title": "让产线自己跑起来",
+ "hero_sub": "非标自动化产线、机器视觉检测与机器人工作站，从方案设计到驻厂调试一站交付，稼动率写进验收标准。",
+ "hero_slides": [
+  "assets/automation-electronics/img/hero-a.jpg",
+  "assets/automation-electronics/img/factory.jpg",
+  "assets/automation-electronics/img/product.jpg"
+ ],
+ "stats": [
+  {
+   "label": "年行业经验",
+   "value": "10"
+  },
+  {
+   "label": "员工与工程师",
+   "value": "210"
+  },
+  {
+   "label": "服务客户",
+   "value": "420"
+  },
+  {
+   "label": "累计交付项目",
+   "value": "750"
+  }
+ ],
+ "about_title": "非标自动化与机器视觉集成商",
+ "about_text": "华睿自动化成立于 2016 年，拥有 18,000 平方米研发装配基地，210 名员工中含 60 名机械、电气与视觉工程师。通过 ISO 9001 质量体系认证，累计交付自动化产线与工作站 750 余套，服务消费电子、汽车零部件、锂电与医疗器械行业，核心部件自研率 55%。",
+ "about_points": [
+  "非标自动化产线",
+  "机器视觉检测",
+  "机器人工作站",
+  "PLC 与运动控制",
+  "产线数字化改造"
+ ],
+ "why_intro": "自动化设备买的是产能，不是铁架子。这三条，是客户验收时最看重的承诺。",
+ "why_points": [
+  {
+   "text": "PLC 与视觉程序源码、电气图纸随设备移交，不绑架客户的后续改造。",
+   "title": "程序源码随设备交付"
+  },
+  {
+   "text": "连续运行 72 小时、稼动率 ≥92% 才算验收通过，不达标免费整改。",
+   "title": "稼动率写进验收"
+  },
+  {
+   "text": "整线 3D 仿真与节拍验证先行，方案阶段就把干涉与瓶颈工序挑出来。",
+   "title": "数字仿真先行"
+  }
+ ],
+ "honors": [
+  "累计交付项目 750 余套",
+  "核心部件自研率 55%",
+  "ISO 9001 质量体系认证",
+  "工程师团队 60 名"
+ ],
+ "products": [
+  {
+   "id": 0,
+   "title": "非标自动化产线",
+   "text": "按产品工艺定制整线方案，节拍、良率与换型时间在合同里量化约定。",
+   "price": "整线 ¥85 万起",
+   "cat": "产线",
+   "img": "assets/automation-electronics/img/hero-a.jpg",
+   "specs": [
+    {
+     "k": "交付方式",
+     "v": "按产品工艺定制整线方案"
+    },
+    {
+     "k": "量化约定",
+     "v": "节拍、良率与换型时间写入合同"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "title": "机器视觉检测系统",
+   "text": "缺陷、尺寸、OCR 与定位引导，检出率 ≥99.5%，误判率 ≤0.3%。",
+   "price": "¥18 万起",
+   "cat": "检测",
+   "img": "assets/automation-electronics/img/product.jpg",
+   "specs": [
+    {
+     "k": "检测内容",
+     "v": "缺陷、尺寸、OCR 与定位引导"
+    },
+    {
+     "k": "检出率",
+     "v": "≥99.5%"
+    },
+    {
+     "k": "误判率",
+     "v": "≤0.3%"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "title": "机器人集成工作站",
+   "text": "上下料、焊接、码垛与锁付工作站，适配主流机器人品牌，含安全评估。",
+   "price": "¥32 万起",
+   "cat": "集成",
+   "img": "assets/automation-electronics/img/factory.jpg",
+   "specs": [
+    {
+     "k": "应用",
+     "v": "上下料、焊接、码垛与锁付"
+    },
+    {
+     "k": "适配品牌",
+     "v": "主流机器人品牌"
+    },
+    {
+     "k": "交付",
+     "v": "含安全评估"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "title": "PLC 控制柜与电控系统",
+   "text": "西门子、三菱、汇川平台，控制柜自制，程序源码随设备一并交付。",
+   "price": "¥6.8 万起",
+   "cat": "电控",
+   "img": "assets/automation-electronics/img/workshop.jpg",
+   "specs": [
+    {
+     "k": "平台",
+     "v": "西门子、三菱、汇川"
+    },
+    {
+     "k": "控制柜",
+     "v": "自制"
+    },
+    {
+     "k": "交付",
+     "v": "程序源码随设备交付"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "title": "伺服与运动控制改造",
+   "text": "老产线电控升级，多轴同步与飞剪追剪，利用停产窗口期施工。",
+   "price": "¥12 万起",
+   "cat": "改造",
+   "img": "assets/automation-electronics/img/hero-b.jpg",
+   "specs": [
+    {
+     "k": "改造内容",
+     "v": "老产线电控升级"
+    },
+    {
+     "k": "控制能力",
+     "v": "多轴同步与飞剪追剪"
+    },
+    {
+     "k": "施工",
+     "v": "利用停产窗口期施工"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "title": "驻厂维保与远程运维",
+   "text": "工程师驻厂加远程诊断平台，故障响应 2 小时，备件清单前置。",
+   "price": "¥9.8 万 / 年起",
+   "cat": "服务",
+   "img": "assets/automation-electronics/img/extra.jpg",
+   "specs": [
+    {
+     "k": "服务方式",
+     "v": "工程师驻厂 + 远程诊断平台"
+    },
+    {
+     "k": "故障响应",
+     "v": "2 小时"
+    },
+    {
+     "k": "保障",
+     "v": "备件清单前置"
+    }
+   ]
+  }
+ ],
+ "news": [
+  {
+   "tag": "运维响应",
+   "title": "故障远程响应 2 小时，华南工程师当日到场",
+   "text": "非标自动化产线、机器视觉检测与机器人工作站，从方案设计到驻厂调试一站交付，稼动率写进验收标准。"
+  },
+  {
+   "tag": "验收标准",
+   "title": "稼动率写进验收",
+   "text": "连续运行 72 小时、稼动率 ≥92% 才算验收通过，不达标免费整改。"
+  },
+  {
+   "tag": "源码交付",
+   "title": "程序源码随设备交付",
+   "text": "PLC 与视觉程序源码、电气图纸随设备移交，不绑架客户的后续改造。"
+  }
+ ],
+ "phone": "400-920-4715",
+ "email": "sales@huarui-auto.example",
+ "address": "广东省深圳市宝安区智造产业园华睿路 9 号",
+ "wechat": "huarui-auto",
+ "emergency_title": "产线停线？先打这个电话",
+ "promo_line": "故障远程响应 2 小时，华南工程师当日到场",
+ "logo": "assets/automation-electronics/logo.png",
+ "factory_img": "assets/automation-electronics/img/factory.jpg",
+ "biz_cats": [
+  "产线",
+  "检测",
+  "集成",
+  "电控",
+  "改造"
+ ],
+ "support": {
+  "metrics": [
+   {
+    "v": "2",
+    "unit": "小时",
+    "l": "故障响应"
+   },
+   {
+    "v": "750",
+    "unit": "余套",
+    "l": "累计交付"
+   },
+   {
+    "v": "92",
+    "unit": "%",
+    "l": "验收稼动率"
+   }
+  ],
+  "parts": null
+ },
+ "search_example": "产线"
+}

@@ -214,7 +214,7 @@
 <body>
 <div class="stage" id="stage">
   <aside class="panel">
-    <h1>小程序模拟样板<br>MP-S1 展示型 × 机械包</h1>
+    <h1>小程序模拟样板<br><span id="panelH1">MP-S1 展示型 × 机械包</span></h1>
     <p class="sub">微信小程序业务线第一个可点击样板：手机壳内页面按 TDesign 组件外观与《微信小程序设计指南》渲染，内容全部由官网内容包驱动。</p>
     <div class="spec">
       <h3>样板构成</h3>
@@ -222,8 +222,8 @@
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
         <li>栏位：首页（品牌视觉 Banner / 核心优势提炼 / 主推产品快捷入口 / 企业实力概览）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书，本包以企业动态承载「案例/动态」槽位）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
-        <li>内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
-        <li>主题色：内容包品牌 accent 安全黄 #E4AF00</li>
+        <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
+        <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
         <li>可点动线：栏位切换、轮播、分类筛选、搜索、详情进出、悬浮拨号 / 客服、复制 / 导航、留资表单提交（均为模拟反馈）</li>
       </ul>
     </div>
@@ -232,15 +232,15 @@
       <p>本样板为网页模拟效果，用于选型演示；微信登录、支付、分享等原生能力以原生交付为准。签约后按本样板 1:1 翻译为原生小程序（TDesign 组件同源）。</p>
     </div>
     <div class="ctl">
-      <label for="packSel">内容包（换包即换行业，现仅机械包已接入）</label>
+      <label for="packSel">内容包（换包即换行业，7 个行业包已全量接入；也可通过 ?pack= 参数直达）</label>
       <select id="packSel">
         <option value="machinery" selected>机械设备 · 恒力重工</option>
-        <option disabled>环保过滤 · 清源过滤（待接入）</option>
-        <option disabled>钢材金属 · 恒岳金属（待接入）</option>
-        <option disabled>自动化 · 华睿自动化（待接入）</option>
-        <option disabled>化工新材 · 恒拓新材（待接入）</option>
-        <option disabled>通用制造 · 铭匠精密（待接入）</option>
-        <option disabled>手工业 · 匠心木作（待接入）</option>
+        <option value="eco-filter">环保过滤 · 清源过滤</option>
+        <option value="steel-metal">钢材金属 · 恒岳金属</option>
+        <option value="automation-electronics">自动化 · 华睿自动化</option>
+        <option value="chemical-materials">化工新材 · 恒拓新材</option>
+        <option value="general-manufacturing">通用制造 · 铭匠精密</option>
+        <option value="handicraft-woodwork">手工业 · 匠心木作</option>
       </select>
       <button id="fsBtn" type="button">全屏体验</button>
       <button id="resetBtn" type="button" class="ghost">重置演示（回首页）</button>
@@ -361,7 +361,7 @@ function renderProducts() {
     (S.cat === "全部" || p.cat === S.cat) &&
     (!S.query || (p.title + p.text).includes(S.query)));
   return `
-  <div class="search"><div class="in">${IC.search}<input id="q" type="text" placeholder="搜索产品，如：挖掘机" value="${esc(S.query)}"></div></div>
+  <div class="search"><div class="in">${IC.search}<input id="q" type="text" placeholder="搜索产品，如：${esc(P.search_example)}" value="${esc(S.query)}"></div></div>
   <div class="tabs">${cats.map(c => `<span class="tb ${c === S.cat ? "on" : ""}" data-cat="${c}">${c}</span>`).join("")}</div>
   <div class="plist">
     ${list.length ? list.map(p => `
@@ -416,14 +416,12 @@ function renderAbout() {
         </div>
       </div>
     </div>
-    <div class="svc-net">
+    ${P.support.metrics ? `<div class="svc-net">
       <div class="row" style="margin-top:2px">
-        <div class="it"><div class="v">240<small> 个</small></div><div class="l">服务网点</div></div>
-        <div class="it"><div class="v">48<small> 小时</small></div><div class="l">服务到场</div></div>
-        <div class="it"><div class="v">12<small> 个月</small></div><div class="l">大修质保</div></div>
+        ${P.support.metrics.map(m => `<div class="it"><div class="v">${esc(m.v)}<small> ${esc(m.unit)}</small></div><div class="l">${esc(m.l)}</div></div>`).join("")}
       </div>
-    </div>
-    <div class="cell" data-parts style="border-top:.5px solid var(--line)"><span style="color:var(--brand-dark)">${IC.layers}</span><div class="ct"><div class="t">零部件供应</div><div class="d">液压泵阀 · 回转支承 · 结构件</div></div>${IC.chevR}</div>
+    </div>` : ""}
+    ${P.support.parts ? `<div class="cell" data-parts style="border-top:.5px solid var(--line)"><span style="color:var(--brand-dark)">${IC.layers}</span><div class="ct"><div class="t">${esc(P.support.parts.title)}</div><div class="d">${esc(P.support.parts.desc)}</div></div>${IC.chevR}</div>` : ""}
   </div>
   <div class="card">
     <div class="sec-title"><b>联系方式</b></div>
@@ -552,8 +550,8 @@ document.addEventListener("click", e => {
   const tab = e.target.closest("[data-tab]"); if (tab) { goTab(tab.dataset.tab); return; }
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; render(); return; }
-  const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(["整机", "整机", "整机", "属具", "零部件"][+biz.dataset.biz] || "全部"); return; }
-  const parts = e.target.closest("[data-parts]"); if (parts) { goProducts("零部件"); return; }
+  const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
+  const parts = e.target.closest("[data-parts]"); if (parts) { goProducts(P.support.parts ? P.support.parts.cat : "全部"); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
     const a = act.dataset.act;
@@ -597,11 +595,25 @@ function routeFromHash() {
   if (h.startsWith("#/")) { const id = h.slice(2); if (RENDER[id]) S.tab = id; }
   render();
 }
-fetch("pack-mp.json").then(r => r.json()).then(data => {
+const PACK_ID = new URLSearchParams(location.search).get("pack") || "machinery";
+$("#packSel").addEventListener("change", () => {
+  const id = $("#packSel").value;
+  location.href = location.pathname + "?pack=" + encodeURIComponent(id);
+});
+fetch("packs-mp/" + PACK_ID + ".json").then(r => {
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}).then(data => {
   P = data;
   document.documentElement.style.setProperty("--brand", P.accent);
   document.documentElement.style.setProperty("--brand-dark", P.accent_dark);
+  document.documentElement.style.setProperty("--brand-tint", P.accent_tint);
   document.documentElement.style.setProperty("--ink", P.charcoal);
+  document.title = "小程序模拟样板 · MP-S1 展示型 × " + P.brand;
+  $("#panelH1").textContent = "MP-S1 展示型 × " + P.brand;
+  $("#specPack").textContent = "内容包：" + P.industry + " · " + P.brand + "（与官网演示站同一份数据）";
+  $("#specAccent").textContent = "主题色：内容包品牌 accent " + P.accent;
+  $("#packSel").value = P.pack_id;
   routeFromHash();
   window.addEventListener("hashchange", routeFromHash);
   tickClock(); setInterval(tickClock, 20000);
