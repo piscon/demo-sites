@@ -84,6 +84,9 @@
   .stats .st{ flex:1; text-align:center; }
   .stats .v{ font-size:21px; font-weight:700; color:var(--brand); line-height:1.15; }
   .stats .l{ font-size:11px; color:#c9cdd4; margin-top:3px; }
+  .strength{ background:var(--ink); border-radius:12px; margin:12px 12px 0; padding:16px 18px 15px; }
+  .strength .s-k{ font-size:11px; letter-spacing:2px; color:var(--brand); font-weight:700; margin-bottom:7px; }
+  .strength .s-t{ font-size:14.5px; color:#f2f3f5; line-height:1.75; }
   .pfeat{ display:flex; gap:11px; padding:10px 16px 14px; }
   .pfeat .pf{ flex:1; cursor:pointer; min-width:0; }
   .pfeat .pf img{ width:100%; height:86px; object-fit:cover; border-radius:9px; display:block; }
@@ -325,6 +328,12 @@ function statsHTML() {
   return '<div class="stats">' + P.stats.map(s =>
     '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
 }
+/* 首页企业实力概览：定性呈现（用户 2026-11-15 裁定）——统计数字单点归关于我们，
+   首页只放各包既有的实力主张句 why_intro（定性文案、无统计数字、不与任何页全文复读） */
+function strengthHTML() {
+  if (!P.why_intro) return "";
+  return '<div class="strength"><div class="s-k">企业实力</div><div class="s-t">' + esc(P.why_intro) + "</div></div>";
+}
 function renderHome() {
   const feats = P.products.slice(0, 3);
   return `
@@ -351,7 +360,7 @@ function renderHome() {
     </div>
     <div class="biz" style="border-top:.5px solid var(--line);padding-top:12px">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
   </div>
-  ${statsHTML()}
+  ${strengthHTML()}
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
 
