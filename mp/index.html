@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MP-S1 展示型微信小程序模拟样板（经典 4 栏）：品牌展示、产品中心、案例动态与关于我们，7 个行业内容包可切换预览；网页模拟，非原生交付物。">
 <title>小程序模拟样板 · MP-S1 展示型 × 机械包（恒力重工）</title>
 <style>
   :root{ --brand:#E4AF00; --brand-dark:#9A7400; --brand-tint:#FBF3D3; --ink:#23272B;
@@ -19,17 +20,27 @@
   .honest{ border-color:#ecd9a8; background:#fff8ea; }
   .honest p{ color:#7c5a10; }
   .ctl{ display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
-  .ctl label{ font-size:12.5px; color:#8494ab; }
+  .ctl label{ font-size:12.5px; color:#657893; }
   .ctl select,.ctl button{ font-family:inherit; font-size:13.5px; border-radius:9px; padding:10px 12px; }
   .ctl select{ background:#fff; color:#0f172a; border:1px solid #dbe2ee; width:100%; }
   .ctl button{ background:#4f46e5; border:none; color:#fff; font-weight:600; cursor:pointer; }
   .ctl button.ghost{ background:#fff; color:#475569; border:1px solid #dbe2ee; font-weight:400; }
-  .tips{ font-size:12.5px; color:#8494ab; line-height:1.9; }
+  .tips{ font-size:12.5px; color:#657893; line-height:1.9; }
   /* ---------- 手机壳 ---------- */
   .phone-wrap{ flex:none; }
   .phone{ width:399px; padding:12px; background:#05070a; border-radius:52px; box-shadow:0 24px 60px rgba(15,23,42,.30), inset 0 0 0 2px #2a2f36; }
   .screen{ position:relative; width:375px; height:748px; background:var(--pagebg); border-radius:42px; overflow:hidden; color:var(--text); display:flex; flex-direction:column; }
   .stage.full .panel{ display:none; }
+  /* 桌面全屏退出入口（2026-11-16 审计修复 4-2）：>900px 时与移动端口径一致——只藏面板内容、
+     保留 .ctl 并固定浮现，使「退出全屏体验」始终可达；面板零尺寸不占舞台，框体几何不变 */
+  @media (min-width:901px){
+    .stage.full .panel{ display:block; width:0; height:0; padding:0; margin:0; overflow:visible; flex:none; }
+    .stage.full .panel>*:not(.ctl){ display:none; }
+    .stage.full .panel .ctl{ position:fixed; top:14px; left:14px; z-index:95; flex-direction:row; align-items:center; gap:8px; margin:0; padding:8px 10px; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid #e4e8f0; border-radius:12px; box-shadow:0 4px 18px rgba(16,24,40,.08); }
+    .stage.full .panel .ctl label{ display:none; }
+    .stage.full .panel .ctl select{ width:auto; }
+    .stage.full .panel .ctl button{ white-space:nowrap; }
+  }
   /* 全屏体验：缩放倍率由 JS 按视口适配（fitFull），此处只定变换基准，避免固定倍率在窄屏越框 */
   .stage.full .phone{ transform-origin:top center; }
   /* 状态栏 + 导航栏 */
@@ -267,6 +278,7 @@
     .stage.full .panel>*:not(.ctl){ display:none; }
   }
   @media (max-width:430px){ .phone{ transform:scale(.88); transform-origin:top center; margin-bottom:-90px; } }
+  @media (max-width:359px){ .phone{ transform:scale(.76); transform-origin:top center; margin-bottom:-185px; } }
 </style></head>
 <body>
 <div class="stage" id="stage">
