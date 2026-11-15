@@ -218,7 +218,21 @@
           font-size:13.5px; line-height:1.6; padding:13px 18px; border-radius:10px; max-width:270px; text-align:center; opacity:0; pointer-events:none; transition:opacity .22s; }
   .toast.show{ opacity:1; }
   .hidden{ display:none !important; }
-  @media (max-width:900px){ .stage{ flex-direction:column; align-items:center; } .panel{ width:min(399px,94vw); order:2; } }
+  @media (max-width:900px){
+    .stage{ flex-direction:column; align-items:center; padding-top:78px; }
+    .panel{ width:min(399px,94vw); order:2; }
+    /* 壳外控件固定顶栏（预览页移动端可达性口径）：换包 / 全屏 / 重置始终在顶部可达，
+       不必滑过手机框与整段说明面板；舞台顶部留白避让顶栏，全屏时另见下方两条 */
+    .panel .ctl{ position:fixed; top:0; left:0; right:0; z-index:90; flex-direction:row; align-items:center; gap:8px;
+      margin:0; padding:8px 10px; background:rgba(13,17,26,.97); border-bottom:1px solid #26314a; box-shadow:0 4px 18px rgba(0,0,0,.35); }
+    .panel .ctl label{ display:none; }
+    .panel .ctl select{ flex:1 1 auto; min-width:0; width:auto; }
+    .panel .ctl button{ flex:none; padding:9px 10px; font-size:13px; white-space:nowrap; }
+    .phone-wrap{ scroll-margin-top:70px; }
+    /* 全屏时面板整体隐藏会连带藏起顶栏（退出全屏的唯一入口）——移动端只藏面板内容、保留顶栏 */
+    .stage.full .panel{ display:block; width:auto; height:0; padding:0; margin:0; overflow:visible; }
+    .stage.full .panel>*:not(.ctl){ display:none; }
+  }
   @media (max-width:430px){ .phone{ transform:scale(.88); transform-origin:top center; margin-bottom:-90px; } }
 </style></head>
 <body>
@@ -746,8 +760,14 @@ function fitFull(){
   if (!st.classList.contains("full")) { ph.style.transform = ""; return; }
   const vv = window.visualViewport;
   const vw = vv ? vv.width : window.innerWidth, vh = vv ? vv.height : window.innerHeight;
-  const s = Math.min(1.12, (vw - 16) / ph.offsetWidth, (vh - 44) / ph.offsetHeight);
+  let s = Math.min(1.12, (vw - 16) / ph.offsetWidth, (vh - 44) / ph.offsetHeight);
   ph.style.transform = "scale(" + s.toFixed(4) + ")";
+  /* 纵向校正：框体顶部有固定偏移时（如移动端顶栏避让的舞台留白），按实测可用高再收一档，保证底边不越界；无溢出时不触发，桌面观感不变 */
+  const r0 = ph.getBoundingClientRect();
+  if (r0.bottom > vh + 0.5 && r0.height > 0) {
+    s = s * Math.max(0.1, (vh - Math.max(0, r0.top) - 2) / r0.height);
+    ph.style.transform = "scale(" + s.toFixed(4) + ")";
+  }
   const r = ph.getBoundingClientRect(), dx = (vw - r.width) / 2 - r.left;
   if (Math.abs(dx) > 0.5) ph.style.transform = "translateX(" + dx.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
 }
