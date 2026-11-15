@@ -35,33 +35,6 @@
           "direct": false,
           "order": 5
         }
-      ],
-      "quick": [
-        {
-          "target": "products",
-          "label": "核心产品",
-          "icon": "grid"
-        },
-        {
-          "target": "cases",
-          "label": "交付案例",
-          "icon": "layers"
-        },
-        {
-          "target": "news",
-          "label": "企业动态",
-          "icon": "news"
-        },
-        {
-          "target": "gallery",
-          "label": "资质荣誉",
-          "icon": "factory"
-        },
-        {
-          "target": "intro",
-          "label": "关于我们",
-          "icon": "home"
-        }
       ]
     },
     "hardware": {
@@ -98,28 +71,6 @@
           "enabled": true,
           "home": false,
           "order": 5
-        }
-      ],
-      "quick": [
-        {
-          "target": "products",
-          "label": "核心产品",
-          "icon": "grid"
-        },
-        {
-          "target": "stats",
-          "label": "生产实力",
-          "icon": "wrench"
-        },
-        {
-          "target": "gallery",
-          "label": "资质荣誉",
-          "icon": "factory"
-        },
-        {
-          "target": "lead",
-          "label": "合作咨询",
-          "icon": "phone"
         }
       ]
     },
@@ -158,25 +109,8 @@
           "home": false,
           "order": 5
         }
-      ],
-      "quick": [
-        {
-          "target": "products",
-          "label": "核心产品",
-          "icon": "grid"
-        },
-        {
-          "target": "intro",
-          "label": "关于我们",
-          "icon": "home"
-        },
-        {
-          "target": "lead",
-          "label": "在线咨询",
-          "icon": "phone"
-        }
       ]
     }
   },
-  "note": "三档预设为定版配置模板；逐包配置由预设生成（见各包同名文件），overrides 为预留的手动覆盖字段（样板阶段恒为空，产品形态不做逐项自由配置）。"
+  "note": "三档预设为定版配置模板；逐包配置由预设生成（见各包同名文件），overrides 为预留的手动覆盖字段（样板阶段恒为空，产品形态不做逐项自由配置）。第九轮（2026-11-15）起：金刚区改由产品分类数据驱动（单维度=当前包产品分类，与预设无关），原 quick 字段废弃并移除。"
 }

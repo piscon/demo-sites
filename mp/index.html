@@ -89,16 +89,11 @@
   .strength .s-k{ font-size:11px; letter-spacing:2px; color:var(--sub); font-weight:700; margin-bottom:7px; }
   .strength .s-t{ font-size:14.5px; color:#333; line-height:1.8; }
   .stream .strength{ margin:16px 0 0; }
-  /* 首页流（第七轮）：主张提炼行 / 分类大图卡 / Pickup / 规格 chips / 流尾 */
+  /* 首页流（第七轮，第九轮修订）：主张提炼行 / 金刚区（产品分类格）/ Pickup / 规格 chips / 流尾 */
   .hero-claim{ padding:20px 18px 2px; }
   .hero-claim .hc-t{ font-size:17.5px; font-weight:700; color:#1a1a1a; line-height:1.55; }
   .hero-claim .hc-line{ margin-top:7px; font-size:12px; color:var(--sub); letter-spacing:.5px; line-height:1.7; }
   .shead{ padding:20px 16px 0; font-size:12.5px; font-weight:600; color:#999; letter-spacing:2px; }
-  .cat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:11px 12px 0; }
-  .cat-card{ position:relative; height:96px; border-radius:12px; overflow:hidden; cursor:pointer; background:#ddd; }
-  .cat-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-  .cat-card .cc-shade{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(0,0,0,.55)); }
-  .cat-card .cc-t{ position:absolute; left:12px; bottom:10px; color:#fff; font-size:15px; font-weight:700; letter-spacing:.5px; }
   .stream{ padding:2px 12px 0; }
   .pick{ background:#fff; border-radius:14px; overflow:hidden; margin-top:14px; cursor:pointer; }
   .pick img{ width:100%; height:178px; object-fit:cover; display:block; }
@@ -263,7 +258,7 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
-        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（入口随展示预设与启用状态自动生成）→ 分类大图卡与产品流 → 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：图标 + 分类原名，点击预筛产品中心，数据驱动、与展示预设无关）→ Pickup 精选与产品流（分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
@@ -358,13 +353,6 @@ const DEFAULT_CFG = { preset: "mature", preset_label: "成熟内容型",
     { key: "gallery", enabled: true, home: true, order: 4 },
     { key: "stats", enabled: true, home: true, direct: false, order: 5 }
   ],
-  quick: [
-    { target: "products", label: "核心产品", icon: "grid" },
-    { target: "cases", label: "交付案例", icon: "layers" },
-    { target: "news", label: "企业动态", icon: "news" },
-    { target: "gallery", label: "资质荣誉", icon: "factory" },
-    { target: "intro", label: "关于我们", icon: "home" }
-  ],
   overrides: {} };
 /* 组件池（固定五类，横跨案例·动态与关于我们两栏，不并栏）：key → 权威渲染栏 / 锚点 section / 楼层名 */
 const COMP_TAB = { intro: "about", stats: "about", gallery: "about", cases: "news", news: "news" };
@@ -410,16 +398,32 @@ function strengthHTML() {
   if (!P.why_intro) return "";
   return '<div class="strength"><div class="s-k">企业实力</div><div class="s-t">' + esc(P.why_intro) + "</div></div>";
 }
-/* 金刚区：条目随展示预设与启用状态自动生成（候选序见配置 quick，渲染时只保留目标真实存在的条目，上限 4） */
+/* 金刚区（第九轮定版，用户选定 B 方案）：只放产品分类——单维度，取当前包产品数据自身的
+   分类（products[].cat），按产品数降序（同数按首次出现序）取前 4，图标 + 分类原名；
+   每格为携上下文深链，点击切产品中心并预筛该分类（goProducts，与原大图卡 W1 同一机制）。
+   分类不足有几个放几个，不拿栏目/组件/动作凑数；无分类则整区不渲染。
+   金刚区由产品数据驱动、与展示配置（预设）无关——packs-display 的 quick 字段已废弃移除。 */
+const CAT_ICON_RULES = [
+  [/整机|设备|产线/, "factory"],
+  [/零部件|属具|耗材|模具|机加工|钣金|注塑|表面处理|加工|改造|集成|电控/, "wrench"],
+  [/板材|型材|塑料|树脂|胶粘|复合材料|助剂|检测/, "layers"],
+  [/家具|空间|定制|礼品/, "home"],
+  [/服务/, "wechat"]
+];
+function catIcon(cat) {
+  for (const [re, ic] of CAT_ICON_RULES) if (re.test(cat)) return IC[ic];
+  return IC.grid;
+}
+function topCats() {
+  const seq = [], cnt = {};
+  P.products.forEach(p => { if (!(p.cat in cnt)) { cnt[p.cat] = 0; seq.push(p.cat); } cnt[p.cat]++; });
+  return seq.map((c, i) => ({ c, n: cnt[c], i })).sort((a, b) => b.n - a.n || a.i - b.i).slice(0, 4).map(x => x.c);
+}
 function quickHTML() {
-  const items = [];
-  for (const q of (CFG.quick || [])) {
-    if (items.length >= 4) break;
-    if (q.target === "products" || q.target === "lead" || compAvail(q.target)) items.push(q);
-  }
-  if (!items.length) return "";
-  return '<div class="grid4">' + items.map(q =>
-    `<div class="gitem" data-quick="${esc(q.target)}"><span class="ic">${IC[q.icon] || IC.grid}</span><span class="lb">${esc(q.label)}</span></div>`).join("") + "</div>";
+  const cats = topCats();
+  if (!cats.length) return "";
+  return '<div class="grid4">' + cats.map(c =>
+    `<div class="gitem" data-catnav="${esc(c)}"><span class="ic">${catIcon(c)}</span><span class="lb">${esc(c)}</span></div>`).join("") + "</div>";
 }
 function floorHead(key, more) {
   return `<div class="floor-head"><b>${COMP_LABEL[key]}</b>${more === false ? "" : `<span class="more" data-anchor="${key}">查看更多 ${IC.chevR}</span>`}</div>`;
@@ -459,12 +463,11 @@ function ctaHTML() {
     </div>
   </div>`;
 }
-/* 首页（第八轮：展示配置与首页动态映射）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
-   → 金刚区（随预设生成）→ 核心产品（分类大图卡 + Pickup 精选与产品流）→ 企业实力聚合区（配置驱动的动态楼层）
-   → 底部转化区。内容决定模块生灭：楼层由展示配置（packs-display）与内容池数据共同决定，有啥展示啥。 */
+/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
+   → 金刚区（只放产品分类，数据驱动）→ 核心产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
+   → 企业实力聚合区（配置驱动的动态楼层）→ 底部转化区。
+   内容决定模块生灭：楼层由展示配置（packs-display）与内容池数据共同决定，有啥展示啥。 */
 function renderHome() {
-  const cats = [];
-  P.products.forEach(p => { if (!cats.includes(p.cat)) cats.push(p.cat); });
   const picks = P.products.slice(0, 3);
   const rest = P.products.slice(3);
   const specPair = p => p.specs.slice(0, 2).map(s => esc(s.k) + " " + esc(s.v)).join(" · ");
@@ -504,11 +507,6 @@ function renderHome() {
     <div class="hc-line">${P.why_points.map(w => esc(w.title)).join("　·　")}</div>
   </div>
   ${quickHTML()}
-  <div class="shead">产品分类</div>
-  <div class="cat-grid">
-    ${cats.map(c => { const fp = P.products.find(p => p.cat === c); return `
-    <div class="cat-card" data-catgo="${esc(c)}"><img src="${fp.img}" alt=""><div class="cc-shade"></div><div class="cc-t">${esc(c)}</div></div>`; }).join("")}
-  </div>
   <div class="shead">主推产品</div>
   <div class="stream">
     ${picks.map(pickHTML).join("")}
@@ -670,8 +668,9 @@ function syncFab() {
   fab.classList.toggle("hidden", !show);
   fab.classList.toggle("up", S.detail != null);
 }
-/* 锚点深链（第八轮）：首页楼层「查看更多」与金刚区条目携带组件目标 → 切到所属 tab 并滚动定位到该组件 section。
-   模拟器内以 .page 容器滚动实现；原生语义对应页面滚动锚点 / scroll-view scroll-into-view（见 PRODUCT-LINE 展示配置节） */
+/* 锚点深链（第八轮）：首页楼层「查看更多」携带组件目标 → 切到所属 tab 并滚动定位到该组件 section。
+   模拟器内以 .page 容器滚动实现；原生语义对应页面滚动锚点 / scroll-view scroll-into-view（见 PRODUCT-LINE 展示配置节）。
+   金刚区自第九轮起不再走锚点：分类格走 goProducts 预筛深链（data-catnav）。 */
 let pendingAnchor = null;
 function scrollToId(id) {
   const pg = $("#page"), el = document.getElementById(id);
@@ -761,14 +760,10 @@ document.addEventListener("click", e => {
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; render(); return; }
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
-  const catgo = e.target.closest("[data-catgo]"); if (catgo) { goProducts(catgo.dataset.catgo); return; }
+  const catnav = e.target.closest("[data-catnav]"); if (catnav) { goProducts(catnav.dataset.catnav); return; }
   const parts = e.target.closest("[data-parts]"); if (parts) { goProducts(P.support.parts ? P.support.parts.cat : "全部"); return; }
   const ank = e.target.closest("[data-anchor]");
   if (ank) { const t = anchorFor(ank.dataset.anchor); if (t) goAnchor(t[0], t[1]); return; }
-  const qk = e.target.closest("[data-quick]");
-  if (qk) { const tg = qk.dataset.quick;
-    if (tg === "products") { goTab("products"); return; }
-    const t = anchorFor(tg); if (t) goAnchor(t[0], t[1]); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
     const a = act.dataset.act;

@@ -35,22 +35,5 @@
       "order": 5
     }
   ],
-  "quick": [
-    {
-      "target": "products",
-      "label": "核心产品",
-      "icon": "grid"
-    },
-    {
-      "target": "intro",
-      "label": "关于我们",
-      "icon": "home"
-    },
-    {
-      "target": "lead",
-      "label": "在线咨询",
-      "icon": "phone"
-    }
-  ],
   "overrides": {}
 }

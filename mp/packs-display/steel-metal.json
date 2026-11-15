@@ -35,27 +35,5 @@
       "order": 5
     }
   ],
-  "quick": [
-    {
-      "target": "products",
-      "label": "核心产品",
-      "icon": "grid"
-    },
-    {
-      "target": "stats",
-      "label": "生产实力",
-      "icon": "wrench"
-    },
-    {
-      "target": "gallery",
-      "label": "资质荣誉",
-      "icon": "factory"
-    },
-    {
-      "target": "lead",
-      "label": "合作咨询",
-      "icon": "phone"
-    }
-  ],
   "overrides": {}
 }
