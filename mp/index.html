@@ -64,15 +64,15 @@
   .cell .ct .d{ font-size:12.5px; color:var(--sub); margin-top:2px; line-height:1.5; }
   .cell .cv{ font-size:13.5px; color:#555; text-align:right; word-break:break-all; }
   .chev{ color:#c4c4c4; flex:none; }
-  /* 首页 */
-  .swiper{ position:relative; height:196px; overflow:hidden; background:#222; }
+  /* 首页（第七轮：app 信息流 + izumi 参照——克制留白、图像主导、Pickup 策展） */
+  .swiper{ position:relative; height:150px; overflow:hidden; background:#222; }
   .swiper .track{ display:flex; height:100%; transition:transform .45s ease; }
   .swiper .slide{ flex:none; width:375px; height:100%; position:relative; }
   .swiper .slide img{ width:100%; height:100%; object-fit:cover; display:block; }
   .swiper .shade{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.06) 40%,rgba(0,0,0,.62)); }
   .swiper .cap{ position:absolute; left:18px; right:18px; bottom:26px; color:#fff; }
   .swiper .cap .kick{ font-size:12px; letter-spacing:1px; opacity:.92; margin-bottom:5px; }
-  .swiper .cap .tt{ font-size:20.5px; font-weight:700; line-height:1.35; }
+  .swiper .cap .tt{ font-size:19px; font-weight:700; line-height:1.35; }
   .swiper .dots{ position:absolute; right:14px; bottom:12px; display:flex; gap:5px; }
   .swiper .dots i{ width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.45); }
   .swiper .dots i.on{ width:16px; background:var(--brand); }
@@ -84,9 +84,31 @@
   .stats .st{ flex:1; text-align:center; }
   .stats .v{ font-size:21px; font-weight:700; color:var(--brand); line-height:1.15; }
   .stats .l{ font-size:11px; color:#c9cdd4; margin-top:3px; }
-  .strength{ background:var(--ink); border-radius:12px; margin:12px 12px 0; padding:16px 18px 15px; }
-  .strength .s-k{ font-size:11px; letter-spacing:2px; color:var(--brand); font-weight:700; margin-bottom:7px; }
-  .strength .s-t{ font-size:14.5px; color:#f2f3f5; line-height:1.75; }
+  /* 流内定性卡（第六轮自首页独立板块降位、第七轮随流重构改浅色克制呈现）：只放 why_intro 定性文案，严禁统计数字 */
+  .strength{ background:#fff; border-radius:12px; margin:12px 12px 0; padding:18px 18px 17px; }
+  .strength .s-k{ font-size:11px; letter-spacing:2px; color:var(--sub); font-weight:700; margin-bottom:7px; }
+  .strength .s-t{ font-size:14.5px; color:#333; line-height:1.8; }
+  .stream .strength{ margin:16px 0 0; }
+  /* 首页流（第七轮）：主张提炼行 / 分类大图卡 / Pickup / 规格 chips / 流尾 */
+  .hero-claim{ padding:20px 18px 2px; }
+  .hero-claim .hc-t{ font-size:17.5px; font-weight:700; color:#1a1a1a; line-height:1.55; }
+  .hero-claim .hc-line{ margin-top:7px; font-size:12px; color:var(--sub); letter-spacing:.5px; line-height:1.7; }
+  .shead{ padding:20px 16px 0; font-size:12.5px; font-weight:600; color:#999; letter-spacing:2px; }
+  .cat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:11px 12px 0; }
+  .cat-card{ position:relative; height:96px; border-radius:12px; overflow:hidden; cursor:pointer; background:#ddd; }
+  .cat-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .cat-card .cc-shade{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(0,0,0,.55)); }
+  .cat-card .cc-t{ position:absolute; left:12px; bottom:10px; color:#fff; font-size:15px; font-weight:700; letter-spacing:.5px; }
+  .stream{ padding:2px 12px 0; }
+  .pick{ background:#fff; border-radius:14px; overflow:hidden; margin-top:14px; cursor:pointer; }
+  .pick img{ width:100%; height:178px; object-fit:cover; display:block; }
+  .pick .pb{ padding:14px 16px 15px; }
+  .pick .t{ font-size:16px; font-weight:700; }
+  .pick .sp{ margin-top:5px; font-size:12px; color:var(--sub); line-height:1.6; }
+  .pick .pr{ margin-top:8px; font-size:15px; color:var(--brand-dark); font-weight:700; }
+  .schips{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .schips span{ font-size:11px; color:#666; background:#f4f4f4; border-radius:4px; padding:2.5px 7px; line-height:1.5; }
+  .end-hint{ text-align:center; color:#b0b0b0; font-size:11.5px; letter-spacing:1px; padding:20px 0 2px; }
   .pfeat{ display:flex; gap:11px; padding:10px 16px 14px; }
   .pfeat .pf{ flex:1; cursor:pointer; min-width:0; }
   .pfeat .pf img{ width:100%; height:86px; object-fit:cover; border-radius:9px; display:block; }
@@ -223,7 +245,7 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
-        <li>栏位：首页（品牌视觉 Banner / 核心优势提炼 / 主推产品快捷入口 / 企业实力概览）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书，本包以企业动态承载「案例/动态」槽位）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张与优势提炼行 → 分类大图卡 → Pickup 精选与产品流，企业实力定性卡融入流中）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书，本包以企业动态承载「案例/动态」槽位）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
@@ -328,16 +350,44 @@ function statsHTML() {
   return '<div class="stats">' + P.stats.map(s =>
     '<div class="st"><div class="v">' + esc(s.value) + '</div><div class="l">' + esc(s.label) + '</div></div>').join("") + "</div>";
 }
-/* 首页企业实力概览：定性呈现（用户 2026-11-15 裁定）——统计数字单点归关于我们，
-   首页只放各包既有的实力主张句 why_intro（定性文案、无统计数字、不与任何页全文复读） */
+/* 首页流内定性卡：企业实力以定性文案融入产品流（用户 2026-11-15 裁定 + izumi 克制参照）——
+   只放各包既有的实力主张句 why_intro（定性文案、无统计数字、不与任何页全文复读）；统计数字单点归关于我们 */
 function strengthHTML() {
   if (!P.why_intro) return "";
   return '<div class="strength"><div class="s-k">企业实力</div><div class="s-t">' + esc(P.why_intro) + "</div></div>";
 }
+/* 首页（第七轮定版：app 信息流 × izumi 品质语言）——一条连续流而非官网板块堆叠：
+   搜索（携参深链产品中心）→ 瘦身 Banner → 主张句 + 素净提炼行 → 分类大图卡（图像主导、全预筛深链）
+   → 产品流（Pickup 精选大图在前、定性卡融入流中段、其余产品顺流续排）→ 流尾完结提示。
+   品牌元素压缩融入流中，不再成章；动态不回首页、统计不在首页（各归其栏单点）。 */
 function renderHome() {
-  const feats = P.products.slice(0, 3);
+  const cats = [];
+  P.products.forEach(p => { if (!cats.includes(p.cat)) cats.push(p.cat); });
+  const picks = P.products.slice(0, 3);
+  const rest = P.products.slice(3);
+  const specPair = p => p.specs.slice(0, 2).map(s => esc(s.k) + " " + esc(s.v)).join(" · ");
+  const pickHTML = p => `
+    <div class="pick" data-detail="${p.id}">
+      <img src="${p.img}" alt="">
+      <div class="pb">
+        <div class="t">${esc(p.title)}</div>
+        <div class="sp">${specPair(p)}</div>
+        <div class="pr">${esc(p.price)}</div>
+      </div>
+    </div>`;
+  const cardHTML = p => `
+    <div class="pcard" data-detail="${p.id}">
+      <img src="${p.img}" alt="">
+      <div class="pc">
+        <div class="t">${esc(p.title)}<span class="tag">${esc(p.cat)}</span></div>
+        <div class="d">${esc(p.text)}</div>
+        <div class="schips">${p.specs.slice(0, 2).map(s => `<span>${esc(s.k)} ${esc(s.v)}</span>`).join("")}</div>
+        <div class="pr"><span class="p">${esc(p.price)}</span>${IC.chevR}</div>
+      </div>
+    </div>`;
   return `
-  <div class="swiper" id="swiper">
+  <form class="search" id="homeSearch"><div class="in">${IC.search}<input id="hq" type="text" placeholder="搜索产品，如：${esc(P.search_example)}"></div></form>
+  <div class="swiper" id="swiper" style="margin-top:12px">
     <div class="track" style="transform:translateX(-${S.slide * 375}px)">
       ${P.hero_slides.map((src, i) => `
       <div class="slide"><img src="${src}" alt="">
@@ -347,20 +397,22 @@ function renderHome() {
     </div>
     <div class="dots">${P.hero_slides.map((_, i) => `<i class="${i === S.slide ? "on" : ""}" data-slide="${i}"></i>`).join("")}</div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>核心优势</b></div>
-    <div class="claim">${esc(P.tagline)}</div>
-    ${P.why_points.map(w => `<div class="why-it" style="padding-top:8px;padding-bottom:8px"><div class="t"><i></i>${esc(w.title)}</div></div>`).join("")}
-    <div style="height:8px"></div>
+  <div class="hero-claim">
+    <div class="hc-t">${esc(P.tagline)}</div>
+    <div class="hc-line">${P.why_points.map(w => esc(w.title)).join("　·　")}</div>
   </div>
-  <div class="card">
-    <div class="sec-title"><b>主推产品</b></div>
-    <div class="pfeat">${feats.map(p => `
-      <div class="pf" data-detail="${p.id}"><img src="${p.img}" alt=""><div class="t">${esc(p.title)}</div><div class="p">${esc(p.price)}</div></div>`).join("")}
-    </div>
-    <div class="biz" style="border-top:.5px solid var(--line);padding-top:12px">${P.about_points.map((a, i) => `<span class="b" data-biz="${i}">${esc(a)}</span>`).join("")}</div>
+  <div class="shead">产品分类</div>
+  <div class="cat-grid">
+    ${cats.map(c => { const fp = P.products.find(p => p.cat === c); return `
+    <div class="cat-card" data-catgo="${esc(c)}"><img src="${fp.img}" alt=""><div class="cc-shade"></div><div class="cc-t">${esc(c)}</div></div>`; }).join("")}
   </div>
-  ${strengthHTML()}
+  <div class="shead">主推产品</div>
+  <div class="stream">
+    ${picks.map(pickHTML).join("")}
+    ${strengthHTML()}
+    ${rest.map(cardHTML).join("")}
+  </div>
+  <div class="end-hint">— 已展示全部 ${P.products.length} 件产品 —</div>
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)} · 本页为网页模拟样板</div>`;
 }
 
@@ -394,6 +446,17 @@ function renderNews() {
   </div>
   <div class="foot-note">${esc(P.company_full)}<br>${esc(P.demo_note)}</div>`;
 }
+/* 同源去重（与 MP-S2 同口径，呈现层过滤、数据层不动）：荣誉文案若同时含某项统计的
+   标签核心词（标签去括号部分）与数值（数值去逗号比对），即属复述统计——关于页统计条
+   已完整呈现该组数字，荣誉区再现即同页重复，故过滤（5 包各命中 1 条，见第七轮审计） */
+function isStatEcho(h) {
+  const hn = String(h).replace(/,/g, "");
+  return P.stats.some(s => {
+    const core = String(s.label).replace(/[（(][^）)]*[）)]/g, "").trim();
+    const v = String(s.value).replace(/,/g, "");
+    return core && v && hn.includes(core) && hn.includes(v);
+  });
+}
 function renderAbout() {
   const svc = P.products.find(p => p.cat === "服务");
   return `
@@ -410,7 +473,7 @@ function renderAbout() {
   <div class="card">
     <div class="sec-title"><b>工厂实景与资质荣誉</b></div>
     <div style="padding:6px 16px 0"><img class="fac-img" src="${P.factory_img}" alt="工厂实景"></div>
-    <div class="honors" style="padding-top:12px">${P.honors.map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
+    <div class="honors" style="padding-top:12px">${P.honors.filter(h => !isStatEcho(h)).map(h => `<span class="h">${esc(h)}</span>`).join("")}</div>
   </div>
   ${statsHTML()}
   <div class="card">
@@ -560,6 +623,7 @@ document.addEventListener("click", e => {
   const det = e.target.closest("[data-detail]"); if (det) { openDetail(+det.dataset.detail); return; }
   const cat = e.target.closest("[data-cat]"); if (cat) { S.cat = cat.dataset.cat; render(); return; }
   const biz = e.target.closest("[data-biz]"); if (biz) { goProducts(P.biz_cats[+biz.dataset.biz] || "全部"); return; }
+  const catgo = e.target.closest("[data-catgo]"); if (catgo) { goProducts(catgo.dataset.catgo); return; }
   const parts = e.target.closest("[data-parts]"); if (parts) { goProducts(P.support.parts ? P.support.parts.cat : "全部"); return; }
   const act = e.target.closest("[data-act]");
   if (act) {
@@ -577,6 +641,13 @@ document.addEventListener("click", e => {
   if (e.target.closest("#navBack")) { if (S.detail != null) closeDetail(); }
 });
 document.addEventListener("submit", e => {
+  if (e.target.closest("#homeSearch")) {
+    e.preventDefault();
+    S.query = $("#hq").value.trim();
+    S.cat = "全部";
+    goTab("products");
+    return;
+  }
   if (!e.target.closest("#leadForm")) return;
   e.preventDefault();
   const name = $("#lfName").value.trim(), phone = $("#lfPhone").value.trim();
