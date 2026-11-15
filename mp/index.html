@@ -76,9 +76,11 @@
   .swiper .dots{ position:absolute; right:14px; bottom:12px; display:flex; gap:5px; }
   .swiper .dots i{ width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.45); }
   .swiper .dots i.on{ width:16px; background:var(--brand); }
-  .grid4{ display:grid; margin:12px 12px 0; gap:12px 8px; }
-  .grid4.c4{ grid-template-columns:repeat(4,1fr); }
-  .grid4.c5{ grid-template-columns:repeat(5,1fr); }
+  /* 金刚区（第十一轮：单行横滑）——fit：4/5 类等分满行；slide：6–8 类一屏 5 整格 + 第 6 格半露，横滑查看、滚动条隐藏 */
+  .grid4{ display:flex; margin:12px 12px 0; gap:8px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .grid4::-webkit-scrollbar{ display:none; }
+  .grid4.fit .gitem{ flex:1 1 0; }
+  .grid4.slide .gitem{ flex:0 0 calc((100% - 40px) / 5.5); }
   .gitem{ display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; min-width:0; }
   .gitem img{ width:100%; aspect-ratio:1/1; object-fit:cover; display:block; }
   .gitem .lb{ font-size:12.5px; color:#333; }
@@ -260,7 +262,7 @@
       <h3>样板构成</h3>
       <ul>
         <li>骨架：MP-S1 展示型 · 企业官网经典 4 栏（用户定版 tab 架构标准：微信规范 2–5 栏、落地主流 3–4 栏）</li>
-        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：上产品图 + 下分类名，格数只用主流档 4/5/8/10、向下取舍、产品分类不足 4 个整区不渲染，点击预筛产品中心，数据驱动、与展示预设无关）→ Pickup 精选与产品流（分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
+        <li>栏位：首页（app 信息流：搜索 → 瘦身 Banner → 主张提炼行 → 金刚区（只放产品分类：上产品图 + 下分类名，单行横滑——产品分类 4–8 个全量入格、超过 8 个按产品数取前 8、不足 4 个整区不渲染，点击预筛产品中心，数据驱动、与展示预设无关）→ Pickup 精选与产品流（分类大图卡已于第九轮取消）→ 企业实力聚合区（按展示配置动态渲染楼层：有啥展示啥、无数据不留空板块，楼层均为预览入口 + 锚点深链）→ 底部转化区）· 产品中心（分类 / 规格参数 / 询价，核心转化区）· 动态（信任背书：案例与企业动态，全文单点落此栏）· 关于我们（简介全文 / 工厂实景与资质荣誉 / 地址导航 / 联系方式 / 在线留资表单）</li>
         <li>转化设计：产品详情页与关于我们页固定悬浮一键拨号 + 在线客服（动作不印号码）；联系方式全文只在关于我们出现一处</li>
         <li id="specPack">内容包：机械设备 · 恒力重工（与官网演示站同一份数据）</li>
         <li id="specAccent">主题色：内容包品牌 accent 安全黄 #E4AF00</li>
@@ -400,20 +402,20 @@ function strengthHTML() {
   if (!P.why_intro) return "";
   return '<div class="strength"><div class="s-k">企业实力</div><div class="s-t">' + esc(P.why_intro) + "</div></div>";
 }
-/* 金刚区（第十轮定版）：只放产品分类，格子形态 = 上产品图 + 下分类名（不再用图标格）。
+/* 金刚区（第十一轮定版）：只放产品分类，格子形态 = 上产品图 + 下分类名（不再用图标格）。
    - 分类集合与计数取当前包产品数据自身的分类（products[].cat）；服务/售后/维修等非产品分类
      一律排除（含此类名者不入格）；承载可售产品/业务线的分类（如加工、机加工）属产品分类，保留。
-   - 格数只用主流档 {4, 5, 8, 10}（单行 4/5、双行 8=4 列 ×2、10=5 列 ×2）：实际产品分类数恰为
-     合法档用原数；多于某档、不足下一档时向下取舍到最大合法档（6、7 类→5 类，9 类→8 类，>10→10 类），
-     入选分类按产品数降序（同数按首次出现序）；产品分类不足 4 个 → 整区不渲染（不凑数、不留占位）。
+   - 数量机制 = 单行横向滑动（第十一轮，supersede 第十轮的主流档 {4,5,8,10} 向下取舍与 10 格档）：
+     产品分类 4–8 个 → 全量入格、一个不丢；超过 8 个 → 按产品数降序（同数按首次出现序）只取
+     前 8（4–8 封顶）；产品分类不足 4 个 → 整区不渲染（不凑数、不留占位）。
+   - 布局：单行横滑——4/5 类等分满行（fit）；6–8 类（slide）格宽按 5.5 格/屏排布，一屏可见
+     5 个整格、第 6 格半露作滑动提示，其余左滑查看；滚动容器隐藏滚动条。
    - 每格顶部图 = 该分类下首个产品的图，1:1 正方形 cover 裁切、无框平铺（第十轮补正，用户纠正：
      图片改 1:1 且不要框中框——格子不套卡片框，容器与格子均无边框/底色/衬边，图片本体直接呈现，
      圆角口径与首页主推产品卡图片一致，即不设圆角）；每格为携上下文深链，
      点击切产品中心并预筛该分类（goProducts，与原大图卡 W1 同一机制）。
    金刚区由产品数据驱动、与展示配置（预设）无关——packs-display 的 quick 字段已废弃移除。 */
 const NON_PRODUCT_CAT = /服务|售后|维修/;
-const TILE_TIERS = [4, 5, 8, 10];
-function tileTier(n) { let t = 0; for (const x of TILE_TIERS) if (n >= x) t = x; return t; }
 function topCats() {
   const seq = [], cnt = {}, rep = {};
   P.products.forEach(p => {
@@ -423,13 +425,14 @@ function topCats() {
   });
   const ranked = seq.map((c, i) => ({ c, n: cnt[c], i, img: rep[c] }))
     .sort((a, b) => b.n - a.n || a.i - b.i);
-  return ranked.slice(0, tileTier(ranked.length));
+  if (ranked.length < 4) return [];
+  return ranked.slice(0, Math.min(8, ranked.length));
 }
 function quickHTML() {
   const tiles = topCats();
   if (!tiles.length) return "";
-  const cols = tiles.length <= 5 ? tiles.length : (tiles.length === 8 ? 4 : 5);
-  return `<div class="grid4 c${cols}">` + tiles.map(t =>
+  const mode = tiles.length <= 5 ? "fit" : "slide";
+  return `<div class="grid4 ${mode}">` + tiles.map(t =>
     `<div class="gitem" data-catnav="${esc(t.c)}"><img src="${esc(t.img)}" alt=""><span class="lb">${esc(t.c)}</span></div>`).join("") + "</div>";
 }
 function floorHead(key, more) {
@@ -470,8 +473,8 @@ function ctaHTML() {
     </div>
   </div>`;
 }
-/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化；第十轮：金刚区图格化与数量落档）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
-   → 金刚区（只放产品分类：上图下名、主流档落数，数据驱动）→ 核心产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
+/* 首页（第八轮：展示配置与首页动态映射；第九轮：金刚区单维度化；第十轮：金刚区图格化；第十一轮：金刚区单行横滑）——骨架定版：搜索（携参深链）→ 瘦身 Banner + 主张提炼行
+   → 金刚区（只放产品分类：上图下名、单行横滑覆盖 4–8 类，数据驱动）→ 核心产品（Pickup 精选与产品流；分类大图卡已取消，分类入口统一归金刚区）
    → 企业实力聚合区（配置驱动的动态楼层）→ 底部转化区。
    内容决定模块生灭：楼层由展示配置（packs-display）与内容池数据共同决定，有啥展示啥。 */
 function renderHome() {
