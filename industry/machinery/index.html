@@ -3,68 +3,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>机械设备 · 官网演示站与小程序样板 | 企业官网演示站系统</title>
 <style>
-  * { box-sizing: border-box; } body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0f1420; color: #e8ecf4; }
-  header { padding: 40px 20px 8px; max-width: 1080px; margin: 0 auto; }
-  header h1 { font-size: 26px; margin: 0 0 8px; } header p { color: #9aa7bd; margin: 0; line-height: 1.7; }
-  header.sub { padding-top: 26px; }
-  main { max-width: 1080px; margin: 0 auto; padding: 6px 20px 20px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
-  .group { margin-bottom: 14px; }
-  .group-title { font-size: 20px; margin: 24px 0 14px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .group-title span { font-size: 12.5px; color: #8fa0bb; font-weight: 400; }
-  .group-title a.kit-link { font-size: 12.5px; color: #ffb37a; border: 1px solid #6b4a26; padding: 3px 11px; border-radius: 99px; text-decoration: none; font-weight: 400; }
-  .group-title a.kit-link:hover { background: #6b4a26; color: #fff; }
-  a.back-link { font-size: 13px; color: #ffb37a; text-decoration: none; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #0f172a;
+    background: linear-gradient(180deg, #e9edfd 0, #f6f7fb 320px) no-repeat, #f6f7fb; }
+  header { padding: 52px 20px 10px; max-width: 1080px; margin: 0 auto; }
+  header h1 { font-size: 34px; font-weight: 700; letter-spacing: -.5px; margin: 0 0 10px; }
+  header p { color: #52617a; margin: 0; line-height: 1.75; font-size: 15px; }
+  header.sub { padding-top: 30px; }
+  header.sub h1 { font-size: 28px; }
+  main { max-width: 1080px; margin: 0 auto; padding: 10px 20px 26px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .group { margin-bottom: 18px; }
+  .group-title { font-size: 20px; font-weight: 650; letter-spacing: -.2px; margin: 28px 0 16px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .group-title span { font-size: 12.5px; color: #8494ab; font-weight: 400; }
+  .group-title a.kit-link { font-size: 12.5px; color: #4f46e5; background: #fff; border: 1px solid #d9defc; padding: 3px 11px; border-radius: 99px; text-decoration: none; font-weight: 500; }
+  .group-title a.kit-link:hover { background: #eef2ff; }
+  a.back-link { font-size: 13px; color: #4f46e5; text-decoration: none; font-weight: 500; }
   a.back-link:hover { text-decoration: underline; }
-  .filters { position: sticky; top: 0; z-index: 50; background: #0f1420; border-bottom: 1px solid #26314a; padding: 10px 20px 4px; max-width: 1080px; margin: 0 auto; }
+  .filters { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid #e4e8f0; padding: 10px 20px 4px; max-width: 1080px; margin: 0 auto; }
   .frow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
-  .flabel { font-size: 12.5px; color: #8fa0bb; margin-right: 2px; }
-  .chip { background: #171e2e; color: #c6d0e2; border: 1px solid #2c3a58; padding: 6px 13px; border-radius: 99px; font-size: 13px; cursor: pointer; font-family: inherit; }
-  .chip.on { background: #ff5e14; border-color: #ff5e14; color: #fff; font-weight: 600; }
-  .card { background: #171e2e; border: 1px solid #26314a; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .flabel { font-size: 12.5px; color: #8494ab; margin-right: 2px; }
+  .chip { background: #fff; color: #475569; border: 1px solid #dbe2ee; padding: 6px 13px; border-radius: 99px; font-size: 13px; cursor: pointer; font-family: inherit; transition: border-color .15s, color .15s, background .15s; }
+  .chip:hover { border-color: #a5b4fc; color: #4f46e5; }
+  .chip.on { background: #4f46e5; border-color: #4f46e5; color: #fff; font-weight: 600; }
+  .card, .mp-card { background: #fff; border: 1px solid #e4e8f0; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 2px rgba(16,24,40,.05); transition: box-shadow .18s, transform .18s, border-color .18s; }
+  .card:hover, .mp-card:hover { box-shadow: 0 16px 36px -16px rgba(16,24,40,.22); transform: translateY(-2px); border-color: #d4dbf5; }
+  .shot { display: block; border-bottom: 1px solid #edf0f7; }
   .shot img { width: 100%; height: 190px; object-fit: cover; object-position: top; display: block; }
+  .mp-shot { display: flex; justify-content: center; background: linear-gradient(165deg, #e8ecfe 0%, #f4f6fd 55%, #edf0f8 100%); padding: 22px 0 20px; border-bottom: 1px solid #edf0f7; }
+  .mp-shot img { height: 236px; width: auto; display: block; filter: drop-shadow(0 14px 22px rgba(15,23,42,.22)); }
   .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  h2 { font-size: 18px; margin: 0; letter-spacing: .4px; }
-  .tag { font-size: 12px; color: #ffb37a; border: 1px solid #6b4a26; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
-  .co { color: #c6d0e2; margin: 0; font-size: 14px; }
-  ul { margin: 4px 0 10px; padding-left: 18px; color: #93a1ba; font-size: 13px; line-height: 1.75; }
-  .btn { margin-top: auto; text-align: center; background: #ff5e14; color: #fff; text-decoration: none; padding: 10px; border-radius: 9px; font-weight: 600; }
-  footer { max-width: 1080px; margin: 0 auto; padding: 6px 20px 42px; color: #67748e; font-size: 12.5px; line-height: 1.8; }
+  h2 { font-size: 16.5px; margin: 0; letter-spacing: .2px; font-weight: 650; }
+  .tag { font-size: 11.5px; color: #4f46e5; background: #eef2ff; border: 1px solid #e0e7ff; padding: 2px 8px; border-radius: 99px; white-space: nowrap; font-weight: 500; }
+  .co { color: #3c4b63; margin: 0; font-size: 13.5px; }
+  .meta { color: #8494ab; margin: 0; font-size: 12.5px; line-height: 1.65; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .meta .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; box-shadow: inset 0 0 0 1px rgba(15,23,42,.14); }
+  ul { margin: 2px 0 8px; padding-left: 17px; color: #64748b; font-size: 12.5px; line-height: 1.7; }
+  .btn { margin-top: auto; text-align: center; background: #eef2ff; color: #4f46e5; text-decoration: none; padding: 9px 10px; border-radius: 10px; font-weight: 600; font-size: 14px; transition: background .15s, color .15s; }
+  .btn:hover { background: #4f46e5; color: #fff; }
+  footer { max-width: 1080px; margin: 0 auto; padding: 8px 20px 44px; color: #94a3b8; font-size: 12.5px; line-height: 1.8; }
   .foot-links { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; }
-  .foot-links a { color: #ffb37a; font-size: 12.5px; text-decoration: none; }
+  .foot-links a { color: #4f46e5; font-size: 12.5px; text-decoration: none; }
   .foot-links a:hover { text-decoration: underline; }
-  .foot-links .fl-label { color: #8fa0bb; }
-  .mp-zone { margin-bottom: 14px; }
-  .mp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
-  .mp-card { background: #171e2e; border: 1px solid #6b4a26; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; }
-  .mp-card .btn { display: block; }
-  .ind-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
-  .ind-card { display: flex; background: #171e2e; border: 1px solid #26314a; border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit; }
-  .ind-card:hover { border-color: #ff5e14; }
-  .ind-card img { width: 118px; min-height: 96px; object-fit: cover; object-position: top; display: block; flex: none; }
-  .ind-body { padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
-  .ind-body h3 { margin: 0; font-size: 17px; }
-  .ind-body p { margin: 0; font-size: 12.5px; color: #8fa0bb; line-height: 1.6; }
+  .foot-links .fl-label { color: #8494ab; }
+  .mp-zone { margin-bottom: 18px; }
+  .mp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .ind-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .ind-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e4e8f0; border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(16,24,40,.05); transition: box-shadow .18s, transform .18s, border-color .18s; }
+  .ind-card:hover { box-shadow: 0 16px 36px -16px rgba(16,24,40,.22); transform: translateY(-2px); border-color: #c7d2fe; }
+  .ind-card img { width: 100%; height: 150px; object-fit: cover; object-position: top; display: block; }
+  .ind-body { padding: 13px 16px 15px; display: flex; flex-direction: column; gap: 3px; }
+  .ind-body h3 { margin: 0; font-size: 16.5px; font-weight: 650; }
+  .ind-body p { margin: 0; font-size: 12.5px; color: #8494ab; line-height: 1.6; }
   @media (max-width: 640px) {
-    header { padding: 26px 16px 4px; } header h1 { font-size: 21px; }
-    main { padding: 4px 16px 16px; } footer { padding: 4px 16px 20px; }
+    header { padding: 30px 16px 6px; } header h1 { font-size: 23px; letter-spacing: -.3px; }
+    header.sub h1 { font-size: 21px; }
+    header p { font-size: 13.5px; line-height: 1.65; }
+    main { padding: 6px 16px 18px; } footer { padding: 6px 16px 24px; }
     .filters { padding: 8px 16px 2px; }
     .frow { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; }
     .chip { flex: 0 0 auto; }
     .flabel { display: none; }
-    header p { font-size: 13.5px; line-height: 1.65; }
-    .group-title { font-size: 17px; margin: 16px 0 10px; }
+    .group-title { font-size: 17px; margin: 18px 0 12px; }
+    .mp-shot { padding: 14px 0 12px; }
+    .mp-shot img { height: 168px; }
     .ind-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .ind-card { flex-direction: column; }
-    .ind-card img { width: 100%; height: 64px; min-height: 0; }
+    .ind-card img { height: 74px; }
     .ind-body { padding: 8px 10px 10px; }
-    .ind-body h3 { font-size: 15px; }
+    .ind-body h3 { font-size: 14.5px; }
     .ind-body p { font-size: 11.5px; line-height: 1.5; }
     .ind-co { display: none; }
-    .skel-card { padding: 12px 14px; }
     .skel-card .co { display: none; }
-    .skel-card ul { margin-bottom: 8px; font-size: 12.5px; line-height: 1.6; }
   }
 </style></head><body>
 <header class="sub">
@@ -83,10 +93,8 @@
         <div class="row"><h2>T1-P1-C1</h2><span class="tag">基准组合</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Industro（HTML Codex） · 质量 83 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 工业橙</li>
+          <li>模板：Industro（HTML Codex） · 质量 83 分 · 骨架A · 轮播企业型</li>
+          <li>配色：原色 · 工业橙 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 104 项 · 图片 16 张 · 未命中 0</li>
           <li>巡检 2 视图 · 问题 0 ✓</li>
         </ul>
@@ -99,10 +107,8 @@
         <div class="row"><h2>T1-P1-C2</h2><span class="tag">配色实验</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Industro（HTML Codex） · 质量 83 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：变体 · 钢蓝 #0B6FA4</li>
+          <li>模板：Industro（HTML Codex） · 质量 83 分 · 骨架A · 轮播企业型</li>
+          <li>配色：变体 · 钢蓝 #0B6FA4 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 107 项 · 图片 16 张 · 未命中 1</li>
           <li>巡检 2 视图 · 问题 0 ✓</li>
         </ul>
@@ -115,10 +121,8 @@
         <div class="row"><h2>T2-P1-C1</h2><span class="tag">对照组：轻皮 × 重工内容</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Ductwise（uiCookies） · 质量 92 分</li>
-          <li>版式：骨架B · 服务预约型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 琥珀橙</li>
+          <li>模板：Ductwise（uiCookies） · 质量 92 分 · 骨架B · 服务预约型</li>
+          <li>配色：原色 · 琥珀橙 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 855 项 · 图片 13 张 · 未命中 0</li>
           <li>巡检 10 视图 · 问题 0 ✓</li>
         </ul>
@@ -131,10 +135,8 @@
         <div class="row"><h2>T3-P1-C1</h2><span class="tag">扩容新增：单页工业皮 #2</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Girder（uiCookies） · 质量 84 分</li>
-          <li>版式：骨架C · 单页工业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 高可视橙</li>
+          <li>模板：Girder（uiCookies） · 质量 84 分 · 骨架C · 单页工业型</li>
+          <li>配色：原色 · 高可视橙 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 209 项 · 图片 18 张 · 未命中 0</li>
           <li>巡检 2 视图 · 问题 0 ✓</li>
         </ul>
@@ -147,10 +149,8 @@
         <div class="row"><h2>T4-P1-C1</h2><span class="tag">扩容新增：效能第一皮 × 主力包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Bedrock（uiCookies · BS6 alpha） · 质量 81 分</li>
-          <li>版式：骨架D · 编辑叙事型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 安全黄</li>
+          <li>模板：Bedrock（uiCookies · BS6 alpha） · 质量 81 分 · 骨架D · 编辑叙事型</li>
+          <li>配色：原色 · 安全黄 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 190 项 · 图片 4 张 · 未命中 0</li>
           <li>巡检 4 视图 · 问题 0 ✓</li>
         </ul>
@@ -163,10 +163,8 @@
         <div class="row"><h2>T5-P1-C1</h2><span class="tag">模板扩容：多页工业皮 × 机械包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Weldork（HTML Codex） · 质量 86 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 琥珀金</li>
+          <li>模板：Weldork（HTML Codex） · 质量 86 分 · 骨架A · 轮播企业型</li>
+          <li>配色：原色 · 琥珀金 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 275 项 · 图片 20 张 · 未命中 2</li>
           <li>巡检 14 视图 · 问题 2</li>
         </ul>
@@ -179,10 +177,8 @@
         <div class="row"><h2>T6-P1-C1</h2><span class="tag">模板扩容：2026 新款工业皮 × 机械包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Industrix（HTML Codex） · 质量 82 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 工业橙</li>
+          <li>模板：Industrix（HTML Codex） · 质量 82 分 · 骨架A · 轮播企业型</li>
+          <li>配色：原色 · 工业橙 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 77 项 · 图片 12 张 · 未命中 0</li>
           <li>巡检 2 视图 · 问题 0 ✓</li>
         </ul>
@@ -195,10 +191,8 @@
         <div class="row"><h2>T7-P1-C1</h2><span class="tag">模板扩容：多页服务型皮 × 机械包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Electra（HTML Codex） · 质量 85 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 电光橙</li>
+          <li>模板：Electra（HTML Codex） · 质量 85 分 · 骨架A · 轮播企业型</li>
+          <li>配色：原色 · 电光橙 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 373 项 · 图片 22 张 · 未命中 0</li>
           <li>巡检 14 视图 · 问题 2</li>
         </ul>
@@ -211,10 +205,8 @@
         <div class="row"><h2>T8-P1-C1</h2><span class="tag">模板扩容：手工艺木作皮 × 机械设备包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：WooDY（HTML Codex） · 质量 80 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 原木棕</li>
+          <li>模板：WooDY（HTML Codex） · 质量 80 分 · 骨架A · 轮播企业型</li>
+          <li>配色：原色 · 原木棕 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 491 项 · 图片 26 张 · 未命中 2</li>
           <li>巡检 20 视图 · 问题 2</li>
         </ul>
@@ -227,10 +219,8 @@
         <div class="row"><h2>T9-P1-C1</h2><span class="tag">模板扩容：工程施工皮 × 机械设备包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Constra（HTML Codex） · 质量 77 分</li>
-          <li>版式：骨架A · 轮播企业型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 深海军蓝</li>
+          <li>模板：Constra（HTML Codex） · 质量 77 分 · 骨架A · 轮播企业型</li>
+          <li>配色：原色 · 深海军蓝 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 374 项 · 图片 18 张 · 未命中 3</li>
           <li>巡检 12 视图 · 问题 2</li>
         </ul>
@@ -243,10 +233,8 @@
         <div class="row"><h2>T10-P1-C1</h2><span class="tag">模板扩容：手工艺编辑皮 × 机械设备包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：FineOak（uiCookies） · 质量 85 分</li>
-          <li>版式：骨架E · 编辑工坊型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 天空蓝</li>
+          <li>模板：FineOak（uiCookies） · 质量 85 分 · 骨架E · 编辑工坊型</li>
+          <li>配色：原色 · 天空蓝 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 140 项 · 图片 32 张 · 未命中 2</li>
           <li>巡检 14 视图 · 问题 0 ✓</li>
         </ul>
@@ -259,10 +247,8 @@
         <div class="row"><h2>T11-P1-C1</h2><span class="tag">模板扩容：现代制造皮 × 机械设备包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Fabrica（GitHub · MIT） · 质量 81 分</li>
-          <li>版式：骨架F · 现代制造型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 工业红橙</li>
+          <li>模板：Fabrica（GitHub · MIT） · 质量 81 分 · 骨架F · 现代制造型</li>
+          <li>配色：原色 · 工业红橙 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 701 项 · 图片 42 张 · 未命中 0</li>
           <li>巡检 22 视图 · 问题 0 ✓</li>
         </ul>
@@ -275,10 +261,8 @@
         <div class="row"><h2>T12-P1-C1</h2><span class="tag">模板扩容：设备目录型新骨架 × 机械包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Tiller（uiCookies） · 质量 84 分</li>
-          <li>版式：骨架G · 设备目录型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 深田绿</li>
+          <li>模板：Tiller（uiCookies） · 质量 84 分 · 骨架G · 设备目录型</li>
+          <li>配色：原色 · 深田绿 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 436 项 · 图片 13 张 · 未命中 0</li>
           <li>巡检 6 视图 · 问题 0 ✓</li>
         </ul>
@@ -291,17 +275,15 @@
         <div class="row"><h2>T5-P1-V2</h2><span class="tag">版式变体B：分屏 hero + 区块重排 × 机械设备包</span></div>
         <p class="co">徐州恒力重型机械有限公司（虚构示例）</p>
         <ul>
-          <li>模板：Weldork（HTML Codex） · 质量 86 分</li>
-          <li>版式：骨架A2 · 分屏编辑型</li>
-          <li>内容包：机械设备 · 图：AI 生成</li>
-          <li>配色：原色 · 琥珀金</li>
+          <li>模板：Weldork（HTML Codex） · 质量 86 分 · 骨架A2 · 分屏编辑型</li>
+          <li>配色：原色 · 琥珀金 · 内容包：机械设备 · 图：AI 生成</li>
           <li>组装替换 275 项 · 图片 20 张 · 未命中 2</li>
           <li>巡检 2 视图 · 问题 0 ✓</li>
         </ul>
         <a class="btn" href="../../T5-P1-V2/">打开演示站 →</a>
       </div>
     </article></div></section>
-<section class="mp-zone"><h2 class="group-title">小程序样板 · 机械设备<span>3 个 · MP-S1 展示型 / MP-S2 目录型 / MP-S3 服务型 · 网页模拟</span></h2><div class="mp-grid"><div class="mp-card" data-pack="機械設備" data-tpl=""><div class="row"><h2>MP-S1 · 展示型 × 機械設備</h2><span class="tag">模拟样板</span></div><p class="co">恒力重工（虚构示例）· 徐州恒力重型機械有限公司</p><ul><li>栏位：首页 / 产品中心 / 动态 / 关于我们（企业官网经典 4 栏）</li><li>主题色：品牌 accent <span style="color:#E4AF00">#E4AF00</span> · 与官网演示站共用同一份内容包，换包即换行业</li></ul><a class="btn" href="../../mp/?pack=machinery">打开機械設備样板 →</a></div><div class="mp-card" data-pack="機械設備" data-tpl=""><div class="row"><h2>MP-S2 · 目录型 × 機械設備</h2><span class="tag">模拟样板</span></div><p class="co">恒力重工（虚构示例）· 徐州恒力重型機械有限公司</p><ul><li>栏位：首页 / 产品中心 / 联系我们（精简 3 栏）</li><li>目录主场：左侧分类导航 + 规格速览密集列表 + 常驻搜索 · 主题色：品牌 accent <span style="color:#E4AF00">#E4AF00</span></li></ul><a class="btn" href="../../mp/s2/?pack=machinery">打开機械設備样板 →</a></div><div class="mp-card" data-pack="機械設備" data-tpl=""><div class="row"><h2>MP-S3 · 服务型 × 機械設備</h2><span class="tag">模拟样板</span></div><p class="co">恒力重工（虚构示例）· 徐州恒力重型機械有限公司</p><ul><li>栏位：首页 / 产品中心 / 案例动态 / 询价单 / 我的（扩展 5 栏 · 交易/留资型）</li><li>签名能力：询价单任务流（攒单 → 改量备注 → 留资提交 → 本地记录）+ 收藏 / 最近浏览 · 主题色：品牌 accent <span style="color:#E4AF00">#E4AF00</span></li></ul><a class="btn" href="../../mp/s3/?pack=machinery">打开機械設備样板 →</a></div></div></section>
+<section class="mp-zone"><h2 class="group-title">小程序样板 · 机械设备<span>3 个 · MP-S1 展示型 / MP-S2 目录型 / MP-S3 服务型 · 网页模拟</span></h2><div class="mp-grid"><article class="mp-card" data-pack="機械設備" data-tpl=""><a class="mp-shot" href="../../mp/?pack=machinery"><img src="../../assets/mp/s1-machinery.webp" alt="MP-S1 機械設備样板手机预览"></a><div class="body"><div class="row"><h2>MP-S1 · 展示型 × 機械設備</h2><span class="tag">模拟样板</span></div><p class="co">恒力重工（虚构示例）· 徐州恒力重型機械有限公司</p><p class="meta">经典 4 栏 · 悬浮拨号 / 客服 · 留资表单 · 主题色 <span class="dot" style="background:#E4AF00"></span>#E4AF00</p><a class="btn" href="../../mp/?pack=machinery">打开機械設備样板 →</a></div></article><article class="mp-card" data-pack="機械設備" data-tpl=""><a class="mp-shot" href="../../mp/s2/?pack=machinery"><img src="../../assets/mp/s2-machinery.webp" alt="MP-S2 機械設備样板手机预览"></a><div class="body"><div class="row"><h2>MP-S2 · 目录型 × 機械設備</h2><span class="tag">模拟样板</span></div><p class="co">恒力重工（虚构示例）· 徐州恒力重型機械有限公司</p><p class="meta">精简 3 栏 · 分类轨 + 规格速览 · 常驻搜索 · 主题色 <span class="dot" style="background:#E4AF00"></span>#E4AF00</p><a class="btn" href="../../mp/s2/?pack=machinery">打开機械設備样板 →</a></div></article><article class="mp-card" data-pack="機械設備" data-tpl=""><a class="mp-shot" href="../../mp/s3/?pack=machinery"><img src="../../assets/mp/s3-machinery.webp" alt="MP-S3 機械設備样板手机预览"></a><div class="body"><div class="row"><h2>MP-S3 · 服务型 × 機械設備</h2><span class="tag">模拟样板</span></div><p class="co">恒力重工（虚构示例）· 徐州恒力重型機械有限公司</p><p class="meta">扩展 5 栏 · 询价单任务流 · 收藏 / 最近浏览 · 主题色 <span class="dot" style="background:#E4AF00"></span>#E4AF00</p><a class="btn" href="../../mp/s3/?pack=machinery">打开機械設備样板 →</a></div></article></div></section>
 </main>
 <footer>试点批次 2026-11-13 · 模板来源：HTML Codex（CC BY 4.0）/ uiCookies · 内容包图片：机械、自动化、通用制造包为 AI 生成，环保、钢材、化工、手工业包为图库实拍（对照实验）<br>销售演示口径：同客户不撞皮——同一基础模板只给同一客户展示一次。<div class="foot-links"><a href="../../workshop/">UI 资产工坊（Storybook）→</a><span class="fl-label">品牌素材包总览：</span><a href="../../brand-kits/machinery/">机械设备</a><a href="../../brand-kits/eco-filter/">环保过滤</a><a href="../../brand-kits/steel-metal/">钢材金属加工</a><a href="../../brand-kits/automation-electronics/">自动化电子</a><a href="../../brand-kits/chemical-materials/">化工新材料</a><a href="../../brand-kits/general-manufacturing/">通用制造</a><a href="../../brand-kits/handicraft-woodwork/">手工业</a></div></footer>
 
