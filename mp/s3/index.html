@@ -6,28 +6,28 @@
   :root{ --brand:#E4AF00; --brand-dark:#9A7400; --brand-tint:#FBF3D3; --ink:#23272B;
          --text:#1a1a1a; --sub:#8a8a8a; --line:#e8e8e8; --pagebg:#f6f6f6; }
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  body{ margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#10141d; color:#e8ecf4; }
+  body{ margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:linear-gradient(180deg,#e9edfd 0,#f6f7fb 320px) no-repeat,#f6f7fb; color:#0f172a; }
   .stage{ max-width:1180px; margin:0 auto; padding:28px 20px 48px; display:flex; gap:36px; align-items:flex-start; justify-content:center; }
-  /* ---------- 壳外说明面板 ---------- */
+  /* ---------- 壳外说明面板（第十七轮：壳外配色对齐门户 SaaS 令牌——浅灰底 #f6f7fb／靛蓝 #4f46e5／白卡 #e4e8f0 边框；框内各包品牌色不动） ---------- */
   .panel{ width:340px; flex:none; padding-top:8px; }
   .panel h1{ font-size:21px; margin:0 0 6px; line-height:1.45; }
-  .panel .sub{ color:#9aa7bd; font-size:13px; line-height:1.75; margin:0 0 14px; }
-  .spec{ background:#171e2e; border:1px solid #26314a; border-radius:12px; padding:14px 16px; margin-bottom:14px; }
-  .spec h3{ margin:0 0 8px; font-size:13px; color:#ffb37a; letter-spacing:.5px; }
-  .spec p,.spec li{ font-size:13px; color:#c6d0e2; line-height:1.8; margin:0; }
+  .panel .sub{ color:#52617a; font-size:13px; line-height:1.75; margin:0 0 14px; }
+  .spec{ background:#fff; border:1px solid #e4e8f0; border-radius:16px; box-shadow:0 1px 2px rgba(16,24,40,.05); padding:14px 16px; margin-bottom:14px; }
+  .spec h3{ margin:0 0 8px; font-size:13px; color:#4f46e5; letter-spacing:.5px; }
+  .spec p,.spec li{ font-size:13px; color:#3c4b63; line-height:1.8; margin:0; }
   .spec ul{ margin:0; padding-left:17px; }
-  .honest{ border-color:#6b4a26; background:#221b10; }
-  .honest p{ color:#f0d9ac; }
+  .honest{ border-color:#ecd9a8; background:#fff8ea; }
+  .honest p{ color:#7c5a10; }
   .ctl{ display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
-  .ctl label{ font-size:12.5px; color:#8fa0bb; }
+  .ctl label{ font-size:12.5px; color:#8494ab; }
   .ctl select,.ctl button{ font-family:inherit; font-size:13.5px; border-radius:9px; padding:10px 12px; }
-  .ctl select{ background:#171e2e; color:#e8ecf4; border:1px solid #2c3a58; width:100%; }
-  .ctl button{ background:#ff5e14; border:none; color:#fff; font-weight:600; cursor:pointer; }
-  .ctl button.ghost{ background:#171e2e; color:#c6d0e2; border:1px solid #2c3a58; font-weight:400; }
-  .tips{ font-size:12.5px; color:#67748e; line-height:1.9; }
+  .ctl select{ background:#fff; color:#0f172a; border:1px solid #dbe2ee; width:100%; }
+  .ctl button{ background:#4f46e5; border:none; color:#fff; font-weight:600; cursor:pointer; }
+  .ctl button.ghost{ background:#fff; color:#475569; border:1px solid #dbe2ee; font-weight:400; }
+  .tips{ font-size:12.5px; color:#8494ab; line-height:1.9; }
   /* ---------- 手机壳 ---------- */
   .phone-wrap{ flex:none; }
-  .phone{ width:399px; padding:12px; background:#05070a; border-radius:52px; box-shadow:0 24px 70px rgba(0,0,0,.55), inset 0 0 0 2px #2a2f36; }
+  .phone{ width:399px; padding:12px; background:#05070a; border-radius:52px; box-shadow:0 24px 60px rgba(15,23,42,.30), inset 0 0 0 2px #2a2f36; }
   .screen{ position:relative; width:375px; height:748px; background:var(--pagebg); border-radius:42px; overflow:hidden; color:var(--text); display:flex; flex-direction:column; }
   .stage.full .panel{ display:none; }
   /* 全屏体验：缩放倍率由 JS 按视口适配（fitFull），此处只定变换基准，避免固定倍率在窄屏越框 */
@@ -222,7 +222,7 @@
     /* 壳外控件固定顶栏（预览页移动端可达性口径）：换包 / 全屏 / 重置始终在顶部可达，
        不必滑过手机框与整段说明面板；舞台顶部留白避让顶栏，全屏时另见下方两条 */
     .panel .ctl{ position:fixed; top:0; left:0; right:0; z-index:90; flex-direction:row; align-items:center; gap:8px;
-      margin:0; padding:8px 10px; background:rgba(13,17,26,.97); border-bottom:1px solid #26314a; box-shadow:0 4px 18px rgba(0,0,0,.35); }
+      margin:0; padding:8px 10px; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid #e4e8f0; box-shadow:0 4px 18px rgba(16,24,40,.08); }
     .panel .ctl label{ display:none; }
     .panel .ctl select{ flex:1 1 auto; min-width:0; width:auto; }
     .panel .ctl button{ flex:none; padding:9px 10px; font-size:13px; white-space:nowrap; }
