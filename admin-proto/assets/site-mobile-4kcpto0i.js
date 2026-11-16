@@ -1,0 +1,1 @@
+var e=`/admin-proto/preview/site-mobile.png`;export{e as t};
