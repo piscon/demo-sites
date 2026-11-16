@@ -1,0 +1,1 @@
+import{C as e,v as t,z as n}from"./vue.runtime.esm-bundler-DzB4u9in.js";import{t as r}from"./index-DjgjYn4H.js";var i=e({name:`FrameBlank`});function a(e,r,i,a,o,s){return n(),t(`div`)}var o=r(i,[[`render`,a]]);export{o as default};
