@@ -1,1 +1,0 @@
-import{t as e}from"./request-CcObBGcs.js";var t={BaseList:`/get-list`,CardList:`/get-card-list`};function n(){return e.get({url:t.BaseList})}function r(){return e.get({url:t.CardList})}export{n,r as t};

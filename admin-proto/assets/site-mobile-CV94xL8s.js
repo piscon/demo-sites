@@ -1,0 +1,1 @@
+var e=`/preview/site-mobile.png`;export{e as t};
