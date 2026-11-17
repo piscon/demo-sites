@@ -1,0 +1,1 @@
+import{h as e,v as t,vt as n,z as r}from"./vue.runtime.esm-bundler-DzB4u9in.js";import{t as i}from"./index-Bls0fRmM.js";var a=n({default:()=>l}),o={},s={class:`login-header`};function c(n,i){return r(),t(`header`,s,[...i[0]||=[e(`span`,{class:`login-brand`},`网站工作台`,-1)]])}var l=i(o,[[`render`,c],[`__scopeId`,`data-v-fc5621f1`]]);export{a as n,l as t};

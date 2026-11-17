@@ -1,1 +1,0 @@
-import{L as e,at as t}from"./vue.runtime.esm-bundler-DzB4u9in.js";var n=(n=60)=>{let r;e(()=>{clearInterval(r)});let i=t(0);return[i,()=>{i.value=n,r=setInterval(()=>{i.value>0?--i.value:(clearInterval(r),i.value=0)},1e3)}]};export{n as t};
